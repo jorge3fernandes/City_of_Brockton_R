@@ -1,0 +1,75 @@
+---
+title: "Brockton Police Call Log Research"
+author: "Jorge Fernandes"
+date: "February 7, 2016"
+output: html_document
+---
+
+By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
+```{r}
+library(plyr)
+library(RCurl)
+library(stringr)
+
+```
+
+
+To make sure we get all the URLs for 2015, we do the following: 
+
+* We would have create a list of URLs where months and days are less than ten carry a leading zero.
+
+```{r}
+
+prefix <- "http://brocktonpolice.com/wp-content/uploads/"
+AllDays <- seq.Date(from = as.Date('2015-01-01'), to = Sys.Date(), by = "day")
+links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
+
+```
+
+* We would have create a list of URLs where months and days are less than ten do not carry a leading zero.
+
+
+```{r}
+
+AllDays_NL <- gsub("0", "", format(AllDays, '%m%d%y'))
+links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
+
+```
+
+We are dong it that way due to changes that occurs in the actual link format.  
+Now we put everything together into an list where we will have both formats.
+
+```{r}
+
+link <- c(links1,links2)
+
+```
+
+
+<!-- Creating our download function -->
+
+<!-- ```{r} -->
+<!-- url <- "http://brocktonpolice.com/wp-content/uploads/" -->
+<!-- filename <- paste0(format(AllDays, '%Y/%m/%m%d%Y'), '.pdf') -->
+<!-- filenames_list <- str_extract_all(filenames, 'uploads.+pdf') -->
+
+<!-- downloadPDF <- function(filename, baseurl, folder, handle){ -->
+<!--       dir.create(folder, showWarnings = FALSE) -->
+<!--       fileurl <- str_c(baseurl, filename) -->
+<!--       if (!file.exists(str_c(folder,"/",filename))) { -->
+<!--             content <- getBinaryURL(fileurl, curl = handle ) -->
+<!--             writeBin(content, str_c(folder,"/",filename)) -->
+<!--             Sys.sleep(1) -->
+<!--       } -->
+<!-- } -->
+
+<!-- handle <- getCurlHandle(useragent = str_c(R.version$platform, -->
+<!--                   R.version.string, sep = ", "), -->
+<!--                   httpheader = c(from = "jomisilfe@gmail.com")) -->
+
+<!-- l_ply(filenames_list, downloadPDF, -->
+<!--       baseurl = "http://brocktonpolice.com/wp-content/uploads/", -->
+<!--       folder = "Police_logs") -->
+
+<!-- ``` -->
+
