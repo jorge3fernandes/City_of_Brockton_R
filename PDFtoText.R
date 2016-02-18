@@ -1,6 +1,6 @@
 # download pdftotxt from 
 # ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip
-# and extract to your program files folder
+# and extract to program files folder
 
 # here is a pdf for mining
 url <- "http://brocktonpolice.com/wp-content/uploads/2015/01/01202015.pdf"
