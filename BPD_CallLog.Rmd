@@ -93,7 +93,7 @@ Here we separate the events
 mytxtfiles <- list.files(path = dest, pattern = "txt",  full.names = TRUE)
 events <- lapply(mytxtfiles, function(i) {
   j <- paste0(scan(i, what = character()), collapse = " ")
-  regmatches(j, gregexpr("(?<=Abstract).*?(?=Introduction)", j, perl=TRUE))
+  regmatches(j, gregexpr("(?<=Abstract).*?(?=Introduction)", j, perl=TRUE)) 
 })
 
 ```
