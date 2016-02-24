@@ -44,6 +44,17 @@ Now we put everything together into an list where we will have both formats.
 
 link <- c(links1,links2)
 
+filename <- paste0(format(AllDays, '%Y_%m_%d'),'.pdf')
+dest <- tempfile(fileext = ".pdf")
+
+for (x in 1:length(link)) {
+      
+      if (!file.exists(filename[x])) {
+            download.file(link[x],dest, mode = 'wb')
+      }
+      
+}
+
 ```
 
 
