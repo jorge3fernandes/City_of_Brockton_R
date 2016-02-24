@@ -5,7 +5,7 @@ date: "February 7, 2016"
 output: html_document
 ---
 
-By inspecting the  (website){http://brocktonpolice.com/category/police-log/}, you can see that the data is archived by date. Noticing that, will make our extraction easier. We will just manipulate the URLs to make it go through the whole archive.
+By inspecting the website (http://brocktonpolice.com/category/police-log/), you can see that the data is archived by date. Noticing that, will make our extraction easier. We will just manipulate the URLs to make it go through the whole archive.
 
 ```{r, echo = TRUE}
 library(plyr)
