@@ -5,20 +5,24 @@ date: "February 7, 2016"
 output: html_document
 ---
 
+<<<<<<< HEAD
 By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
 ```{r}
 
+=======
+By inspecting the website (http://brocktonpolice.com/category/police-log/), you can see that the data is archived by date. Noticing that, will make our extraction easier. We will just manipulate the URLs to make it go through the whole archive.
+
+```{r, echo = TRUE}
+>>>>>>> 69608f7573a342fd0e5ef8fdc66060d30d26123f
 library(plyr)
 library(RCurl)
 library(stringr)
-
 ```
 
 
-To make sure we get all the URLs for 2015, we do the following: 
+By examining the urls, sometimes there is no leading zero before days and months less than ten.  
 
-* We would have create a list of URLs where months and days are less than ten carry a leading zero.
-
+Here I'm creating all the urls with leading zeros where days and months are less than ten.
 ```{r}
 
 prefix <- "http://brocktonpolice.com/wp-content/uploads/"
@@ -27,8 +31,7 @@ links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
 
 ```
 
-* We would have create a list of URLs where months and days are less than ten do not carry a leading zero.
-
+Here I'm creating all the urls with without leading zeros where days and months are less than ten.
 
 ```{r}
 
@@ -37,9 +40,7 @@ links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
 
 ```
 
-We are dong it that way due to changes that occurs in the actual link format.  
-Now we put everything together into an list where we will have both formats.
-
+Since there is not a clear pattern on when we do and don't have a leading zero, we will put the two lists together and extract the data whenever we have a match
 ```{r}
 
 link <- c(links1,links2)
@@ -57,31 +58,41 @@ for (x in 1:length(link)) {
 
 ```
 
+Here we go against the website and download the data.
 
-<!-- Creating our download function -->
+```{r}
+folder <- getwd()
+filenames<- str_c(format(seq.Date(from = as.Date("2015-01-01"), to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
+filenames <- c(filenames,filenames)
+for (i in seq_along(link)){
+      
+      if (!file.exists(str_c(folder,"/",filenames[i]))) { 
+                  download.file(link[i], filenames[i], mode="wb")
+      } 
+      
+      
+}
 
-<!-- ```{r} -->
-<!-- url <- "http://brocktonpolice.com/wp-content/uploads/" -->
-<!-- filename <- paste0(format(AllDays, '%Y/%m/%m%d%Y'), '.pdf') -->
-<!-- filenames_list <- str_extract_all(filenames, 'uploads.+pdf') -->
+```
+Since the data is in pdf format, we use pdftotext to extract text from the PDFs
+Download pdftotxt from ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip and extract to program files folder
 
-<!-- downloadPDF <- function(filename, baseurl, folder, handle){ -->
-<!--       dir.create(folder, showWarnings = FALSE) -->
-<!--       fileurl <- str_c(baseurl, filename) -->
-<!--       if (!file.exists(str_c(folder,"/",filename))) { -->
-<!--             content <- getBinaryURL(fileurl, curl = handle ) -->
-<!--             writeBin(content, str_c(folder,"/",filename)) -->
-<!--             Sys.sleep(1) -->
-<!--       } -->
-<!-- } -->
+```{r}
+dest <- getwd()
 
-<!-- handle <- getCurlHandle(useragent = str_c(R.version$platform, -->
-<!--                   R.version.string, sep = ", "), -->
-<!--                   httpheader = c(from = "jomisilfe@gmail.com")) -->
+# make a vector of PDF file names
+myfiles <- list.files(path = dest, pattern = "pdf",  full.names = TRUE)
 
-<!-- l_ply(filenames_list, downloadPDF, -->
-<!--       baseurl = "http://brocktonpolice.com/wp-content/uploads/", -->
-<!--       folder = "Police_logs") -->
+# convert each PDF file that is named in the vector into a text file 
+# text file is created in the same directory as the PDFs
+# note that my pdftotext.exe is in a different location to yours
+lapply(myfiles, function(i) system(paste('/Users/legs_jorge/Desktop/xpdfbin-mac-3.04/bin64/pdftotext', 
+             paste0('"', i, '"')), wait = FALSE) )
 
-<!-- ``` -->
+```
+
+###Current effort:
+Separanting the events
+
+
 
