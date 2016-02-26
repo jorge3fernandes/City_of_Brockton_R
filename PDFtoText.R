@@ -15,16 +15,17 @@ system(paste("\"", exe, "\" \"", dest, "\"", sep = ""), wait = F)
 filetxt <- sub(".pdf", ".txt", dest)
 shell.exec(filetxt)
 
-txt <- readLines(filetxt) # don't mind warning..
+
+text <- readLines(filetxt)
 
 #extracting each event
-event <- lapply(txt, function(i) {
-      j <- paste0(scan(i, what = character()), collapse = " ")
-      regmatches(j, gregexpr("(?<=Call Taker).*?(?=Call Taker)", j, perl = TRUE))
-})
-# Write abstracts into separate txt files...
 
-# write abstracts as txt files 
-# (or use them in the list for whatever you want to do next)
-lapply(1:length(event),  function(i) write.table(event[i], file = paste(event[i], "event", "txt", sep = "."),
-                                                 quote = FALSE, row.names = FALSE, col.names = FALSE, eol = " " ))
+#parsing text
+text <- readLines("testpdf_pdfbox.txt")
+txt <- str_c(text, collapse = "\n")
+
+txtparts <- unlist(str_split(txt, '                [[:digit:]]{4}'))
+cat()
+
+
+
