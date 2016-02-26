@@ -52,7 +52,7 @@ for (x in 1:length(link)) {
 }
 
 ```
-Here we go against the website and download the data.
+Here, we go against the website and download the data.
 
 ```{r}
 folder <- getwd()
