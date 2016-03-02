@@ -5,6 +5,7 @@ library(ggmap)
 library(ggplot2)
 library(maps)
 library(googleVis)
+library(sp)
 # download pdftotxt from 
 # ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip
 # and extract to program files folder
@@ -53,7 +54,6 @@ Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Tak
 address <- (str_replace_all(str_extract(txtparts, "Location/Address:.*\n"),"Location/Address:","") 
             %>% str_replace_all("\n","")) %>% str_replace_all("Apt. #.","") %>% paste0( ", Brockton, Massachusetts, United States") %>% str_replace_all("\\[BRO.*\\]","") 
 address <- str_replace_all(address,"NA.*States","")
-      
 
 #sometimes we have a cruiser with two police officer, but only one appears after the string "ID:". 
 #I had to distinguish between a patrolman who is a call taker and a patrolman who is just a partner.
@@ -86,23 +86,94 @@ BPD_log <- cbind(date,time,Call_taker,call_reason_action,address,police_officer,
                    Refer_To_Arrest,Person_arrested,Age,
                    arrest_location,charges,response_time)
 BPD_log <- as.data.frame(BPD_log)
+BPD_log[BPD_log == "character(0)"] = NA 
+BPD_log[BPD_log == ""] = NA 
 
-BPD_log[BPD_log == "character(0)"] = NA
+##################### This will run after we have all the days merged
+# Geocoding script for large list of addresses
+
+#define a function that will process googles server responses for us.
+getGeoDetails <- function(address){
+      address <- as.character(address)
+      #use the gecode function to query google servers
+      geo_reply = geocode(address, output = 'all', messaging = TRUE, override_limit = TRUE)
+      #now extract the bits that we need from the returned list
+      answer <- data.frame(lat = NA, long = NA, accuracy = NA, formatted_address = NA, address_type = NA, status = NA)
+      answer$status <- geo_reply$status
+      
+      #if we are over the query limit - want to pause for an hour
+      while (geo_reply$status == "OVER_QUERY_LIMIT") {
+            print("OVER QUERY LIMIT - Pausing for 1 hour at:") 
+            time <- Sys.time()
+            print(as.character(time))
+            Sys.sleep(60*60)
+            geo_reply = geocode(as.character(address), output = 'all', messaging = TRUE, override_limit = TRUE)
+            answer$status <- geo_reply$status
+      }
+      
+      #return Na's if we didn't get a match:
+      if (geo_reply$status != "OK") {
+            return(answer)
+      }   
+      #else, extract what we need from the Google server reply into a dataframe:
+      answer$lat <- geo_reply$results[[1]]$geometry$location$lat
+      answer$long <- geo_reply$results[[1]]$geometry$location$lng   
+      if (length(geo_reply$results[[1]]$types) > 0) {
+            answer$accuracy <- geo_reply$results[[1]]$types[[1]]
+      }
+      answer$address_type <- paste(geo_reply$results[[1]]$types, collapse = ',')
+      answer$formatted_address <- geo_reply$results[[1]]$formatted_address
+      
+      return(answer)
+}
+
+#initialise a dataframe to hold the results
+geocoded <- data.frame()
+# find out where to start in the address list (if the script was interrupted before):
+startindex <- 1
+infile <- "input"
+#if a temp file exists - load it up and count the rows!
+tempfilename <- paste0(infile, '_temp_geocoded.rds')
+if (file.exists(tempfilename)) {
+      print("Found temp file - resuming from index:")
+      geocoded <- readRDS(tempfilename)
+      startindex <- nrow(geocoded)
+      print(startindex)
+}
+
+# Start the geocoding process - address by address. geocode() function takes care of query speed limit.
+for (i in seq_along(BPD_log$address)) {
+      print(paste("Working on index", i, "of", length(BPD_log$address)))
+      #query the google geocoder - this will pause here if we are over the limit.
+      result = getGeoDetails(BPD_log$address[i]) 
+      print(result$status)     
+      result$index <- i
+      #append the answer to the results file.
+      geocoded <- rbind(geocoded, result)
+      #save temporary results as we are going along
+      saveRDS(geocoded, tempfilename)
+}
+
+# Input data:
+# a data frame with columns from and to (each containing addresses readable for Google Maps)
+# if you already have a vector of addresses, omit the all.addresses <- ... line
+
+centre = c(-71.0189, 42.0833)
+map = get_map(location = centre, zoom = 13, scale = 0.5, source = "google", maptype = "roadmap")
+# to use factos for frequencies
+# freq$frequency <- factor(freq$frequency)
+map.plot = ggmap(map)
+map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
+# to use color brewer gradient scale:
+# library(RColorBrewer)
+# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
+print(map.plot)
 
 
-#Adding  columns derived from the data
-lat_Lon <- geocode(address)
-Brockton <- get_map(location = c(lon = -71, lat = 43), zoom = 11, maptype = 'roadmap')
-ggplot(Brockton, aes(x = long, y = lat)) +
-      geom_polygon() +
-      coord_map() +
-      geom_point(data = lat_Lon, aes(x = lon, y = lat, size = 1), color = "orange")
-
-sites <- gvisMap(BPD_log,locationvar = "address",tipvar = "call_reason_action", 
-                 options = list(displayMode = "Markers", mapType = 'normal', colorAxis = "{colors:['red', 'grey']}",
-                              useMapTypeControl = TRUE, enableScrollWheel = 'TRUE'))
-plot(sites)
-
-
-
-
+Brockton_map <- gvisMap(geocoded, "formatted_address" , "accuracy", 
+                     options = list(showTip = FALSE, 
+                                  showLine = TRUE, 
+                                  enableScrollWheel = TRUE,
+                                  mapType = 'terrain', 
+                                  useMapTypeControl = TRUE) )
+plot(Brockton_map)
