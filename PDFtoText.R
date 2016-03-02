@@ -1,5 +1,6 @@
 
 library(dplyr)
+library(stringr)
 # download pdftotxt from 
 # ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip
 # and extract to program files folder
