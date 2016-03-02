@@ -12,6 +12,8 @@ By inpecting the  website, you can see that the data is presented in an archive 
 library(plyr)
 library(RCurl)
 library(stringr)
+library(pdftables)
+
 ```
 
 
@@ -63,8 +65,6 @@ for (i in seq_along(link)){
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
                   download.file(link[i], filenames[i], mode = "wb")
       } 
-      
-      
 }
 
 ```
@@ -88,5 +88,24 @@ lapply(myfiles, function(i) system(paste('/Users/legs_jorge/Desktop/xpdfbin-mac-
 ###Current effort:
 Separanting the events
 
+<<<<<<< HEAD
+#
+```{r}
+mytxtfiles <- list.files(path = dest, pattern = "txt",  full.names = TRUE)
+events <- lapply(mytxtfiles, function(i) {
+  j <- paste0(scan(i, what = character()), collapse = " ")
+  regmatches(j, gregexpr("(?<=Abstract).*?(?=Introduction)", j, perl=TRUE)) 
+})
+
+logsPDF <- list.files(path = dest, pattern = ".pdf", full.names = T)
+n_filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), to = Sys.Date(), by = "day"),"%Y_%m_%d"),".csv")
+
+
+convert_pdf(logsPDF[i],"2015_04_18.csv", format = "csv",message = TRUE, api_key = "h7mo7omfuq2n")
+
+data <- read.csv("2015_04_18.csv", stringsAsFactors = FALSE, header = TRUE)
+```
+=======
+>>>>>>> 69608f7573a342fd0e5ef8fdc66060d30d26123f
 
 
