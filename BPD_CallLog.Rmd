@@ -5,19 +5,20 @@ date: "February 7, 2016"
 output: html_document
 ---
 
-By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
+By inspecting the website (http://brocktonpolice.com/category/police-log/), you can see that the data is archived by date. Noticing that, will make our extraction easier. We will just manipulate the URLs to make it go through the whole archive.
+
 ```{r, echo = TRUE}
 library(plyr)
 library(RCurl)
 library(stringr)
 library(pdftables)
+
 ```
 
 
-To make sure we get all the URLs for 2015, we do the following: 
+By examining the urls, sometimes there is no leading zero before days and months less than ten.  
 
-We would have create a list of URLs where months and days are less than ten carry a leading zero.
-
+Here I'm creating all the urls with leading zeros where days and months are less than ten.
 ```{r}
 
 prefix <- "http://brocktonpolice.com/wp-content/uploads/"
@@ -26,8 +27,7 @@ links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
 
 ```
 
-We would have create a list of URLs where months and days are less than ten do not carry a leading zero.
-
+Here I'm creating all the urls with without leading zeros where days and months are less than ten.
 
 ```{r}
 
@@ -36,16 +36,14 @@ links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
 
 ```
 
-We are doing it that way due to changes that occurs in the actual link format.  
-Now we put everything together into an list where we will have both formats.
-
+Since there is not a clear pattern on when we do and don't have a leading zero, we will put the two lists together and extract the data whenever we have a match
 ```{r}
 
 link <- c(links1,links2)
 
 ```
 
-Here we download all the PDFs.
+Here we go against the website and download the data.
 
 ```{r}
 folder <- getwd()
@@ -59,16 +57,10 @@ for (i in seq_along(link)){
 }
 
 ```
-We begin extract text from the PDFs
+Since the data is in pdf format, we use pdftotext to extract text from the PDFs
+Download pdftotxt from ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip and extract to program files folder
 
 ```{r}
-
-# download pdftotxt from 
-# ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip
-# and extract to program files folder
-
-# here is a pdf for mining
-# folder with 1000s of PDFs
 dest <- getwd()
 
 # make a vector of PDF file names
@@ -82,10 +74,12 @@ lapply(myfiles, function(i) system(paste('/Users/legs_jorge/Desktop/xpdfbin-mac-
 
 ```
 
-Here we separate the events
-```{r}
+###Current effort:
+Separanting the events
 
+<<<<<<< HEAD
 #
+```{r}
 mytxtfiles <- list.files(path = dest, pattern = "txt",  full.names = TRUE)
 events <- lapply(mytxtfiles, function(i) {
   j <- paste0(scan(i, what = character()), collapse = " ")
@@ -100,5 +94,7 @@ convert_pdf(logsPDF[i],"2015_04_18.csv", format = "csv",message = TRUE, api_key 
 
 data <- read.csv("2015_04_18.csv", stringsAsFactors = FALSE, header = TRUE)
 ```
+=======
+>>>>>>> 69608f7573a342fd0e5ef8fdc66060d30d26123f
 
 
