@@ -57,7 +57,7 @@ address <- str_replace_all(address,"NA.*States","")
 
 #sometimes we have a cruiser with two police officer, but only one appears after the string "ID:". 
 #I had to distinguish between a patrolman who is a call taker and a patrolman who is just a partner.
-police_officer <- NULL
+police_officer <- str_match_all(txt, "\\bID:\\s*(\\w+(?:\\h+\\w+)*)")
 for (i in seq_along(txtparts)) {
       
       police_officer[i] <- str_extract_all(txtparts[i], "ID:.*\n")
@@ -69,9 +69,16 @@ for (i in seq_along(txtparts)) {
       }
       
 }
-
+str_match_all(txtparts, " (?s)Location\/Address:[^\n]*\R(.*)")
+police_officer <- police_officer[2]
+police_officer <- str_replace_all(police_officer,"c\\(.","")
+police_officer <- str_replace_all(police_officer,"\\)","")
+police_officer <-  gsub("[\n]", "", police_officer)
 police_officer <- str_replace_all(police_officer,"ID:","") %>% str_replace_all("character.*NA", "")
-police_officer <- str_replace_all(police_officer,"\n","")  %>% str_replace_all("\n","")##########
+police_officer <- str_replace_all(police_officer, "[\\n]" , "")##########
+
+police_officer <- str_replace_all(police_officer,"\"","")
+
 call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n") %>% str_replace_all("[[:digit:]]{4}","")
 Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","")
 Person_arrested <- str_extract_all(txtparts, "            Arrest:    .*\n") %>% str_replace_all("Arrest:","")
@@ -82,14 +89,16 @@ response_time <- str_extract_all(txtparts,"Arvd.*\n")
 
 
 #Putting everything together
-BPD_log <- cbind(date,time,Call_taker,call_reason_action,address,police_officer,
+
+BPD_log <- cbind(date,time,Call_taker,call_reason_action,address,list(police_officer[[1]][,2]),
                    Refer_To_Arrest,Person_arrested,Age,
                    arrest_location,charges,response_time)
 BPD_log <- as.data.frame(BPD_log)
 BPD_log[BPD_log == "character(0)"] = NA 
 BPD_log[BPD_log == ""] = NA 
 
-##################### This will run after we have all the days merged
+
+##############################This will run after we have all the days merged#######################
 # Geocoding script for large list of addresses
 
 #define a function that will process googles server responses for us.
@@ -177,3 +186,5 @@ Brockton_map <- gvisMap(geocoded, "formatted_address" , "accuracy",
                                   mapType = 'terrain', 
                                   useMapTypeControl = TRUE) )
 plot(Brockton_map)
+
+###############################################################################################################
