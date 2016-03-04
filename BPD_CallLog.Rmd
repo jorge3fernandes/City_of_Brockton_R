@@ -20,6 +20,7 @@ library(pdftables)
 By examining the urls, sometimes there is no leading zero before days and months less than ten.  
 
 Here I'm creating all the urls with leading zeros where days and months are less than ten.
+
 ```{r}
 
 prefix <- "http://brocktonpolice.com/wp-content/uploads/"
@@ -42,47 +43,50 @@ Since there is not a clear pattern on when we do and don't have a leading zero, 
 
 link <- c(links1,links2)
 
-filename <- paste0(format(AllDays, '%Y_%m_%d'),'.pdf')
-dest <- tempfile(fileext = ".pdf")
-
-for (x in 1:length(link)) {
-      
-      if (!file.exists(filename[x])) {
-            download.file(link[x],dest, mode = 'wb')
-      }
-      
-}
-
 ```
 
 Here, we go against the website and download the data.
 
 ```{r}
-folder <- getwd()
+#assiging a new WD to put the PDFs
+folder <- paste0(getwd(),"/","Police_logs")
+homedir <- "C:/Users/jf82645/Desktop/Kaggle/Rbrockton/RBrockton"
 filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
-for (i in seq_along(link)){ 
-      
+setwd(folder)
+for (i in seq_along(link)) {
+      #using trycatch to bipass the error when url doesn't exist
+      tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
-                  download.file(link[i], filenames[i], mode = "wb")
-      } 
+                  download.file(link[91], filenames[91], mode = "wb")
+      } }, error = function(e){})
+      #since we bipassed the error and the file was created anyway, we go in and  
+      #check for file size to make sure the file is deleted before the loop checks
+      #checks for file name again
+      if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
+            file.remove(filenames[i])
+      }
 }
 
 ```
-Since the data is in pdf format, we use pdftotext to extract text from the PDFs
-Download pdftotxt from ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip and extract to program files folder
+
+Since the data is in pdf format, we use pdftools to extract text from the PDFs
 
 ```{r}
-dest <- getwd()
+# I use PDFtools to extract text from PDF
 
-# make a vector of PDF file names
-myfiles <- list.files(path = dest, pattern = "pdf",  full.names = TRUE)
+pdf_list <- list.files(path = folder,
+                       pattern = ".pdf",
+                       full.names = TRUE)
 
-# convert each PDF file that is named in the vector into a text file 
-# text file is created in the same directory as the PDFs
-# note that my pdftotext.exe is in a different location to yours
-lapply(myfiles, function(i) system(paste('/Users/legs_jorge/Desktop/xpdfbin-mac-3.04/bin64/pdftotext', 
-             paste0('"', i, '"')), wait = FALSE) )
+txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
+
+for (i in seq_along(txt_names)) {
+            if (!file.exists(folder[i])) { 
+                  write(pdf_text(pdf_list[i]), file = txt_names[i])
+            }
+           
+}
 
 ```
 
