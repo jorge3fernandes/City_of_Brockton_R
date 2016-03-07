@@ -67,7 +67,7 @@ img {
 </div>
 
 
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD By inpecting the website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.</p>
+<p>By inpecting the website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.</p>
 <pre class="r"><code>library(plyr)
 library(RCurl)</code></pre>
 <pre><code>## Warning: package 'RCurl' was built under R version 3.2.3</code></pre>
@@ -89,7 +89,8 @@ links2 &lt;- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')</code>
 <pre class="r"><code>#assiging a new WD to put the PDFs
 folder &lt;- paste0(getwd(),&quot;/&quot;,&quot;Police_logs&quot;)
 homedir &lt;- &quot;C:/Users/Desktop/Kaggle/Rbrockton/RBrockton&quot;
-filenames &lt;- str_c(format(seq.Date(from = as.Date(&quot;2015-01-01&quot;), to = Sys.Date(), by = &quot;day&quot;),&quot;%Y_%m_%d&quot;),&quot;.pdf&quot;)
+filenames &lt;- str_c(format(seq.Date(from = as.Date(&quot;2015-01-01&quot;), 
+                                   to = Sys.Date(), by = &quot;day&quot;),&quot;%Y_%m_%d&quot;),&quot;.pdf&quot;)
 filenames &lt;- c(filenames,filenames)
 setwd(folder)
 for (i in seq_along(link)) {
@@ -120,10 +121,153 @@ for (i in seq_along(txt_names)) {
             }
            
 }</code></pre>
-<div id="current-effort" class="section level3">
-<h3>Current effort:</h3>
-<p>Separanting the events</p>
-</div>
+<p>Processing texts</p>
+<pre class="r"><code> df &lt;- function(call_log) {
+                    text &lt;- readLines(call_log)
+  
+                    #marking where to split
+  
+                    for (i in seq_along(text)) { 
+        
+                          if (str_detect(text[i],'                [[:digit:]]{4}')) { 
+                                text[i] &lt;- paste0(&quot;CALL BEGINS HERE&quot;,text[i] )
+                                }
+  
+                          }
+  
+  
+                    txt &lt;- str_c(text, collapse = &quot;\n&quot;)
+  
+                    #split the text by calls
+                    txtparts &lt;- unlist(str_split(txt, &quot;CALL BEGINS HERE&quot;))
+  
+                    #extracting specific fields
+                    time &lt;- str_trim(str_extract(txtparts, &quot;                [[:digit:]]{4}&quot;))
+                    date &lt;- rep(str_extract(txtparts[1], &quot;\\d{2}/\\d{2}/\\d{4}&quot;),length(time))
+                    Call_taker &lt;- str_replace_all(str_extract(txtparts, &quot;Call Taker:.*\n&quot;),&quot;Call Taker:&quot;,&quot;&quot; ) 
+                              %&gt;% str_replace_all(&quot;\n&quot;,&quot;&quot;)
+                    address &lt;- str_extract(txtparts,&quot;Location/Address:.*\n&quot;) %&gt;% 
+                                str_replace_all(&quot;Location/Address:|[BRO.*]&quot;,&quot;&quot;)
+                    police_officer &lt;- str_extract_all(txtparts, &quot; (?s)Location\\/Address:[^\n]*\\R(.*)&quot;) 
+                              %&gt;%str_extract_all(&quot;ID:.*\n|Patrolman.*\n&quot;) 
+                              %&gt;% str_replace_all(&quot;ID:&quot;,&quot;&quot;)
+                    call_reason_action &lt;- str_extract_all(txtparts, &quot;                [[:digit:]]{4}.*\n&quot;)
+                              %&gt;% str_replace_all(&quot;[[:digit:]]{4}&quot;,&quot;&quot;)
+                    Refer_To_Arrest &lt;- str_extract(txtparts, &quot;Refer To Arrest:.*\n&quot;) 
+                              %&gt;% str_replace_all(&quot;Refer To Arrest:&quot;,&quot;&quot;)
+                    Person_arrested &lt;- str_extract_all(txtparts, &quot;            Arrest:    .*\n&quot;) 
+                              %&gt;% str_replace_all(&quot;Arrest:&quot;,&quot;&quot;)
+                    Age &lt;- str_extract(txtparts,&quot;Age:.*\n&quot;) %&gt;% str_replace_all(&quot;Age:&quot;,&quot;&quot;)
+                    arrest_location &lt;- str_extract_all(txtparts,&quot;           Address:    .*\n&quot;) 
+                              %&gt;% str_replace_all(&quot;Address:&quot;,&quot;&quot;)
+                    charges &lt;- str_extract_all(txtparts,&quot;Charges:    .*\n&quot;) 
+                              %&gt;% str_replace_all(&quot;Charges:&quot;,&quot;&quot;)
+                    
+                    response_time &lt;- str_extract_all(txtparts,&quot;Arvd.*\n&quot;)
+  
+  
+                    #Putting everything together
+  
+                    BPD_log &lt;- cbind(date,time,Call_taker,call_reason_action,address, police_officer,
+                                      Refer_To_Arrest,Person_arrested,Age,
+                                      arrest_location,charges,response_time)
+                    BPD_log &lt;- as.data.frame(BPD_log)
+                    BPD_log[BPD_log == &quot;character(0)&quot;] = NA 
+                    BPD_log[BPD_log == &quot;&quot;] = NA 
+        return(BPD_log)
+                  }
+
+
+data &lt;- df(&quot;2015_04_04.txt&quot;)</code></pre>
+<p>This will run after we have all the days merged Geocoding script for large list of addresses</p>
+<p>Define a function that will process googles server responses for us.</p>
+<pre class="r"><code>getGeoDetails &lt;- function(address){
+      address &lt;- as.character(address)
+      #use the gecode function to query google servers
+      geo_reply = geocode(address, output = 'all', 
+                          messaging = TRUE, override_limit = TRUE)
+      #now extract the bits that we need from the returned list
+      answer &lt;- data.frame(lat = NA, long = NA, 
+                           accuracy = NA, formatted_address = NA, 
+                           address_type = NA, status = NA)
+      answer$status &lt;- geo_reply$status
+      
+      #if we are over the query limit - want to pause for an hour
+      while (geo_reply$status == &quot;OVER_QUERY_LIMIT&quot;) {
+            print(&quot;OVER QUERY LIMIT - Pausing for 1 hour at:&quot;) 
+            time &lt;- Sys.time()
+            print(as.character(time))
+            Sys.sleep(60*60)
+            geo_reply = geocode(as.character(address), 
+                                output = 'all', messaging = TRUE, 
+                                override_limit = TRUE)
+            answer$status &lt;- geo_reply$status
+      }
+      
+      #return Na's if we didn't get a match:
+      if (geo_reply$status != &quot;OK&quot;) {
+            return(answer)
+      }   
+      #else, extract what we need from the Google server reply into a dataframe:
+      answer$lat &lt;- geo_reply$results[[1]]$geometry$location$lat
+      answer$long &lt;- geo_reply$results[[1]]$geometry$location$lng   
+      if (length(geo_reply$results[[1]]$types) &gt; 0) {
+            answer$accuracy &lt;- geo_reply$results[[1]]$types[[1]]
+      }
+      answer$address_type &lt;- paste(geo_reply$results[[1]]$types, collapse = ',')
+      answer$formatted_address &lt;- geo_reply$results[[1]]$formatted_address
+      
+      return(answer)
+}
+
+#initialise a dataframe to hold the results
+geocoded &lt;- data.frame()
+# find out where to start in the address list (if the script was interrupted before):
+startindex &lt;- 1
+infile &lt;- &quot;input&quot;
+#if a temp file exists - load it up and count the rows!
+tempfilename &lt;- paste0(infile, '_temp_geocoded.rds')
+if (file.exists(tempfilename)) {
+      print(&quot;Found temp file - resuming from index:&quot;)
+      geocoded &lt;- readRDS(tempfilename)
+      startindex &lt;- nrow(geocoded)
+      print(startindex)
+}
+
+# Start the geocoding process - address by address. geocode() function takes care of query speed limit.
+for (i in seq_along(BPD_log$address)) {
+      print(paste(&quot;Working on index&quot;, i, &quot;of&quot;, length(BPD_log$address)))
+      #query the google geocoder - this will pause here if we are over the limit.
+      result = getGeoDetails(BPD_log$address[i]) 
+      print(result$status)     
+      result$index &lt;- i
+      #append the answer to the results file.
+      geocoded &lt;- rbind(geocoded, result)
+      #save temporary results as we are going along
+      saveRDS(geocoded, tempfilename)
+}
+
+# a data frame with columns from and to (each containing addresses readable for Google Maps)
+
+centre = c(-71.0189, 42.0833)
+map = get_map(location = centre, zoom = 13, scale = 0.5, source = &quot;google&quot;, maptype = &quot;roadmap&quot;)
+
+
+map.plot = ggmap(map)
+map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
+# to use color brewer gradient scale:
+# library(RColorBrewer)
+# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
+print(map.plot)
+
+
+Brockton_map &lt;- gvisMap(geocoded, &quot;formatted_address&quot; , &quot;accuracy&quot;, 
+                     options = list(showTip = FALSE, 
+                                  showLine = TRUE, 
+                                  enableScrollWheel = TRUE,
+                                  mapType = 'terrain', 
+                                  useMapTypeControl = TRUE) )
+plot(Brockton_map)</code></pre>
 
 
 </div>
