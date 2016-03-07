@@ -39,7 +39,7 @@ links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
 ```
 
 Since there is not a clear pattern on when we do and don't have a leading zero, we will put the two lists together and extract the data whenever we have a match
-```{r , echo = FALSE}
+```{r , eval= FALSE, error= FALSE}
 
 link <- c(links1,links2)
 
@@ -47,10 +47,10 @@ link <- c(links1,links2)
 
 Here, we go against the website and download the data.
 
-```{r}
+```{r , eval= FALSE, error= FALSE}
 #assiging a new WD to put the PDFs
 folder <- paste0(getwd(),"/","Police_logs")
-homedir <- "C:/Users/jf82645/Desktop/Kaggle/Rbrockton/RBrockton"
+homedir <- "C:/Users/Desktop/Kaggle/Rbrockton/RBrockton"
 filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
 setwd(folder)
@@ -72,7 +72,7 @@ for (i in seq_along(link)) {
 
 Since the data is in pdf format, we use pdftools to extract text from the PDFs
 
-```{r}
+```{r , eval= FALSE, error= FALSE}
 # I use PDFtools to extract text from PDF
 
 pdf_list <- list.files(path = folder,
