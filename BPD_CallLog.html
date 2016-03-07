@@ -73,8 +73,55 @@ library(RCurl)</code></pre>
 <pre><code>## Warning: package 'RCurl' was built under R version 3.2.3</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
 <pre class="r"><code>library(stringr)
-library(pdftables)</code></pre>
-<pre><code>## Warning: package 'pdftables' was built under R version 3.2.3</code></pre>
+library(pdftools)</code></pre>
+<pre><code>## Warning: package 'pdftools' was built under R version 3.2.3</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:plyr':
+## 
+##     arrange, count, desc, failwith, id, mutate, rename, summarise,
+##     summarize</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(ggmap)</code></pre>
+<pre><code>## Warning: package 'ggmap' was built under R version 3.2.3</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.2.3</code></pre>
+<pre class="r"><code>library(ggplot2)
+library(maps)</code></pre>
+<pre><code>## Warning: package 'maps' was built under R version 3.2.3</code></pre>
+<pre><code>## 
+##  # maps v3.1: updated 'world': all lakes moved to separate new #
+##  # 'lakes' database. Type '?world' or 'news(package=&quot;maps&quot;)'.  #</code></pre>
+<pre><code>## 
+## Attaching package: 'maps'</code></pre>
+<pre><code>## The following object is masked from 'package:plyr':
+## 
+##     ozone</code></pre>
+<pre class="r"><code>library(googleVis)</code></pre>
+<pre><code>## Warning: package 'googleVis' was built under R version 3.2.3</code></pre>
+<pre><code>## 
+## Welcome to googleVis version 0.5.10
+## 
+## Please read the Google API Terms of Use
+## before you start using the package:
+## https://developers.google.com/terms/
+## 
+## Note, the plot method of googleVis will by default use
+## the standard browser to display its output.
+## 
+## See the googleVis package vignettes for more details,
+## or visit http://github.com/mages/googleVis.
+## 
+## To suppress this message use:
+## suppressPackageStartupMessages(library(googleVis))</code></pre>
+<pre class="r"><code>library(sp)</code></pre>
+<pre><code>## Warning: package 'sp' was built under R version 3.2.3</code></pre>
 <p>By examining the urls, sometimes there is no leading zero before days and months less than ten.</p>
 <p>Here I’m creating all the urls with leading zeros where days and months are less than ten.</p>
 <pre class="r"><code>prefix &lt;- &quot;http://brocktonpolice.com/wp-content/uploads/&quot;
@@ -88,7 +135,6 @@ links2 &lt;- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')</code>
 <p>Here, we go against the website and download the data.</p>
 <pre class="r"><code>#assiging a new WD to put the PDFs
 folder &lt;- paste0(getwd(),&quot;/&quot;,&quot;Police_logs&quot;)
-homedir &lt;- &quot;C:/Users/Desktop/Kaggle/Rbrockton/RBrockton&quot;
 filenames &lt;- str_c(format(seq.Date(from = as.Date(&quot;2015-01-01&quot;), 
                                    to = Sys.Date(), by = &quot;day&quot;),&quot;%Y_%m_%d&quot;),&quot;.pdf&quot;)
 filenames &lt;- c(filenames,filenames)
@@ -123,7 +169,7 @@ for (i in seq_along(txt_names)) {
 }</code></pre>
 <p>Processing texts</p>
 <pre class="r"><code> df &lt;- function(call_log) {
-                    text &lt;- readLines(call_log)
+                    text &lt;- readLines(&quot;2015_04_01.txt&quot;)
   
                     #marking where to split
   
@@ -142,43 +188,45 @@ for (i in seq_along(txt_names)) {
                     txtparts &lt;- unlist(str_split(txt, &quot;CALL BEGINS HERE&quot;))
   
                     #extracting specific fields
-                    time &lt;- str_trim(str_extract(txtparts, &quot;                [[:digit:]]{4}&quot;))
-                    date &lt;- rep(str_extract(txtparts[1], &quot;\\d{2}/\\d{2}/\\d{4}&quot;),length(time))
-                    Call_taker &lt;- str_replace_all(str_extract(txtparts, &quot;Call Taker:.*\n&quot;),&quot;Call Taker:&quot;,&quot;&quot; ) 
-                              %&gt;% str_replace_all(&quot;\n&quot;,&quot;&quot;)
-                    address &lt;- str_extract(txtparts,&quot;Location/Address:.*\n&quot;) %&gt;% 
-                                str_replace_all(&quot;Location/Address:|[BRO.*]&quot;,&quot;&quot;)
-                    police_officer &lt;- str_extract_all(txtparts, &quot; (?s)Location\\/Address:[^\n]*\\R(.*)&quot;) 
-                              %&gt;%str_extract_all(&quot;ID:.*\n|Patrolman.*\n&quot;) 
-                              %&gt;% str_replace_all(&quot;ID:&quot;,&quot;&quot;)
-                    call_reason_action &lt;- str_extract_all(txtparts, &quot;                [[:digit:]]{4}.*\n&quot;)
-                              %&gt;% str_replace_all(&quot;[[:digit:]]{4}&quot;,&quot;&quot;)
-                    Refer_To_Arrest &lt;- str_extract(txtparts, &quot;Refer To Arrest:.*\n&quot;) 
-                              %&gt;% str_replace_all(&quot;Refer To Arrest:&quot;,&quot;&quot;)
-                    Person_arrested &lt;- str_extract_all(txtparts, &quot;            Arrest:    .*\n&quot;) 
-                              %&gt;% str_replace_all(&quot;Arrest:&quot;,&quot;&quot;)
+                    Time &lt;- str_trim(str_extract(txtparts, &quot;                [[:digit:]]{4}&quot;)) 
+                    Time &lt;- sub(&quot;(..)$&quot;, &quot;:\\1&quot;, Time) 
+                    Time &lt;- substr(as.POSIXct(Time, format = &quot;%H:%M&quot;),11,16)
+                    
+                    date &lt;- rep(str_extract(txtparts[1], &quot;\\d{2}/\\d{2}/\\d{4}&quot;),length(Time)) %&gt;% as.Date('%d/%m/%Y')
+                    Call_taker &lt;- str_replace_all(str_extract(txtparts, &quot;Call Taker:.*\n&quot;),&quot;Call Taker:&quot;,&quot;&quot; ) %&gt;% str_replace_all(&quot;\n&quot;,&quot;&quot;)
+                    address &lt;- str_extract(txtparts,&quot;Location/Address:.*\n|Vicinity of:.*\n&quot;) %&gt;% 
+                                str_replace_all(&quot;Location/Address:|Vicinity of:&quot;,&quot;&quot;) %&gt;%
+                               str_replace_all(&quot;[.*]&quot;,&quot;&quot;)
+                    police_officer &lt;- str_extract_all(txtparts, &quot;(?s)Location\\/Address:[^\n]*\\R(.*)&quot;) %&gt;%str_extract_all(&quot;ID:.*\n|Patrolman.*\n&quot;) %&gt;% str_replace_all(&quot;ID:&quot;,&quot;&quot;)
+                    call_reason_action &lt;- str_extract_all(txtparts, &quot;                [[:digit:]]{4}.*\n&quot;)%&gt;% str_replace_all(&quot;[[:digit:]]{4}&quot;,&quot;&quot;)
+                    Refer_To_Arrest &lt;- str_extract(txtparts, &quot;Refer To Arrest:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Arrest:&quot;,&quot;&quot;) 
+                    Refer_To_Summons &lt;- str_extract(txtparts, &quot;Refer To Summons:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Summons:&quot;,&quot;&quot;)
+                    Summons &lt;- str_extract_all(txtparts, &quot;         Summons:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Summons:&quot;,&quot;&quot;)
+                    Arrested &lt;- str_extract_all(txtparts, &quot;          Arrest:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Arrest:&quot;,&quot;&quot;)
                     Age &lt;- str_extract(txtparts,&quot;Age:.*\n&quot;) %&gt;% str_replace_all(&quot;Age:&quot;,&quot;&quot;)
-                    arrest_location &lt;- str_extract_all(txtparts,&quot;           Address:    .*\n&quot;) 
-                              %&gt;% str_replace_all(&quot;Address:&quot;,&quot;&quot;)
-                    charges &lt;- str_extract_all(txtparts,&quot;Charges:    .*\n&quot;) 
-                              %&gt;% str_replace_all(&quot;Charges:&quot;,&quot;&quot;)
+                    Occurrence_location &lt;- str_extract_all(txtparts,&quot;         Address:    .*\n&quot;) %&gt;% str_replace_all(&quot;Address:&quot;,&quot;&quot;)
+                    charges &lt;- str_extract_all(txtparts,&quot;Charges:    .*\n&quot;)%&gt;% str_replace_all(&quot;Charges:&quot;,&quot;&quot;)
                     
                     response_time &lt;- str_extract_all(txtparts,&quot;Arvd.*\n&quot;)
   
   
                     #Putting everything together
   
-                    BPD_log &lt;- cbind(date,time,Call_taker,call_reason_action,address, police_officer,
-                                      Refer_To_Arrest,Person_arrested,Age,
-                                      arrest_location,charges,response_time)
+                    BPD_log &lt;- cbind(date,Time,Call_taker,call_reason_action,address, police_officer,Refer_To_Summons,Summons,Refer_To_Arrest,Arrested,Age, Occurrence_location,charges,response_time)
                     BPD_log &lt;- as.data.frame(BPD_log)
                     BPD_log[BPD_log == &quot;character(0)&quot;] = NA 
                     BPD_log[BPD_log == &quot;&quot;] = NA 
         return(BPD_log)
-                  }
-
-
-data &lt;- df(&quot;2015_04_04.txt&quot;)</code></pre>
+                  }</code></pre>
+<p>Combining daily logs into one data frame</p>
+<pre class="r"><code>Full_df &lt;- df(txt_names[1])
+i &lt;- 2
+while (i &lt; length(txt_names)) {
+      
+      Full_df &lt;- rbind(Full_df,df(txt_names[i])) 
+      
+      i = i + 1
+} </code></pre>
 <p>This will run after we have all the days merged Geocoding script for large list of addresses</p>
 <p>Define a function that will process googles server responses for us.</p>
 <pre class="r"><code>getGeoDetails &lt;- function(address){
@@ -235,10 +283,10 @@ if (file.exists(tempfilename)) {
 }
 
 # Start the geocoding process - address by address. geocode() function takes care of query speed limit.
-for (i in seq_along(BPD_log$address)) {
-      print(paste(&quot;Working on index&quot;, i, &quot;of&quot;, length(BPD_log$address)))
+for (i in seq_along(Full_df$address)) {
+      print(paste(&quot;Working on index&quot;, i, &quot;of&quot;, length(Full_df$address)))
       #query the google geocoder - this will pause here if we are over the limit.
-      result = getGeoDetails(BPD_log$address[i]) 
+      result = getGeoDetails(Full_df$address[i]) 
       print(result$status)     
       result$index &lt;- i
       #append the answer to the results file.
@@ -268,6 +316,8 @@ Brockton_map &lt;- gvisMap(geocoded, &quot;formatted_address&quot; , &quot;accur
                                   mapType = 'terrain', 
                                   useMapTypeControl = TRUE) )
 plot(Brockton_map)</code></pre>
+<p>random plots</p>
+<pre class="r"><code>ggplot(Full_df, aes(Time, Call_taker)) + geom_line()  + xlab(&quot;&quot;) + ylab(&quot;Daily Views&quot;)</code></pre>
 
 
 </div>
