@@ -12,7 +12,13 @@ By inpecting the  website, you can see that the data is presented in an archive 
 library(plyr)
 library(RCurl)
 library(stringr)
-library(pdftables)
+library(pdftools)
+library(dplyr)
+library(ggmap)
+library(ggplot2)
+library(maps)
+library(googleVis)
+library(sp)
 
 ```
 
@@ -95,7 +101,7 @@ Processing texts
 
 ```{r , eval= FALSE, error= FALSE}
  df <- function(call_log) {
-                    text <- readLines(call_log)
+                    text <- readLines("2015_04_04.txt")
   
                     #marking where to split
   
@@ -116,33 +122,23 @@ Processing texts
                     #extracting specific fields
                     time <- str_trim(str_extract(txtparts, "                [[:digit:]]{4}"))
                     date <- rep(str_extract(txtparts[1], "\\d{2}/\\d{2}/\\d{4}"),length(time))
-                    Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) 
-                              %>% str_replace_all("\n","")
+                    Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
                     address <- str_extract(txtparts,"Location/Address:.*\n") %>% 
                                 str_replace_all("Location/Address:|[BRO.*]","")
-                    police_officer <- str_extract_all(txtparts, " (?s)Location\\/Address:[^\n]*\\R(.*)") 
-                              %>%str_extract_all("ID:.*\n|Patrolman.*\n") 
-                              %>% str_replace_all("ID:","")
-                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")
-                              %>% str_replace_all("[[:digit:]]{4}","")
-                    Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") 
-                              %>% str_replace_all("Refer To Arrest:","")
-                    Person_arrested <- str_extract_all(txtparts, "            Arrest:    .*\n") 
-                              %>% str_replace_all("Arrest:","")
+                    police_officer <- str_extract_all(txtparts, " (?s)Location\\/Address:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:","")
+                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")
+                    Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","")
+                    Person_arrested <- str_extract_all(txtparts, "            Arrest:    .*\n")  %>% str_replace_all("Arrest:","")
                     Age <- str_extract(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
-                    arrest_location <- str_extract_all(txtparts,"           Address:    .*\n") 
-                              %>% str_replace_all("Address:","")
-                    charges <- str_extract_all(txtparts,"Charges:    .*\n") 
-                              %>% str_replace_all("Charges:","")
+                    arrest_location <- str_extract_all(txtparts,"           Address:    .*\n") %>% str_replace_all("Address:","")
+                    charges <- str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:","")
                     
                     response_time <- str_extract_all(txtparts,"Arvd.*\n")
   
   
                     #Putting everything together
   
-                    BPD_log <- cbind(date,time,Call_taker,call_reason_action,address, police_officer,
-                                      Refer_To_Arrest,Person_arrested,Age,
-                                      arrest_location,charges,response_time)
+                    BPD_log <- cbind(date,time,Call_taker,call_reason_action,address, police_officer,Refer_To_Arrest,Person_arrested,Age, arrest_location,charges,response_time)
                     BPD_log <- as.data.frame(BPD_log)
                     BPD_log[BPD_log == "character(0)"] = NA 
                     BPD_log[BPD_log == ""] = NA 
