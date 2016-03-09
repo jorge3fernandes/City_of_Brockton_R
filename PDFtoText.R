@@ -1,4 +1,4 @@
-
+library(pdftools)
 library(dplyr)
 library(stringr)
 library(ggmap)
@@ -23,13 +23,14 @@ library(sp)
 # filetxt <- sub(".pdf", ".txt", dest)
 # shell.exec(filetxt)
 
+pdf <- pdf_text("021816.pdf")
 
 # text <- readLines(filetxt)
 
 #extracting each event
 #Here I use a sample PDF where I used pdfbox to extract the text
 #parsing text
-text <- readLines("testpdf_pdfbox.txt")
+text <- readLines(pdf)
 
 #marking where to split
 
@@ -153,22 +154,6 @@ for (i in seq_along(BPD_log$address)) {
       #save temporary results as we are going along
       saveRDS(geocoded, tempfilename)
 }
-
-# Input data:
-# a data frame with columns from and to (each containing addresses readable for Google Maps)
-# if you already have a vector of addresses, omit the all.addresses <- ... line
-
-centre = c(-71.0189, 42.0833)
-map = get_map(location = centre, zoom = 13, scale = 0.5, source = "google", maptype = "roadmap")
-# to use factos for frequencies
-# freq$frequency <- factor(freq$frequency)
-map.plot = ggmap(map)
-map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
-# to use color brewer gradient scale:
-# library(RColorBrewer)
-# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
-print(map.plot)
-
 
 Brockton_map <- gvisMap(geocoded, "formatted_address" , "accuracy", 
                      options = list(showTip = FALSE, 
