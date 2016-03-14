@@ -60,6 +60,7 @@ folder <- paste0(getwd(),"/","Police_logs")
 filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), 
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
+
 setwd(folder)
 for (i in seq_along(link)) {
       #using trycatch to bipass the error when url doesn't exist
@@ -102,7 +103,7 @@ Processing texts
 
 ```{r , eval= FALSE, error= FALSE}
  df <- function(call_log) {
-                    text <- readLines("2015_04_04.txt")
+                    text <- readLines(call_log)
   
                     #marking where to split
   
@@ -124,22 +125,35 @@ Processing texts
                     Time <- str_trim(str_extract(txtparts, "                [[:digit:]]{4}")) 
                     Time <- sub("(..)$", ":\\1", Time) 
 
-                    date <- rep(str_extract(txtparts[1], "\\d{2}/\\d{2}/\\d{4}"),length(Time)) %>% as.Date('%d/%m/%Y')
-                    Date <- as.POSIXct(paste0(date," ",Time), format = "%Y-%m-%d %H:%M")
-                    Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
-                    address <- (str_replace_all(str_extract(txtparts, "Location/Address:.*\n"),"Location/Address:","") %>% str_replace_all("\n","")) %>% paste0( ", BROCKTON, MA") %>%                                      str_replace_all("\\[BRO.*\\]","")
-                    address <- str_replace_all(address,"NA.*MA","")
-                    police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:","")
-                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")
-                    Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","") 
-                    Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")
-                    Summons <- str_extract_all(txtparts, "         Summons:    .*\n")  %>% str_replace_all("Summons:","")
-                    Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n")  %>% str_replace_all("Arrest:","")
-                    Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
-                    Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","")
-                    charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:",""))
+                    date <- rep(str_extract(txtparts[1], "\\d{2}/\\d{2}/\\d{4}"),length(Time))
+                    Date <- paste0(date," ",Time)
                     
-                    response_time <- unlist(str_extract_all(txtparts,"Arvd.*\n"))
+                    Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
+                    
+                    
+                    
+                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","")
+                    address <- str_replace_all(address,"NA.*MA","")
+                    
+                    police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","") 
+                    
+                    Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    Summons <- str_extract_all(txtparts, "         Summons:    .*\n")  %>% str_replace_all("Summons:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n")  %>% str_replace_all("Arrest:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:","")) %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    
+                    response_time <- str_extract_all(txtparts,"Arvd.*\n") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace_all("c\\(","")
   
   
                     #Putting everything together
@@ -147,8 +161,9 @@ Processing texts
                     BPD_log <- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
                      BPD_log <- data.frame(BPD_log)
                     
-                    BPD_log <- data.frame(do.call(rbind.data.frame, BPD_log))
-                    BPD_log[BPD_log == "character(0)"] = NA 
+                    BPD_log <- data.frame(do.call(cbind.data.frame, BPD_log))
+                    BPD_log[BPD_log == "character(0"] = NA 
+                    BPD_log[BPD_log == "character(0)"] = NA
                     BPD_log[BPD_log == ""] = NA 
         return(BPD_log)
                   }
