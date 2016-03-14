@@ -19,6 +19,7 @@ library(ggplot2)
 library(maps)
 library(googleVis)
 library(sp)
+library(data.table)
 
 ```
 
@@ -65,13 +66,14 @@ for (i in seq_along(link)) {
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
                   download.file(link[91], filenames[91], mode = "wb")
-      } }, error = function(e){})
+                  } }, error = function(e){})
       #since we bipassed the error and the file was created anyway, we go in and  
       #check for file size to make sure the file is deleted before the loop checks
       #checks for file name again
       if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
             file.remove(filenames[i])
       }
+      
 }
 
 ```
@@ -100,7 +102,7 @@ Processing texts
 
 ```{r , eval= FALSE, error= FALSE}
  df <- function(call_log) {
-                    text <- readLines("2015_04_01.txt")
+                    text <- readLines("2015_04_04.txt")
   
                     #marking where to split
   
@@ -121,30 +123,31 @@ Processing texts
                     #extracting specific fields
                     Time <- str_trim(str_extract(txtparts, "                [[:digit:]]{4}")) 
                     Time <- sub("(..)$", ":\\1", Time) 
-                    Time <- substr(as.POSIXct(Time, format = "%H:%M"),11,16)
-                    
+
                     date <- rep(str_extract(txtparts[1], "\\d{2}/\\d{2}/\\d{4}"),length(Time)) %>% as.Date('%d/%m/%Y')
+                    Date <- as.POSIXct(paste0(date," ",Time), format = "%Y-%m-%d %H:%M")
                     Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
-                    address <- str_extract(txtparts,"Location/Address:.*\n|Vicinity of:.*\n") %>% 
-                                str_replace_all("Location/Address:|Vicinity of:","") %>%
-                               str_replace_all("[.*]","")
+                    address <- (str_replace_all(str_extract(txtparts, "Location/Address:.*\n"),"Location/Address:","") %>% str_replace_all("\n","")) %>% paste0( ", BROCKTON, MA") %>%                                      str_replace_all("\\[BRO.*\\]","")
+                    address <- str_replace_all(address,"NA.*MA","")
                     police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:","")
                     call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")
                     Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","") 
-                    Refer_To_Summons <- str_extract(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")
+                    Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")
                     Summons <- str_extract_all(txtparts, "         Summons:    .*\n")  %>% str_replace_all("Summons:","")
                     Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n")  %>% str_replace_all("Arrest:","")
-                    Age <- str_extract(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
+                    Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
                     Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","")
-                    charges <- str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:","")
+                    charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:",""))
                     
-                    response_time <- str_extract_all(txtparts,"Arvd.*\n")
+                    response_time <- unlist(str_extract_all(txtparts,"Arvd.*\n"))
   
   
                     #Putting everything together
   
-                    BPD_log <- cbind(date,Time,Call_taker,call_reason_action,address, police_officer,Refer_To_Summons,Summons,Refer_To_Arrest,Arrested,Age, Occurrence_location,charges,response_time)
-                    BPD_log <- as.data.frame(BPD_log)
+                    BPD_log <- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
+                     BPD_log <- data.frame(BPD_log)
+                    
+                    BPD_log <- data.frame(do.call(rbind.data.frame, BPD_log))
                     BPD_log[BPD_log == "character(0)"] = NA 
                     BPD_log[BPD_log == ""] = NA 
         return(BPD_log)

@@ -6,7 +6,6 @@ library(ggplot2)
 library(maps)
 library(googleVis)
 library(sp)
-<<<<<<< HEAD
 # download pdftotxt from 
 # ftp://ftp.foolabs.com/pub/xpdf/xpdfbin-win-3.03.zip
 # and extract to program files folder
@@ -32,9 +31,6 @@ pdf <- pdf_text("021816.pdf")
 #Here I use a sample PDF where I used pdfbox to extract the text
 #parsing text
 text <- readLines(pdf)
-=======
-
->>>>>>> b5b484f6a90eb1428945d0874a10ebb47c713ea1
 
 
       
