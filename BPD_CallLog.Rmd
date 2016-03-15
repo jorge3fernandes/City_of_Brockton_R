@@ -20,6 +20,8 @@ library(maps)
 library(googleVis)
 library(sp)
 library(data.table)
+library(plotly)
+library(leaflet)
 
 ```
 
@@ -263,7 +265,7 @@ for (ii in seq(startindex, length(Full_df$address))){
 #now we add the latitude and longitude to the main data
 testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
-testdata$long <- geocoded$lat
+testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
 write.csv(testdata,"testdata.csv")
 
@@ -273,6 +275,29 @@ write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row
 
 
 ```
+Test
+```{r}
 
+testdata <- read.csv("testdata.csv", stringsAsFactors = F)
+testdata$coord <- paste0(testdata$lat,":",testdata$long)
+
+
+testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
+
+
+Brocktonmap <- leaflet() %>% 
+  addTiles() %>% 
+  setView(-71.02016, 42.08667, zoom = 13) %>% 
+  addCircleMarkers(-71.02016, 42.08667,  popup = 'City Of Champions', radius = 5, color = 'red')
+
+Brocktonmap %>% 
+  addTiles() %>% 
+  setView(-71.02016, 42.08667, zoom = 13) %>% 
+  addMarkers(data = testdata, lng = ~long, lat = ~ lat, colorFactor = ~ ifelse(!is.na(Arrested), 'red', 'blue'), popup = testdata$call_reason_action)
+Brocktonmap
+
+library("rpivotTable")
+rpivotTable(testdata)
+```
 
 
