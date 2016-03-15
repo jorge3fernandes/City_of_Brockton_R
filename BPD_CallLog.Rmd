@@ -259,10 +259,12 @@ for (ii in seq(startindex, length(Full_df$address))){
    saveRDS(geocoded, tempfilename)
 }
 
+
 #now we add the latitude and longitude to the main data
-Full_df$lat <- geocoded$lat
-Full_df$long <- geocoded$lat
-Full_df$accuracy <- geocoded$accuracy
+testdata <- Full_df[1:length(geocoded[,1]),]
+testdata$lat <- geocoded$lat
+testdata$long <- geocoded$lat
+testdata$accuracy <- geocoded$accuracy
 
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
