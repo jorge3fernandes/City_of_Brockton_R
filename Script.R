@@ -25,19 +25,6 @@ filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"),
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
 setwd(folder)
-for (i in seq_along(link)) {
-      #using trycatch to bipass the error when url doesn't exist
-      tryCatch({
-            if (!file.exists(str_c(folder,"/",filenames[i]))) { 
-                  download.file(link[91], filenames[91], mode = "wb")
-            } }, error = function(e){})
-      #since we bipassed the error and the file was created anyway, we go in and  
-      #check for file size to make sure the file is deleted before the loop checks
-      #checks for file name again
-      if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
-            file.remove(filenames[i])
-      }
-}
 
 
 pdf_list <- list.files(path = folder,
@@ -45,14 +32,6 @@ pdf_list <- list.files(path = folder,
                        full.names = TRUE)
 
 txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
-
-for (i in seq_along(txt_names)) {
-      if (!file.exists(folder[i])) { 
-            write(pdf_text(pdf_list[i]), file = txt_names[i])
-      }
-      
-}
-
 
 
 df <- function(call_log) {
@@ -184,27 +163,5 @@ for (i in seq_along(Full_df$address)) {
       saveRDS(geocoded, tempfilename)
 }
 
-# a data frame with columns from and to (each containing addresses readable for Google Maps)
-
-centre = c(-71.0189, 42.0833)
-map = get_map(location = centre, zoom = 13, scale = 0.5, source = "google", maptype = "roadmap")
 
 
-map.plot = ggmap(map)
-map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
-# to use color brewer gradient scale:
-# library(RColorBrewer)
-# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
-print(map.plot)
-
-
-Brockton_map <- gvisMap(geocoded, "formatted_address" , "accuracy", 
-                        options = list(showTip = FALSE, 
-                                       showLine = TRUE, 
-                                       enableScrollWheel = TRUE,
-                                       mapType = 'terrain', 
-                                       useMapTypeControl = TRUE) )
-plot(Brockton_map)
-
-
-ggplot(Full_df, aes(Time, Call_taker)) + geom_line()  + xlab("") + ylab("Frequency")
