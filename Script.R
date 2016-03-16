@@ -163,17 +163,5 @@ for (i in seq_along(Full_df$address)) {
       saveRDS(geocoded, tempfilename)
 }
 
-# a data frame with columns from and to (each containing addresses readable for Google Maps)
-
-centre = c(-71.0189, 42.0833)
-map = get_map(location = centre, zoom = 13, scale = 0.5, source = "google", maptype = "roadmap")
-
-
-map.plot = ggmap(map)
-map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
-# to use color brewer gradient scale:
-# library(RColorBrewer)
-# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
-print(map.plot)
 
 
