@@ -22,6 +22,7 @@ library(sp)
 library(data.table)
 library(plotly)
 library(leaflet)
+library(magrittr)
 
 ```
 
@@ -285,16 +286,12 @@ testdata$coord <- paste0(testdata$lat,":",testdata$long)
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
 
 
-Brocktonmap <- leaflet() %>% 
+Brockton <- leaflet() %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addCircleMarkers(-71.02016, 42.08667,  popup = 'City Of Champions', radius = 5, color = 'red')
+  addCircleMarkers(data = testdata, lng = ~ long, lat = ~ lat, popup = testdata$call_reason_action, radius = 2, color = 'blue')
+Brockton
 
-Brocktonmap %>% 
-  addTiles() %>% 
-  setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(data = testdata, lng = ~long, lat = ~ lat, colorFactor = ~ ifelse(!is.na(Arrested), 'red', 'blue'), popup = testdata$call_reason_action)
-Brocktonmap
 
 library("rpivotTable")
 rpivotTable(testdata)
