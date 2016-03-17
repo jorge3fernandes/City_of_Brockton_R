@@ -9,6 +9,13 @@ library(maps)
 library(googleVis)
 library(sp)
 
+rsconnect::setAccountInfo(name='jomisilfe',
+                          token='92C0DD8F30100BB17590255422D1C8E3',
+                          secret='COIobr9eqszqMv4IDD+XF3nq7mIC5y7x/jr2HGom')
+
+
+
+
 
 prefix <- "http://brocktonpolice.com/wp-content/uploads/"
 AllDays <- seq.Date(from = as.Date('2015-01-01'), to = Sys.Date(), by = "day")
