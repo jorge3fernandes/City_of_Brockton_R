@@ -167,6 +167,13 @@ Processing texts
                     BPD_log[BPD_log == "character(0)"] = NA
                     BPD_log[BPD_log == ""] = NA 
                     BPD_log$address[is.na(BPD_log$address)] <- 0
+                    for ( i in seq_along(BPD_log$Summons)){
+                      
+                          if(!is.na(BPD_log$Summons[i])){
+                            
+                            BPD_log$Arr_summ_ind[i] <- 1
+                          } else(ifelse(!is.na(BPD_log$Summons[i]),BPD_log$Arr_summ_ind[i] <- 1,BPD_log$Arr_summ_ind[i] <- 0)
+                    }
         return(BPD_log)
                   }
 
@@ -268,6 +275,20 @@ testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
+for ( i in seq_along(testdata$Summons)){
+                      
+                          if(!is.na(testdata$Summons[i])){
+                            
+                            testdata$Arr_summ_ind[i] <- 1
+                          } else{
+                              if(!is.na(testdata$Summons[i])){
+                                testdata$Arr_summ_ind[i] <- 1
+                              } else {
+                                  testdata$Arr_summ_ind[i] <- 0
+                                  }
+                      }
+  
+                    }
 write.csv(testdata,"testdata.csv")
 
 #finally write it all to the output files
@@ -285,12 +306,20 @@ testdata$coord <- paste0(testdata$lat,":",testdata$long)
 
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
 
-
-Brockton <- leaflet() %>% 
+pal <- colorFactor(c("green", "black","red"), domain = seq(0,2, by = 1))
+mymap <- leaflet(data = testdata) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addCircleMarkers(data = testdata, lng = ~ long, lat = ~ lat, popup = testdata$call_reason_action, radius = 2, color = 'blue')
-Brockton
+  addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
+mymap
+
+#trying to visualize patern on the frequency og calls by day
+call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", ylab = "Number of 911 Calls", main = "Call Frequency" , axis = F )
+
+
+## 100 random dates in a 10-week period
+random.dates <- as.Date("2001/1/1") + 70*stats::runif(100)
+hist(random.dates, "weeks", format = "%b %Y")
 
 
 library("rpivotTable")
