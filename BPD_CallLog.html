@@ -88,6 +88,7 @@ library(dplyr)</code></pre>
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(ggmap)</code></pre>
 <pre><code>## Loading required package: ggplot2</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.2.4</code></pre>
 <pre class="r"><code>library(ggplot2)
 library(maps)</code></pre>
 <pre><code>## 
@@ -114,7 +115,32 @@ library(maps)</code></pre>
 ## 
 ## To suppress this message use:
 ## suppressPackageStartupMessages(library(googleVis))</code></pre>
-<pre class="r"><code>library(sp)</code></pre>
+<pre class="r"><code>library(sp)
+library(data.table)</code></pre>
+<pre><code>## 
+## Attaching package: 'data.table'</code></pre>
+<pre><code>## The following objects are masked from 'package:dplyr':
+## 
+##     between, last</code></pre>
+<pre class="r"><code>library(plotly)</code></pre>
+<pre><code>## 
+## Attaching package: 'plotly'</code></pre>
+<pre><code>## The following object is masked from 'package:ggmap':
+## 
+##     wind</code></pre>
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot</code></pre>
+<pre><code>## The following object is masked from 'package:graphics':
+## 
+##     layout</code></pre>
+<pre class="r"><code>library(leaflet)
+library(magrittr)</code></pre>
+<pre><code>## 
+## Attaching package: 'magrittr'</code></pre>
+<pre><code>## The following object is masked from 'package:ggmap':
+## 
+##     inset</code></pre>
 <p>By examining the urls, sometimes there is no leading zero before days and months less than ten.</p>
 <p>Here I’m creating all the urls with leading zeros where days and months are less than ten.</p>
 <pre class="r"><code>prefix &lt;- &quot;http://brocktonpolice.com/wp-content/uploads/&quot;
@@ -131,19 +157,21 @@ folder &lt;- paste0(getwd(),&quot;/&quot;,&quot;Police_logs&quot;)
 filenames &lt;- str_c(format(seq.Date(from = as.Date(&quot;2015-01-01&quot;), 
                                    to = Sys.Date(), by = &quot;day&quot;),&quot;%Y_%m_%d&quot;),&quot;.pdf&quot;)
 filenames &lt;- c(filenames,filenames)
+
 setwd(folder)
 for (i in seq_along(link)) {
       #using trycatch to bipass the error when url doesn't exist
       tryCatch({
       if (!file.exists(str_c(folder,&quot;/&quot;,filenames[i]))) { 
                   download.file(link[91], filenames[91], mode = &quot;wb&quot;)
-      } }, error = function(e){})
+                  } }, error = function(e){})
       #since we bipassed the error and the file was created anyway, we go in and  
       #check for file size to make sure the file is deleted before the loop checks
       #checks for file name again
       if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
             file.remove(filenames[i])
       }
+      
 }</code></pre>
 <p>Since the data is in pdf format, we use pdftools to extract text from the PDFs</p>
 <pre class="r"><code># I use PDFtools to extract text from PDF
@@ -162,7 +190,7 @@ for (i in seq_along(txt_names)) {
 }</code></pre>
 <p>Processing texts</p>
 <pre class="r"><code> df &lt;- function(call_log) {
-                    text &lt;- readLines(&quot;2015_04_01.txt&quot;)
+                    text &lt;- readLines(call_log)
   
                     #marking where to split
   
@@ -183,32 +211,53 @@ for (i in seq_along(txt_names)) {
                     #extracting specific fields
                     Time &lt;- str_trim(str_extract(txtparts, &quot;                [[:digit:]]{4}&quot;)) 
                     Time &lt;- sub(&quot;(..)$&quot;, &quot;:\\1&quot;, Time) 
-                    Time &lt;- substr(as.POSIXct(Time, format = &quot;%H:%M&quot;),11,16)
+
+                    date &lt;- rep(str_extract(txtparts[1], &quot;\\d{2}/\\d{2}/\\d{4}&quot;),length(Time))
+                    Date &lt;- paste0(date,&quot; &quot;,Time)
                     
-                    date &lt;- rep(str_extract(txtparts[1], &quot;\\d{2}/\\d{2}/\\d{4}&quot;),length(Time)) %&gt;% as.Date('%d/%m/%Y')
                     Call_taker &lt;- str_replace_all(str_extract(txtparts, &quot;Call Taker:.*\n&quot;),&quot;Call Taker:&quot;,&quot;&quot; ) %&gt;% str_replace_all(&quot;\n&quot;,&quot;&quot;)
-                    address &lt;- str_extract(txtparts,&quot;Location/Address:.*\n|Vicinity of:.*\n&quot;) %&gt;% 
-                                str_replace_all(&quot;Location/Address:|Vicinity of:&quot;,&quot;&quot;) %&gt;%
-                               str_replace_all(&quot;[.*]&quot;,&quot;&quot;)
-                    police_officer &lt;- str_extract_all(txtparts, &quot;(?s)Location\\/Address:[^\n]*\\R(.*)&quot;) %&gt;%str_extract_all(&quot;ID:.*\n|Patrolman.*\n&quot;) %&gt;% str_replace_all(&quot;ID:&quot;,&quot;&quot;)
-                    call_reason_action &lt;- str_extract_all(txtparts, &quot;                [[:digit:]]{4}.*\n&quot;)%&gt;% str_replace_all(&quot;[[:digit:]]{4}&quot;,&quot;&quot;)
-                    Refer_To_Arrest &lt;- str_extract(txtparts, &quot;Refer To Arrest:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Arrest:&quot;,&quot;&quot;) 
-                    Refer_To_Summons &lt;- str_extract(txtparts, &quot;Refer To Summons:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Summons:&quot;,&quot;&quot;)
-                    Summons &lt;- str_extract_all(txtparts, &quot;         Summons:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Summons:&quot;,&quot;&quot;)
-                    Arrested &lt;- str_extract_all(txtparts, &quot;          Arrest:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Arrest:&quot;,&quot;&quot;)
-                    Age &lt;- str_extract(txtparts,&quot;Age:.*\n&quot;) %&gt;% str_replace_all(&quot;Age:&quot;,&quot;&quot;)
-                    Occurrence_location &lt;- str_extract_all(txtparts,&quot;         Address:    .*\n&quot;) %&gt;% str_replace_all(&quot;Address:&quot;,&quot;&quot;)
-                    charges &lt;- str_extract_all(txtparts,&quot;Charges:    .*\n&quot;)%&gt;% str_replace_all(&quot;Charges:&quot;,&quot;&quot;)
                     
-                    response_time &lt;- str_extract_all(txtparts,&quot;Arvd.*\n&quot;)
+                    
+                    
+                    address &lt;- str_extract(txtparts, &quot;Location/Address:.*\n|Vicinity of:.*\n&quot;)%&gt;% str_replace_all(&quot;Location/Address:|Vicinity of:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\n&quot;,&quot;&quot;) %&gt;% paste0( &quot;, BROCKTON, MA&quot;) %&gt;% str_replace_all(&quot;\\[BRO.*\\]&quot;,&quot;&quot;)
+                    address &lt;- str_replace_all(address,&quot;NA.*MA&quot;,&quot;&quot;)
+                    
+                    police_officer &lt;- str_extract_all(txtparts, &quot;(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)&quot;) %&gt;%str_extract_all(&quot;ID:.*\n|Patrolman.*\n&quot;) %&gt;% str_replace_all(&quot;ID:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    call_reason_action &lt;- str_extract_all(txtparts, &quot;                [[:digit:]]{4}.*\n&quot;)%&gt;% str_replace_all(&quot;[[:digit:]]{4}&quot;,&quot;&quot;)%&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    Refer_To_Arrest &lt;- str_extract(txtparts, &quot;Refer To Arrest:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Arrest:&quot;,&quot;&quot;) 
+                    
+                    Refer_To_Summons &lt;- str_extract_all(txtparts, &quot;Refer To Summons:.*\n&quot;) %&gt;% str_replace_all(&quot;Refer To Summons:&quot;,&quot;&quot;)%&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    Summons &lt;- str_extract_all(txtparts, &quot;         Summons:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Summons:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    Arrested &lt;- str_extract_all(txtparts, &quot;          Arrest:    .*\n&quot;)  %&gt;% str_replace_all(&quot;Arrest:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    Age &lt;- str_extract_all(txtparts,&quot;Age:.*\n&quot;) %&gt;% str_replace_all(&quot;Age:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    Occurrence_location &lt;- str_extract_all(txtparts,&quot;         Address:    .*\n&quot;) %&gt;% str_replace_all(&quot;Address:&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    charges &lt;- unlist(str_extract_all(txtparts,&quot;Charges:    .*\n&quot;)%&gt;% str_replace_all(&quot;Charges:&quot;,&quot;&quot;)) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;)
+                    
+                    response_time &lt;- str_extract_all(txtparts,&quot;Arvd.*\n&quot;) %&gt;% str_replace_all(&quot;c\\(\\\&quot;    &quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\n\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\&quot;&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\)&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;\\\\n&quot;,&quot;&quot;) %&gt;% str_replace_all(&quot;c\\(&quot;,&quot;&quot;)
   
   
                     #Putting everything together
   
-                    BPD_log &lt;- cbind(date,Time,Call_taker,call_reason_action,address, police_officer,Refer_To_Summons,Summons,Refer_To_Arrest,Arrested,Age, Occurrence_location,charges,response_time)
-                    BPD_log &lt;- as.data.frame(BPD_log)
-                    BPD_log[BPD_log == &quot;character(0)&quot;] = NA 
+                    BPD_log &lt;- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
+                     BPD_log &lt;- data.frame(BPD_log, stringsAsFactors = FALSE)
+                    BPD_log[BPD_log == &quot;character(0&quot;] = NA 
+                    BPD_log[BPD_log == &quot;character(0)&quot;] = NA
                     BPD_log[BPD_log == &quot;&quot;] = NA 
+                    BPD_log$address[is.na(BPD_log$address)] &lt;- 0
+                    for ( i in seq_along(BPD_log$Summons)){
+                      
+                          if(!is.na(BPD_log$Summons[i])){
+                            
+                            BPD_log$Arr_summ_ind[i] &lt;- 1
+                          } else(ifelse(!is.na(BPD_log$Summons[i]),BPD_log$Arr_summ_ind[i] &lt;- 1,BPD_log$Arr_summ_ind[i] &lt;- 0)
+                    }
         return(BPD_log)
                   }</code></pre>
 <p>Combining daily logs into one data frame</p>
@@ -219,98 +268,130 @@ while (i &lt; length(txt_names)) {
       Full_df &lt;- rbind(Full_df,df(txt_names[i])) 
       
       i = i + 1
-} </code></pre>
+} 
+
+write.csv(Full_df,file = &quot;Full_df.csv&quot;)</code></pre>
 <p>This will run after we have all the days merged Geocoding script for large list of addresses</p>
 <p>Define a function that will process googles server responses for us.</p>
-<pre class="r"><code>getGeoDetails &lt;- function(address){
-      address &lt;- as.character(address)
-      #use the gecode function to query google servers
-      geo_reply = geocode(address, output = 'all', 
-                          messaging = TRUE, override_limit = TRUE)
-      #now extract the bits that we need from the returned list
-      answer &lt;- data.frame(lat = NA, long = NA, 
-                           accuracy = NA, formatted_address = NA, 
-                           address_type = NA, status = NA)
-      answer$status &lt;- geo_reply$status
-      
-      #if we are over the query limit - want to pause for an hour
-      while (geo_reply$status == &quot;OVER_QUERY_LIMIT&quot;) {
-            print(&quot;OVER QUERY LIMIT - Pausing for 1 hour at:&quot;) 
-            time &lt;- Sys.time()
-            print(as.character(time))
-            Sys.sleep(60*60)
-            geo_reply = geocode(as.character(address), 
-                                output = 'all', messaging = TRUE, 
-                                override_limit = TRUE)
-            answer$status &lt;- geo_reply$status
-      }
-      
-      #return Na's if we didn't get a match:
-      if (geo_reply$status != &quot;OK&quot;) {
-            return(answer)
-      }   
-      #else, extract what we need from the Google server reply into a dataframe:
-      answer$lat &lt;- geo_reply$results[[1]]$geometry$location$lat
-      answer$long &lt;- geo_reply$results[[1]]$geometry$location$lng   
-      if (length(geo_reply$results[[1]]$types) &gt; 0) {
-            answer$accuracy &lt;- geo_reply$results[[1]]$types[[1]]
-      }
-      answer$address_type &lt;- paste(geo_reply$results[[1]]$types, collapse = ',')
-      answer$formatted_address &lt;- geo_reply$results[[1]]$formatted_address
-      
-      return(answer)
+<pre class="r"><code>Full_df$address &lt;- as.character(Full_df$address)
+
+Full_df$address[is.na(Full_df$address)] &lt;- 0
+getGeoDetails &lt;- function(address){ 
+     address &lt;- as.character(address) 
+   #use the gecode function to query google servers
+   geo_reply = geocode(address, output='all', messaging=TRUE, override_limit=TRUE)
+   #now extract the bits that we need from the returned list
+   answer &lt;- data.frame(lat=NA, 
+                        long=NA, 
+                        accuracy=NA, 
+                        formatted_address=NA, 
+                        address_type=NA, 
+                        status=NA)
+   answer$status &lt;- geo_reply$status
+
+   #if we are over the query limit - want to pause for an hour
+   while(geo_reply$status == &quot;OVER_QUERY_LIMIT&quot;){
+       print(&quot;OVER QUERY LIMIT - Pausing for 1 hour at:&quot;) 
+       time &lt;- Sys.time()
+       print(as.character(time))
+       Sys.sleep(60*60)
+       geo_reply = geocode(address, output='all', messaging=TRUE, override_limit=TRUE)
+       answer$status &lt;- geo_reply$status
+   }
+
+   #return Na's if we didn't get a match:
+   if (geo_reply$status != &quot;OK&quot;){
+       return(answer)
+   }   
+   #else, extract what we need from the Google server reply into a dataframe:
+   answer$lat &lt;- geo_reply$results[[1]]$geometry$location$lat
+   answer$long &lt;- geo_reply$results[[1]]$geometry$location$lng   
+   if (length(geo_reply$results[[1]]$types) &gt; 0){
+       answer$accuracy &lt;- geo_reply$results[[1]]$types[[1]]
+   }
+   answer$address_type &lt;- paste(geo_reply$results[[1]]$types, collapse=',')
+   answer$formatted_address &lt;- geo_reply$results[[1]]$formatted_address
+
+   return(answer)
 }
 
 #initialise a dataframe to hold the results
 geocoded &lt;- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex &lt;- 1
-infile &lt;- &quot;input&quot;
 #if a temp file exists - load it up and count the rows!
+infile &lt;- &quot;input&quot;
 tempfilename &lt;- paste0(infile, '_temp_geocoded.rds')
-if (file.exists(tempfilename)) {
-      print(&quot;Found temp file - resuming from index:&quot;)
-      geocoded &lt;- readRDS(tempfilename)
-      startindex &lt;- nrow(geocoded)
-      print(startindex)
+if (file.exists(tempfilename)){
+       print(&quot;Found temp file - resuming from index:&quot;)
+       geocoded &lt;- readRDS(tempfilename)
+       startindex &lt;- nrow(geocoded)
+       print(startindex)
 }
 
 # Start the geocoding process - address by address. geocode() function takes care of query speed limit.
-for (i in seq_along(Full_df$address)) {
-      print(paste(&quot;Working on index&quot;, i, &quot;of&quot;, length(Full_df$address)))
-      #query the google geocoder - this will pause here if we are over the limit.
-      result = getGeoDetails(Full_df$address[i]) 
-      print(result$status)     
-      result$index &lt;- i
-      #append the answer to the results file.
-      geocoded &lt;- rbind(geocoded, result)
-      #save temporary results as we are going along
-      saveRDS(geocoded, tempfilename)
+for (ii in seq(startindex, length(Full_df$address))){
+   print(paste(&quot;Working on index&quot;, ii, &quot;of&quot;, length(Full_df$address)))
+   #query the google geocoder - this will pause here if we are over the limit.
+   result = getGeoDetails(Full_df$address[ii]) 
+   print(result$status)     
+   result$index &lt;- ii
+   #append the answer to the results file.
+   geocoded &lt;- rbind(geocoded, result)
+   #save temporary results as we are going along
+   saveRDS(geocoded, tempfilename)
 }
 
-# a data frame with columns from and to (each containing addresses readable for Google Maps)
 
-centre = c(-71.0189, 42.0833)
-map = get_map(location = centre, zoom = 13, scale = 0.5, source = &quot;google&quot;, maptype = &quot;roadmap&quot;)
+#now we add the latitude and longitude to the main data
+testdata &lt;- Full_df[1:length(geocoded[,1]),]
+testdata$lat &lt;- geocoded$lat
+testdata$long &lt;- geocoded$long
+testdata$accuracy &lt;- geocoded$accuracy
+for ( i in seq_along(testdata$Summons)){
+                      
+                          if(!is.na(testdata$Summons[i])){
+                            
+                            testdata$Arr_summ_ind[i] &lt;- 1
+                          } else{
+                              if(!is.na(testdata$Summons[i])){
+                                testdata$Arr_summ_ind[i] &lt;- 1
+                              } else {
+                                  testdata$Arr_summ_ind[i] &lt;- 0
+                                  }
+                      }
+  
+                    }
+write.csv(testdata,&quot;testdata.csv&quot;)
+
+#finally write it all to the output files
+saveRDS(Full_df, paste0(&quot;../data/&quot;, infile ,&quot;_geocoded.rds&quot;))
+write.table(data, file=paste0(&quot;../data/&quot;, infile ,&quot;_geocoded.csv&quot;), sep=&quot;,&quot;, row.names=FALSE)</code></pre>
+<p>Test</p>
+<pre class="r"><code>testdata &lt;- read.csv(&quot;testdata.csv&quot;, stringsAsFactors = F)
+testdata$coord &lt;- paste0(testdata$lat,&quot;:&quot;,testdata$long)
 
 
-map.plot = ggmap(map)
-map.plot = map.plot + geom_point(data = geocoded, aes(x = long, y = lat, colour = 'black'), size = 1)
-# to use color brewer gradient scale:
-# library(RColorBrewer)
-# map.plot = map.plot +  scale_colour_gradientn(colours=rainbow(4))
-print(map.plot)
+testdata$Date &lt;- as.POSIXct(testdata$Date,format =&quot;%m/%d/%Y %H:%M&quot;) 
+
+pal &lt;- colorFactor(c(&quot;green&quot;, &quot;black&quot;,&quot;red&quot;), domain = seq(0,2, by = 1))
+mymap &lt;- leaflet(data = testdata) %&gt;% 
+  addTiles() %&gt;% 
+  setView(-71.02016, 42.08667, zoom = 13) %&gt;% 
+  addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
+mymap
+
+#trying to visualize patern on the frequency og calls by day
+call_frequency &lt;- hist(testdata$Date, &quot;day&quot;, format = &quot;%d %b&quot;, xlab = &quot;Date&quot;, ylab = &quot;Number of 911 Calls&quot;, main = &quot;Call Frequency&quot; , axis = F )
 
 
-Brockton_map &lt;- gvisMap(geocoded, &quot;formatted_address&quot; , &quot;accuracy&quot;, 
-                     options = list(showTip = FALSE, 
-                                  showLine = TRUE, 
-                                  enableScrollWheel = TRUE,
-                                  mapType = 'terrain', 
-                                  useMapTypeControl = TRUE) )
-plot(Brockton_map)</code></pre>
-<p>random plots</p>
-<pre class="r"><code>ggplot(Full_df, aes(Time, Call_taker)) + geom_line()  + xlab(&quot;&quot;) + ylab(&quot;Frequency&quot;)</code></pre>
+## 100 random dates in a 10-week period
+random.dates &lt;- as.Date(&quot;2001/1/1&quot;) + 70*stats::runif(100)
+hist(random.dates, &quot;weeks&quot;, format = &quot;%b %Y&quot;)
+
+
+library(&quot;rpivotTable&quot;)
+rpivotTable(testdata)</code></pre>
 
 
 </div>

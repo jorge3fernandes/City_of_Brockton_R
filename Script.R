@@ -11,7 +11,7 @@ library(sp)
 
 rsconnect::setAccountInfo(name='jomisilfe',
                           token='92C0DD8F30100BB17590255422D1C8E3',
-                          secret='COIobr9eqszqMv4IDD+XF3nq7mIC5y7x/jr2HGom')
+                          secret='')
 
 
 
@@ -88,7 +88,7 @@ df <- function(call_log) {
       BPD_log <- as.data.frame(BPD_log)
       BPD_log[BPD_log == "character(0)"] = NA 
       BPD_log[BPD_log == ""] = NA 
-      BPD_log$Date <- as.POSIXct(BPD_log$Date, format = "%Y-%m-%d %H:%M")
+      # BPD_log$Date <- as.POSIXct(BPD_log$Date, format = "%Y-%m-%d %H:%M")
       return(BPD_log)
 }
 
