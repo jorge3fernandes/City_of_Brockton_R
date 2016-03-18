@@ -1,12 +1,16 @@
 library(shiny)
-library(ggplot2)
+library(leaflet)
+
+## renderLeaflet() is used at server side to render the leaflet map 
 
 shinyServer(function(input, output) {
-  
-  # choose columns to display
-  diamonds2 = testdata
-  output$mytable1 <- DT::renderDataTable({
-    DT::datatable(diamonds2[, input$show_vars, drop = FALSE])
+  output$mymap <- renderLeaflet({
+    # define the leaflet map object
+    leaflet(data = testdata) %>% 
+      addTiles() %>% 
+      setView(-71.02016, 42.08667, zoom = 13) %>% 
+      addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
+    
   })
   
 })

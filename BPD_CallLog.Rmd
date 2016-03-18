@@ -298,7 +298,7 @@ write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row
 
 ```
 Test
-```{r}
+```{r , eval= FALSE, error= FALSE}
 
 testdata <- read.csv("testdata.csv", stringsAsFactors = F)
 testdata$coord <- paste0(testdata$lat,":",testdata$long)
