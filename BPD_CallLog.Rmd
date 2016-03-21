@@ -172,7 +172,8 @@ Processing texts
                           if(!is.na(BPD_log$Summons[i])){
                             
                             BPD_log$Arr_summ_ind[i] <- 1
-                          } else(ifelse(!is.na(BPD_log$Summons[i]),BPD_log$Arr_summ_ind[i] <- 1,BPD_log$Arr_summ_ind[i] <- 0)
+                          } else
+                            ifelse(!is.na(BPD_log$Summons[i]),BPD_log$Arr_summ_ind[i] <- 1,BPD_log$Arr_summ_ind[i] <- 0)
                     }
         return(BPD_log)
                   }
@@ -288,7 +289,19 @@ for ( i in seq_along(testdata$Summons)){
                                   }
                       }
   
-                    }
+}
+
+
+testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] = 0 
+testdata$long[testdata$long > -70.9 | testdata$long < -71.10] = 0 
+
+
+
+
+
+
+
+
 write.csv(testdata,"testdata.csv")
 
 #finally write it all to the output files
@@ -302,6 +315,7 @@ Test
 
 testdata <- read.csv("testdata.csv", stringsAsFactors = F)
 testdata$coord <- paste0(testdata$lat,":",testdata$long)
+testdata
 
 
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
@@ -315,11 +329,6 @@ mymap
 
 #trying to visualize patern on the frequency og calls by day
 call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", ylab = "Number of 911 Calls", main = "Call Frequency" , axis = F )
-
-
-## 100 random dates in a 10-week period
-random.dates <- as.Date("2001/1/1") + 70*stats::runif(100)
-hist(random.dates, "weeks", format = "%b %Y")
 
 
 library("rpivotTable")
