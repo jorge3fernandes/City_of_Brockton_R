@@ -5,3 +5,4 @@ rsconnect::setAccountInfo(name = 'jomisilfe',
                           secret='COIobr9eqszqMv4IDD+XF3nq7mIC5y7x/jr2HGom')
 library(rsconnect)
 rsconnect::deployApp("/Users/legs_jorge/Desktop/RBrockton/RBrockton/")
+
