@@ -248,7 +248,7 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
-infile <- "input2"
+infile <- "input0"
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
