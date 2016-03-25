@@ -248,7 +248,7 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
-infile <- "input2"
+infile <- "input"
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -320,12 +320,24 @@ testdata
 
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
 
-pal <- colorFactor(c("green", "black","red"), domain = seq(0,2, by = 1))
+pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
 mymap <- leaflet(data = testdata) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
   addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
 mymap
+
+# Creating a word cloud
+
+library(tm)
+library(SnowballC)
+library(wordcloud)
+
+BRCorpus <- Corpus(VectorSource(testdata$call_reason_action))
+BRCorpus <- tm_map(BRCorpus, PlainTextDocument)
+wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
+
+
 
 #trying to visualize patern on the frequency og calls by day
 call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", ylab = "Number of 911 Calls", main = "Call Frequency" , axis = F )
@@ -333,6 +345,12 @@ call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", yl
 
 library("rpivotTable")
 rpivotTable(testdata)
+
+
+
+
+
+
 ```
 
 
