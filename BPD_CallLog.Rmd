@@ -69,7 +69,7 @@ for (i in seq_along(link)) {
       #using trycatch to bipass the error when url doesn't exist
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
-                  download.file(link[91], filenames[91], mode = "wb")
+                  download.file(link[i], filenames[i], mode = "wb")
                   } }, error = function(e){})
       #since we bipassed the error and the file was created anyway, we go in and  
       #check for file size to make sure the file is deleted before the loop checks
@@ -248,7 +248,7 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
-infile <- "input"
+infile <- "input2"
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
