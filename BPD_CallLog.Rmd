@@ -71,7 +71,10 @@ for (i in seq_along(link)) {
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
                   download.file(link[i], filenames[i], mode = "wb")
+<<<<<<< HEAD
           print(paste0("Downloading: ", filenames[i]))
+=======
+>>>>>>> 7b5e06c0a6e8ae27fb0bc63357a7c9494c89b99e
                   } }, error = function(e){})
       #since we bipassed the error and the file was created anyway, we go in and  
       #check for file size to make sure the file is deleted before the loop checks
@@ -182,6 +185,7 @@ Processing texts
                       
                           if(!is.na(BPD_log$Summons[i])){
                             
+<<<<<<< HEAD
                             BPD_log$Arr_summ_ind[i] <- 1
                           } else{
                               if(!is.na(BPD_log$Summons[i])){
@@ -194,6 +198,12 @@ Processing texts
 }
                   
                     BPD_log <- data.frame(lapply(BPD_log, as.character), stringsAsFactors=FALSE)
+=======
+                            BPD_log$Arr_summ_ind[i] <- "Summoned"
+                          } else
+                            ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
+                    }
+>>>>>>> 7b5e06c0a6e8ae27fb0bc63357a7c9494c89b99e
         return(BPD_log)
                   }
 
@@ -265,7 +275,11 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
+<<<<<<< HEAD
 infile <- "input"
+=======
+infile <- "input0"
+>>>>>>> c2615a21c0849782c213d149cf5cf1721600138a
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -293,6 +307,25 @@ testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
+<<<<<<< HEAD
+=======
+for ( i in seq_along(testdata$Summons)){
+                      
+                          if(!is.na(testdata$Summons[i])){
+                            
+                            testdata$Arr_summ_ind[i] <- Summoned
+                          } else{
+                              if(!is.na(testdata$Summons[i])){
+                                testdata$Arr_summ_ind[i] <- 1
+                              } else {
+                                  testdata$Arr_summ_ind[i] <- 0
+                                  }
+                      }
+  
+}
+
+
+>>>>>>> 7b5e06c0a6e8ae27fb0bc63357a7c9494c89b99e
 testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] = 0 
 testdata$long[testdata$long > -70.9 | testdata$long < -71.10] = 0 
 
@@ -322,19 +355,37 @@ testdata
 
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
 
-pal <- colorFactor(c("green", "black","red"), domain = seq(0,2, by = 1))
+pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
 mymap <- leaflet(data = testdata) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
+  addMarkers(~ long, ~ lat, popup = ~call_reason_action, markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
 mymap
 
-#trying to visualize patern on the frequency og calls by day
-call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", ylab = "Number of 911 Calls", main = "Call Frequency" , axis = F )
+# Creating a word cloud
 
+library(tm)
+library(SnowballC)
+library(wordcloud)
+
+BRCorpus <- Corpus(VectorSource(testdata$call_reason_action))
+BRCorpus <- tm_map(BRCorpus, PlainTextDocument)
+wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
+
+
+
+#trying to visualize patern on the frequency og calls by day or month
+hits_hour = count(testdata, vars = hour(testdata$Date))
+
+colnames(hits_hour) <- c("Hour","Calls")
+hist <- ggplot(data = hits_hour) + geom_line(aes(x = Hour, y =  Calls)) 
 
 library("rpivotTable")
 rpivotTable(testdata)
+
+
+
+
 ```
 
 
