@@ -171,9 +171,9 @@ Processing texts
                       
                           if(!is.na(BPD_log$Summons[i])){
                             
-                            BPD_log$Arr_summ_ind[i] <- 1
+                            BPD_log$Arr_summ_ind[i] <- "Summoned"
                           } else
-                            ifelse(!is.na(BPD_log$Summons[i]),BPD_log$Arr_summ_ind[i] <- 1,BPD_log$Arr_summ_ind[i] <- 0)
+                            ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
                     }
         return(BPD_log)
                   }
@@ -284,7 +284,7 @@ for ( i in seq_along(testdata$Summons)){
                       
                           if(!is.na(testdata$Summons[i])){
                             
-                            testdata$Arr_summ_ind[i] <- 1
+                            testdata$Arr_summ_ind[i] <- Summoned
                           } else{
                               if(!is.na(testdata$Summons[i])){
                                 testdata$Arr_summ_ind[i] <- 1
@@ -328,7 +328,7 @@ pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
 mymap <- leaflet(data = testdata) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions())
+  addMarkers(~ long, ~ lat, popup = ~call_reason_action, markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
 mymap
 
 # Creating a word cloud
@@ -343,14 +343,14 @@ wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
 
 
 
-#trying to visualize patern on the frequency og calls by day
-call_frequency <- hist(testdata$Date, "day", format = "%d %b", xlab = "Date", ylab = "Number of 911 Calls", main = "Call Frequency" , axis = F )
+#trying to visualize patern on the frequency og calls by day or month
+hits_hour = count(testdata, vars = hour(testdata$Date))
 
+colnames(hits_hour) <- c("Hour","Calls")
+hist <- ggplot(data = hits_hour) + geom_line(aes(x = Hour, y =  Calls)) 
 
 library("rpivotTable")
 rpivotTable(testdata)
-
-
 
 
 
