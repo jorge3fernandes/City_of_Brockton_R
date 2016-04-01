@@ -28,7 +28,7 @@ shinyServer(function(input, output) {
   
   output$Data <- renderDataTable({
     
-    testdata
+    Full_df
   })
   output$mymap <- renderLeaflet({
     # define the leaflet map object
