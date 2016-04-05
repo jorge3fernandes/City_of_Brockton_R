@@ -24,6 +24,7 @@ library(plotly)
 library(leaflet)
 library(magrittr)
 library(dygraphs)
+library(lubridate)
 library(xts)
 
 ```
@@ -284,26 +285,28 @@ testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
-testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
+testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
+testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] <- 0 
+testdata$long[testdata$long > -70.9 | testdata$long < -71.10] <- 0
+testdata <- subset(testdata, !is.na(Date))
 
 for ( i in seq_along(testdata$Summons)){
                       
                           if(!is.na(testdata$Summons[i])){
                             
-                            testdata$Arr_summ_ind[i] <- Summoned
+                            testdata$Arr_summ_ind[i] <- "Summoned"
                           } else{
-                              if(!is.na(testdata$Summons[i])){
-                                testdata$Arr_summ_ind[i] <- 1
+                              if(!is.na(testdata$Arrested[i])){
+                                testdata$Arr_summ_ind[i] <- "Arrested"
                               } else {
-                                  testdata$Arr_summ_ind[i] <- 0
+                                  testdata$Arr_summ_ind[i] <- "other"
                                   }
                       }
   
 }
 
 
-testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] = 0 
-testdata$long[testdata$long > -70.9 | testdata$long < -71.10] = 0 
+ 
 
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
@@ -327,17 +330,25 @@ library(tm)
 library(SnowballC)
 library(wordcloud)
 
-BRCorpus <- Corpus(VectorSource(testdata$call_reason_action))
+BRCorpus <- Corpus(VectorSource(testdata$charges))
 BRCorpus <- tm_map(BRCorpus, PlainTextDocument)
 wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
 
 
 
 #trying to visualize patern on the frequency og calls by day or month
-ts <- as.xts(testdata, order.by = testdata[,1]) %>% subset(!is.na(Date))
-ts <- as.xts(ts, order.by = ts$vars)
+
+ts <- as.ts(testdata, order.by = testdata[,1]) %>% subset(!is.na(Date))
+
+count(as.character(testdata$call_reason_action), vars = testdata$Date)
+ts <- as.ts(ts, order.by =vars)
 
 dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
+
+unique(testdata$charges)
+
+test <- 
+
 ```
 
 
