@@ -48,9 +48,9 @@ shinyUI(navbarPage("Brockton Police Log", id="nav",
                                                           separator = " - "
                                               ),
                                                sliderInput("time", "Animate by Time if Day:", 
-                                                        min = min(hour(testdata$Date)), 
-                                                        max = max(hour(testdata$Date)), 
-                                                        value = max(hour(testdata$Date)),
+                                                        min = 0, 
+                                                        max = 23, 
+                                                        value = 23,
                                                         step = 1,
                                                         animate = TRUE),
                                               selectInput("search", 'Search Reason for the Call', c(Choose = '', drop_down), selectize = TRUE),
@@ -60,8 +60,7 @@ shinyUI(navbarPage("Brockton Police Log", id="nav",
                                 
                                 tags$div(id ="cite",
                                          'This is a work in progress.',
-                                         tags$em('Please ask for permission if you plan on using this app.'),
-                                         ' Contact: Jorge Fernandes (jorge3fernandes@gmail.com).'
+                                         tags$em('Please ask for permission if you plan on using this app.')
                                 )
                             )
                    ),
