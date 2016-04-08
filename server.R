@@ -20,16 +20,38 @@ library(rpivotTable)
 ## renderLeaflet() is used at server side to render the leaflet map 
 shinyServer(function(input, output) {
   
+  testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] <- 1000000 
+  testdata$long[testdata$long > -70.9 | testdata$long < -71.10] <- 1000000
+  testdata <- subset(testdata, !is.na(Date))
+  
   test <- reactive({
-    testdata <- subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2]) %>%
-      subset(hour(testdata$Date) <= input$time) %>% filter(grepl(input$search,call_reason_action , ignore.case = TRUE)) %>% filter(grepl(input$Charges,charges , ignore.case = TRUE))
+      testdata <- subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2])
+    if(!is.null(input$Charges)){
+      if(input$Charges == "All"){
+        testdata
+      }
+      else{
+            testdata <- subset(testdata, charges %in% as.character(input$Charges))
+          }
+    }
     
+    
+    
+    
+    # subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2]) %>% subset(hour(testdata$Date) >= input$time[1] & hour(testdata$Date) <= input$time[2])
+    # 
+    # if(!is.null(input$dayweek)){
+    #   if(input$dayweek == "All"){
+    #     sfo_crime_data <- subset(sfo_crime_data, DayOfWeek %in% all_week_list)
+    #   }
+    #   else{
+    #     sfo_crime_data <- subset(sfo_crime_data, DayOfWeek == as.character(input$dayweek))
+    #   }            
+    # }
+   
     })
   
- 
-
-  
-  
+  # http://www.treselle.com/blog/crime-analysis-with-shiny-r/
   
   output$Data <- renderDataTable({
     
@@ -39,13 +61,14 @@ shinyServer(function(input, output) {
     # define the leaflet map object
     leaflet(data = test() ) %>% 
       addTiles() %>% 
-      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~long, ~lat, popup = paste("Call reason/Action: ", test()$call_reason_action,"<br>",
-                                                              "Occurrence Address: ", test()$address, "<br>",
-                                                              "Charges: ", test()$charges, "<br>",
-                                                              "Summoned:", test()$Summons, "<br>",
-                                                              "Arrested: ", test()$Arrested, "<br>",
-                                                              "Arr/Summ Address: ", test()$Occurrence_location, "<br>",
-                                                              "Age: ", test()$Age), clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE))
+      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~long, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
+                                                              "<b>","Occurrence Address: ","</b>", test()$address, "<br>",
+                                                              "<b>","Charges: ","</b>", test()$charges, "<br>",
+                                                              "<b>","Summoned:","</b>", test()$Summons, "<br>",
+                                                              "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
+                                                              "<b>","Arr/Summ Address: ","</b>", test()$Occurrence_location, "<br>",
+                                                              "<b>","Age: ","</b>", test()$Age,"<br>",
+                                                              "<b>","Date: ","</b>",test()$Date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE))
     
   })
   
