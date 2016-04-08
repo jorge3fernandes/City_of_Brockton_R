@@ -99,6 +99,7 @@ txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
                   write(pdf_text(pdf_list[i]), file = txt_names[i])
+              print(paste("Working on file: ",pdf_list[i]))
             }
            
 }
