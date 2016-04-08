@@ -18,10 +18,10 @@ library(rpivotTable)
 ## leafletOutput is used at the ui side to display the rendered map.
 
 drop_down <- sort(unique(substr(testdata$call_reason_action, start = 17,stop = 52)))
-crime <- sort(as.character(unique(testdata$charges)))
+crime <- c("All", sort(as.character(unique(testdata$charges))))
 
 
-shinyUI(navbarPage("Brockton Police Log", id="nav",
+shinyUI(navbarPage("Brockton Police Log", id ="nav",
                    
                    tabPanel("Interactive map(Test Data)",
                             div(class="outer",
@@ -45,17 +45,16 @@ shinyUI(navbarPage("Brockton Police Log", id="nav",
                                                           min = min(as.Date(testdata$Date), na.rm = TRUE),
                                                           max = max(as.Date(testdata$Date), na.rm = TRUE),
                                                           format = "mm/dd/yy",
-                                                          separator = " - "
+                                                          separator = " to "
                                               ),
-                                               sliderInput("time", "Animate by Time if Day:", 
-                                                        min = 0, 
-                                                        max = 23, 
-                                                        value = 23,
-                                                        step = 1,
-                                                        animate = TRUE),
-                                              selectInput("search", 'Search Reason for the Call', c(Choose = '', drop_down), selectize = TRUE),
-                                              selectInput("Charges", 'Search for crime', c(Choose ='', crime), selectize = TRUE)
-                                              
+                                               # sliderInput("time", "Animate by Time if Day:", 
+                                               #          min = 0, 
+                                               #          max = 23, 
+                                               #          value = c(0,23),
+                                               #          step = 1,
+                                               #          animate = TRUE),
+                                              selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
+                                                             options = NULL)
                                 ),
                                 
                                 tags$div(id ="cite",
