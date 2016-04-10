@@ -17,22 +17,6 @@ library(rpivotTable)
 
 ## leafletOutput is used at the ui side to display the rendered map.
 
-<<<<<<< HEAD
-shinyUI(fluidPage(
-  
-  titlePanel("Filters"),
-  
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("range", "Range:",
-                  min = 1, max = 1000, value = c(200,500))
-    )
-  ),
-  mainPanel( 
-  leafletOutput("mymap", width = "100%", height = 1200) 
-  )
-))
-=======
 
 
 
@@ -61,8 +45,8 @@ shinyUI(navbarPage("Brockton Police Log", id="nav",
                                               dateInput('date2',
                                                         label = 'Choose End Date:',
                                                         value = max(testdata$Date, na.rm = TRUE)),
-                                               sliderInput("time", "Animate by Time if Day:", 
-                                                        min = 0, max = 23, value = 12, animate = TRUE),
+                                              sliderInput("time", "Animate by Time if Day:", 
+                                                          min = 0, max = 23, value = 12, animate = TRUE),
                                               plotOutput("hist")
                                               
                                 ),
@@ -83,7 +67,5 @@ shinyUI(navbarPage("Brockton Police Log", id="nav",
                    tabPanel("Pivot Table",
                             
                             rpivotTableOutput("mypivot")
-                            )
+                   )
 ))
-
->>>>>>> 7b5e06c0a6e8ae27fb0bc63357a7c9494c89b99e
