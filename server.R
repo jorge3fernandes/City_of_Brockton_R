@@ -20,8 +20,6 @@ library(rpivotTable)
 ## renderLeaflet() is used at server side to render the leaflet map 
 shinyServer(function(input, output) {
   
-  testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] <- 1000000 
-  testdata$long[testdata$long > -70.9 | testdata$long < -71.10] <- 1000000
   testdata <- subset(testdata, !is.na(Date))
   
   test <- reactive({
@@ -62,7 +60,7 @@ shinyServer(function(input, output) {
     leaflet(data = test() ) %>% 
       addTiles() %>% 
       setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~long, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
-                                                              "<b>","Occurrence Address: ","</b>", test()$address, "<br>",
+                                                              "<b>","Occurrence Address: ","</b>", test()$formatted_address, "<br>",
                                                               "<b>","Charges: ","</b>", test()$charges, "<br>",
                                                               "<b>","Summoned:","</b>", test()$Summons, "<br>",
                                                               "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
