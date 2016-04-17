@@ -54,7 +54,8 @@ shinyUI(navbarPage("Brockton Police Log", id ="nav",
                                                         step = 1,
                                                         animate = TRUE),
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
-                                                             options = NULL)
+                                                             options = NULL),
+                                              radioButtons("radio","Map Type:", c("Clusters","Markers"))
                                 ),
                                 
                                 tags$div(id ="cite",

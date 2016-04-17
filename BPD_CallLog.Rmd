@@ -20,6 +20,7 @@ library(googleVis)
 library(sp)
 library(data.table)
 library(plotly)
+library(rjson)
 library(leaflet)
 library(magrittr)
 library(jsonlite)
@@ -95,6 +96,10 @@ pdf_list <- list.files(path = folder,
                        pattern = ".pdf",
                        full.names = TRUE)
 
+txt_names <- list.files(path = folder,
+                       pattern = ".pdf") %>% str_replace_all(".pdf",".txt")
+
+
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
                   write(pdf_text(pdf_list[i]), file = txt_names[i])
@@ -141,7 +146,7 @@ Processing texts
                     
 
 
-                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","")
+                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE")
                     address <- str_replace_all(address,' Apt\\. .*, ',', BROCKTON, ')
                     address <- str_replace_all(address,"NA, BROCKTON, MA","")
 
@@ -211,6 +216,9 @@ while (i < length(txt_names)) {
       
       i = i + 1
 } 
+
+write.csv(Full_df, "full_bpd_calls.csv")
+write.csv(Full_df[,c(1,4)], "address_bpd_calls.csv")
 ```
 
 This will run after we have all the days merged
@@ -219,6 +227,28 @@ Geocoding script for large list of addresses
 Define a function that will process googles server responses for us.
 
 ```{r , eval= FALSE, error= FALSE}
+
+geocode_attempt <- function(address) {
+    URL2 = paste("http://open.mapquestapi.com/geocoding/v1/address?key=", "Fmjtd%7Cluub2huanl%2C20%3Do5-9uzwdz", 
+        "&location=", address, "&outFormat='json'", "boundingBox=24,-85,50,-125", 
+        sep = "")
+    # print(URL2)
+    URL2 <- gsub(" ", "+", URL2)
+    x = getURL(URL2)
+    x1 <- fromJSON(x)
+    if (length(x1$results[[1]]$locations) == 0) {
+        return(NA)
+    } else {
+        return(c(x1$results[[1]]$locations[[1]]$displayLatLng$lat, x1$results[[1]]$locations[[1]]$displayLatLng$lng))
+    }
+}
+geocode_attempt("17 MADRID SQ, BROCKTON, MA")
+
+
+
+
+
+
 Full_df$address <- as.character(Full_df$address)
 
 Full_df$address[is.na(Full_df$address)] <- 0
@@ -311,19 +341,9 @@ testdata$accuracy <- geocoded$accuracy
 testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
 testdata <- subset(testdata, !is.na(Date))
+testdata <- subset(testdata, formatted_address != "Olt County, Romania")
 test <- testdata[,c(4,18)]
 
-   for ( i in seq_along(BPD_log$Summons)){
-                      
-                          if(!is.na(BPD_log$Summons[i])){
-  
-                            BPD_log$Arr_summ_ind[i] <- "Summoned"
-                          } else
-                            ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
-                    }
-                  
-        return(BPD_log)
-                  }
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
 write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row.names=FALSE)
