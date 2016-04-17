@@ -8,7 +8,6 @@ output: html_document
 
 By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
 ```{r}
-
 library(plyr)
 library(RCurl)
 library(stringr)
@@ -24,7 +23,9 @@ library(plotly)
 library(leaflet)
 library(magrittr)
 library(jsonlite)
-
+library(dygraphs)
+library(lubridate)
+library(xts)
 ```
 
 
@@ -93,8 +94,6 @@ pdf_list <- list.files(path = folder,
                        pattern = ".pdf",
                        full.names = TRUE)
 
-txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
-
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
                   write(pdf_text(pdf_list[i]), file = txt_names[i])
@@ -102,9 +101,11 @@ for (i in seq_along(txt_names)) {
            
 }
 
+txt_names <- list.files(folder, pattern = ".txt")
+
+```
 
 Processing texts
-```
 
 ```{r , eval= FALSE, error= FALSE}
  df <- function(call_log) {
@@ -137,8 +138,8 @@ Processing texts
                     
                     
                     
-                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","")
-                    address <- str_replace_all(address,"NA.*MA","")
+                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","")%>% str_replace_all("Apt.*\n","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","")
+                    address <- str_replace_all(address,"NA, BROCKTON, MA","") %>% str_replace_all(' ,',',')
                     
                     police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n")
                     police_officer <-str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
@@ -178,19 +179,15 @@ Processing texts
                     BPD_log[BPD_log == "character(0)"] = NA
                     BPD_log[BPD_log == ""] = NA 
                     BPD_log$address[is.na(BPD_log$address)] <- 0
+                    BPD_log <- subset(BPD_log, !is.na(Call_taker))
+
                     for ( i in seq_along(BPD_log$Summons)){
                       
                           if(!is.na(BPD_log$Summons[i])){
-                            
-                            BPD_log$Arr_summ_ind[i] <- 1
-                          } else{
-                              if(!is.na(BPD_log$Summons[i])){
-                                BPD_log$Arr_summ_ind[i] <- 1
-                              } else {
-                                  BPD_log$Arr_summ_ind[i] <- 0
-                                  }
-                      }
   
+                            BPD_log$Arr_summ_ind[i] <- "Summoned"
+                          } else
+                            ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
                     }
                   
         return(BPD_log)
@@ -294,36 +291,22 @@ testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
+testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
+testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] <- 1000000 
+testdata$long[testdata$long > -70.9 | testdata$long < -71.10] <- 1000000
+testdata <- subset(testdata, !is.na(Date))
 
-for ( i in seq_along(testdata$Summons)){
+   for ( i in seq_along(BPD_log$Summons)){
                       
-                          if(!is.na(testdata$Summons[i])){
-                            
-                            testdata$Arr_summ_ind[i] <- Summoned
-                          } else{
-                              if(!is.na(testdata$Summons[i])){
-                                testdata$Arr_summ_ind[i] <- 1
-                              } else {
-                                  testdata$Arr_summ_ind[i] <- 0
-                                  }
-                      }
+                          if(!is.na(BPD_log$Summons[i])){
   
-}
-
-
-testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] = 0 
-testdata$long[testdata$long > -70.9 | testdata$long < -71.10] = 0 
-
-
-
-
-
-
-testdata <- as.data.frame(testdata)
-str(testdata)
-write.csv(toJSON(testdata),"test.csv")
-
-
+                            BPD_log$Arr_summ_ind[i] <- "Summoned"
+                          } else
+                            ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
+                    }
+                  
+        return(BPD_log)
+                  }
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
 write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row.names=FALSE)
@@ -333,18 +316,11 @@ write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row
 Test
 ```{r , eval= FALSE, error= FALSE}
 
-testdata <- read.csv("testdata.csv", stringsAsFactors = F)
-testdata$coord <- paste0(testdata$lat,":",testdata$long)
-testdata
-
-
-testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M") 
-
 pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
-mymap <- leaflet(data = testdata) %>% 
+mymap <- leaflet(data = check) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(~ long, ~ lat, popup = ~call_reason_action, markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
+  addMarkers(~ lon, ~ lat, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
 mymap
 
 # Creating a word cloud
@@ -353,7 +329,7 @@ library(tm)
 library(SnowballC)
 library(wordcloud)
 
-BRCorpus <- Corpus(VectorSource(testdata$call_reason_action))
+BRCorpus <- Corpus(VectorSource(testdata$charges))
 BRCorpus <- tm_map(BRCorpus, PlainTextDocument)
 wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
 
@@ -368,9 +344,32 @@ hist <- ggplot(data = hits_hour) + geom_line(aes(x = Hour, y =  Calls))
 library("rpivotTable")
 rpivotTable(testdata)
 
+ts <- as.ts(testdata, order.by = testdata[,1]) %>% subset(!is.na(Date))
 
+count(as.character(testdata$call_reason_action), vars = testdata$Date)
+ts <- as.ts(ts, order.by =vars)
 
+dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
 ```
 
+```{r}
+
+check <- testdata$address
+
+
+check <- geocode(Full_df$address[1:136], output='all', messaging=TRUE, override_limit=TRUE)
+ check$lat <- check$results[[1]]$geometry$location$lat
+   check$long <- check$results[[1]]$geometry$location$lng   
+   if (length(check$results[[1]]$types) > 0){
+       check$accuracy <- check$results[[1]]$types[[1]]
+   }
+   check$address_type <- paste(check$results[[1]]$types, collapse=',')
+   check$formatted_address <- check$results[[1]]$formatted_address
+
+   return(check)
+
+test <- cbind(Full_df$address[1:length(check)], check)
+
+```
 
