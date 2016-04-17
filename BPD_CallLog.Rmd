@@ -26,6 +26,7 @@ library(jsonlite)
 library(dygraphs)
 library(lubridate)
 library(xts)
+library(RDSTK)
 ```
 
 
@@ -97,6 +98,7 @@ pdf_list <- list.files(path = folder,
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
                   write(pdf_text(pdf_list[i]), file = txt_names[i])
+              print(paste("Working on file: ",pdf_list[i]))
             }
            
 }
@@ -137,10 +139,12 @@ Processing texts
                     Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
                     
                     
-                    
-                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","")%>% str_replace_all("Apt.*\n","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","")
-                    address <- str_replace_all(address,"NA, BROCKTON, MA","") %>% str_replace_all(' ,',',')
-                    
+
+
+                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","")
+                    address <- str_replace_all(address,' Apt\\. .*, ',', BROCKTON, ')
+                    address <- str_replace_all(address,"NA, BROCKTON, MA","")
+
                     police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n")
                     police_officer <-str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
@@ -262,8 +266,8 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
-infile <- "input"
 
+infile <- "inputb"
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -286,15 +290,28 @@ for (ii in seq(startindex, length(Full_df$address))){
 }
 
 
+
+#Using the Data Science toolkit API since google gives a limit of 2500 addresses
+library(httr)
+library(rjson)
+
+data <- paste0("[",paste(paste0("\"",Full_df$address,"\""),collapse=","),"]")
+url  <- "http://www.datasciencetoolkit.org/street2coordinates"
+response <- POST(url,body=data)
+json     <- fromJSON(content(response,type="text"))
+geocode  <- do.call(rbind,sapply(json,
+                                 function(x) c(long=x$longitude,lat=x$latitude)))
+geocode
+
 #now we add the latitude and longitude to the main data
 testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
+testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
-testdata$lat[testdata$lat > 42.12 | testdata$lat < 41.9] <- 1000000 
-testdata$long[testdata$long > -70.9 | testdata$long < -71.10] <- 1000000
 testdata <- subset(testdata, !is.na(Date))
+test <- testdata[,c(4,18)]
 
    for ( i in seq_along(BPD_log$Summons)){
                       

@@ -3,6 +3,7 @@ account: jomisilfe
 server: shinyapps.io
 appId: 89130
 <<<<<<< HEAD
+<<<<<<< HEAD
 bundleId: 406886
 url: https://jomisilfe.shinyapps.io/RBrockton/
 when: 1459382036.58116
@@ -11,3 +12,8 @@ bundleId: 414026
 url: https://jomisilfe.shinyapps.io/RBrockton/
 when: 1460145512.60877
 >>>>>>> 459b0f30e4424eb74b16bb4d708271438a39d967
+=======
+bundleId: 415881
+url: https://jomisilfe.shinyapps.io/RBrockton/
+when: 1460376676.10642
+>>>>>>> fd292e40b23ba852c92c25af30125e16c072e47e
