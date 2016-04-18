@@ -69,7 +69,13 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                             
                             dataTableOutput("Data")
                             
-                   )
+                   ),
+                   
+                   tabPanel("Graphs",
+                            dygraphOutput("summary", width = "100%", height = "400px")
+                            
+                            
+                            )
 ))
 
 
