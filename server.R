@@ -70,6 +70,13 @@ shinyServer(function(input, output) {
     
   })
   
-
+  call_volume <- tally(group_by(testdata, Date))
+  
+  colnames(call_volume) <- c("Time", "Count")
+  
+  ts <- as.xts(call_volume, order.by = call_volume$Time)
+  
+  
+  output$summary <- dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
 })

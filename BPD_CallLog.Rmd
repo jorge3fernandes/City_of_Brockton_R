@@ -347,11 +347,12 @@ hist <- ggplot(data = hits_hour) + geom_line(aes(x = Hour, y =  Calls))
 library("rpivotTable")
 rpivotTable(testdata)
 
-ts <- as.ts(testdata, order.by = testdata[,1]) %>% subset(!is.na(Date))
 
-count(as.character(testdata$call_reason_action), vars = testdata$Date)
-ts <- as.ts(ts, order.by =vars)
+call_volume <- tally(group_by(testdata, Date))
 
+colnames(call_volume) <- c("Time", "Count")
+
+ts <- as.xts(call_volume, order.by = call_volume$Date)
 dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
 ```
