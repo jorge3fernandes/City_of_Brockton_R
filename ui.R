@@ -21,10 +21,10 @@ drop_down <- sort(unique(substr(testdata$call_reason_action, start = 17,stop = 5
 crime <- c("All", sort(as.character(unique(testdata$charges))))
 
 
-shinyUI(navbarPage("Brockton Police Log", id ="nav",
+shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
                    tabPanel("Interactive map(Test Data)",
-                            div(class="outer",
+                            div(class = "outer",
                                 
                                 tags$head(
                                   includeCSS("styles.css")
@@ -55,10 +55,10 @@ shinyUI(navbarPage("Brockton Police Log", id ="nav",
                                                         animate = TRUE),
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
                                                              options = NULL),
-                                              radioButtons("radio","Map Type:", c("Clusters","Markers"))
+                                              radioButtons("graph","Map Type:", c("Clusters","Markers"))
                                 ),
                                 
-                                tags$div(id ="cite",
+                                tags$div(id = "cite",
                                          'This is a work in progress.',
                                          tags$em('Please ask for permission if you plan on using this app.')
                                 )

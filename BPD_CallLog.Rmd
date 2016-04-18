@@ -64,7 +64,7 @@ Here, we go against the website and download the data.
 ```{r , eval= FALSE, error= FALSE}
 #assiging a new WD to put the PDFs
 folder <- paste0(getwd(),"/","Police_logs")
-filenames <- str_c(format(seq.Date(from = as.Date("2016-03-02"), 
+filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
 
@@ -96,13 +96,10 @@ pdf_list <- list.files(path = folder,
                        pattern = ".pdf",
                        full.names = TRUE)
 
-<<<<<<< HEAD
-txt_names <- list.files(folder, pattern = ".txt")
-=======
+
 txt_names <- list.files(path = folder,
                        pattern = ".pdf") %>% str_replace_all(".pdf",".txt")
 
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
@@ -232,27 +229,6 @@ Define a function that will process googles server responses for us.
 
 ```{r , eval= FALSE, error= FALSE}
 
-geocode_attempt <- function(address) {
-    URL2 = paste("http://open.mapquestapi.com/geocoding/v1/address?key=", "Fmjtd%7Cluub2huanl%2C20%3Do5-9uzwdz", 
-        "&location=", address, "&outFormat='json'", "boundingBox=24,-85,50,-125", 
-        sep = "")
-    # print(URL2)
-    URL2 <- gsub(" ", "+", URL2)
-    x = getURL(URL2)
-    x1 <- fromJSON(x)
-    if (length(x1$results[[1]]$locations) == 0) {
-        return(NA)
-    } else {
-        return(c(x1$results[[1]]$locations[[1]]$displayLatLng$lat, x1$results[[1]]$locations[[1]]$displayLatLng$lng))
-    }
-}
-geocode_attempt("17 MADRID SQ, BROCKTON, MA")
-
-
-
-
-
-
 Full_df$address <- as.character(Full_df$address)
 
 Full_df$address[is.na(Full_df$address)] <- 0
@@ -301,12 +277,8 @@ geocoded <- data.frame()
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
 
-<<<<<<< HEAD
 infile <- "input12"
 
-=======
-infile <- "inputb"
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -336,18 +308,8 @@ testdata$accuracy <- geocoded$accuracy
 testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
 testdata <- subset(testdata, !is.na(Date))
-<<<<<<< HEAD
-testdata <- subset(testdata, formatted_address != 'Olt County, Romania')
-test <- testdata[,c(4,18)]
-
-
- 
-
-=======
 testdata <- subset(testdata, formatted_address != "Olt County, Romania")
-test <- testdata[,c(4,18)]
 
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
 write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row.names=FALSE)
@@ -358,10 +320,10 @@ Test
 ```{r , eval= FALSE, error= FALSE}
 
 pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
-mymap <- leaflet(data = check) %>% 
+mymap <- leaflet(data = testdata) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(~ lon, ~ lat, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
+  addMarkers(~ long, ~ lat, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
 mymap
 
 # Creating a word cloud
@@ -394,13 +356,8 @@ dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
 ```
 
-<<<<<<< HEAD
 
-
-
-=======
 ```{r}
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 
 check <- testdata$address
 
