@@ -376,5 +376,11 @@ check <- geocode(Full_df$address[1:136], output='all', messaging=TRUE, override_
 
 test <- cbind(Full_df$address[1:length(check)], check)
 
+
+set.seed(100)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+plot_ly(d, x = testdata$Date, y = price, text = paste("Clarity: ", clarity),
+        mode = "markers", color = carat, size = carat)
+
 ```
 

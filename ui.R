@@ -55,7 +55,12 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                                         animate = TRUE),
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
                                                              options = NULL),
-                                              radioButtons("graph","Map Type:", c("Clusters","Markers"))
+                                              radioButtons("graph","Map Type:", c("Clusters","Markers")),
+                                              
+                                              plotlyOutput("summary", height = 200)
+                                                       
+                                                       
+                                              
                                 ),
                                 
                                 tags$div(id = "cite",
@@ -69,13 +74,9 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                             
                             dataTableOutput("Data")
                             
-                   ),
+                   )
                    
-                   tabPanel("Graphs",
-                            dygraphOutput("summary", width = "100%", height = "400px")
-                            
-                            
-                            )
+                   
 ))
 
 

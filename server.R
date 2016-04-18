@@ -14,6 +14,8 @@ library(data.table)
 library(plotly)
 library(magrittr)
 library(rpivotTable)
+library(dygraphs)
+library(xts)
 
 
 
@@ -70,13 +72,17 @@ shinyServer(function(input, output) {
     
   })
   
-  call_volume <- tally(group_by(testdata, Date))
+  call_volume <- reactive({
+    temp <- tally(group_by(test(), hour(Date)))
+    colnames(temp) <- c("Time", "Count")
+    
+  })
+
   
-  colnames(call_volume) <- c("Time", "Count")
-  
-  ts <- as.xts(call_volume, order.by = call_volume$Time)
-  
-  
-  output$summary <- dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
+  output$summary <- renderPlotly({
+    
+    
+    plot_ly(call_volume(), x = Time, y = Count)
+  })
 
 })
