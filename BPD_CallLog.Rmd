@@ -95,7 +95,7 @@ pdf_list <- list.files(path = folder,
                        pattern = ".pdf",
                        full.names = TRUE)
 
-txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
+txt_names <- list.files(folder, pattern = ".txt")
 
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
@@ -256,11 +256,9 @@ geocoded <- data.frame()
 # find out where to start in the address list (if the script was interrupted before):
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
-<<<<<<< HEAD
-infile <- "input"
-=======
-infile <- "inputb"
->>>>>>> c2615a21c0849782c213d149cf5cf1721600138a
+
+infile <- "input12"
+
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -282,20 +280,6 @@ for (ii in seq(startindex, length(Full_df$address))){
    saveRDS(geocoded, tempfilename)
 }
 
-
-
-#Using the Data Science toolkit API since google gives a limit of 2500 addresses
-library(httr)
-library(rjson)
-
-data <- paste0("[",paste(paste0("\"",Full_df$address,"\""),collapse=","),"]")
-url  <- "http://www.datasciencetoolkit.org/street2coordinates"
-response <- POST(url,body=data)
-json     <- fromJSON(content(response,type="text"))
-geocode  <- do.call(rbind,sapply(json,
-                                 function(x) c(long=x$longitude,lat=x$latitude)))
-geocode
-
 #now we add the latitude and longitude to the main data
 testdata <- Full_df[1:length(geocoded[,1]),]
 testdata$lat <- geocoded$lat
@@ -304,22 +288,8 @@ testdata$accuracy <- geocoded$accuracy
 testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
 testdata <- subset(testdata, !is.na(Date))
+testdata <- subset(testdata, formatted_address != 'Olt County, Romania')
 test <- testdata[,c(4,18)]
-
-for ( i in seq_along(testdata$Summons)){
-                      
-                          if(!is.na(testdata$Summons[i])){
-                            
-                            testdata$Arr_summ_ind[i] <- "Summoned"
-                          } else{
-                              if(!is.na(testdata$Arrested[i])){
-                                testdata$Arr_summ_ind[i] <- "Arrested"
-                              } else {
-                                  testdata$Arr_summ_ind[i] <- "other"
-                                  }
-                      }
-  
-}
 
 
  
@@ -363,7 +333,9 @@ dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
 unique(testdata$charges)
 
-test <- 
+
+
+
 
 ```
 
