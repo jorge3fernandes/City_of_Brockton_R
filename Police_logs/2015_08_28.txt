@@ -1,1307 +1,772 @@
-                              Brockton Police Department Press Log                             Page: 1
-     Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-For Date: 08/28/2015     -  Friday
-                  Time  Call Reason                          Action
-                  0005  B & E, ATTEMPTED                     Matter Settled
-        Call Taker:    Telephone Operator Caroline F MacMillan
-  Location/Address:    [BRO 5166] 789 N MAIN ST Apt. #3
-                ID:    Patrolman Dana J Miller
-                       Disp-00:35:25                  Arvd-00:40:57 Clrd-00:49:36
-                  0025  Animal Complaint Barking(Dist)       Unfounded / Nothing Loca
-        Call Taker:    Telephone Operator Caroline F MacMillan
-       Vicinity of:    58 NICHOLSON DR
-                ID:    Patrolman Jesse Drane Jr
-                       Disp-01:10:01 Enrt-01:23:06 Arvd-01:25:30 Clrd-01:27:25
-                  0033  Alarm Telephone                      FALSE ALARM
-        Call Taker:    Telephone Operators Diane M Keane
-  Location/Address:    [BRO 5820] 200 WESTGATE DR
-                ID:    Patrolman Hermer E Cole
-                       Disp-00:34:46 Enrt-00:35:51 Arvd-00:38:15 Clrd-00:44:44
-                  0039  911 Transfer to Ambulance            Taken/Referred to Other
-        Call Taker:    Telephone Operator Caroline F MacMillan
-                  0040  911 Transfer to Ambulance            Taken/Referred to Other
-        Call Taker:    Telephone Operators Diane M Keane
-                  0050  911 Hang Up                          False 911 Call
-        Call Taker:    Telephone Operators Diane M Keane
-  Location/Address:    [BRO 2374] 316 N PEARL ST
-                ID:    Patrolman Hermer E Cole
-                       Disp-00:52:53 Enrt-00:56:21 Arvd-00:58:54 Clrd-01:09:03
-                  0103  Check Property                       Matter Settled
-        Call Taker:    Patrolman Dana J Miller
-  Location/Address:    40 FARRINGTON ST
-                ID:    Patrolman Dana J Miller
-                                                      Arvd-01:03:54   Clrd-01:05:01
-                  0107  Alarm Telephone                      FALSE ALARM
-        Call Taker:    Telephone Operator Caroline F MacMillan
-  Location/Address:    [BRO 174] 156 W ELM ST
-                ID:    Patrolman Lucas M Pedro
-                       Disp-01:09:22 Enrt-01:09:48 Arvd-01:12:36 Clrd-01:37:04
-                ID:    Patrolman Hermer E Cole
-                       Disp-01:17:40 Enrt-01:17:44 Arvd-01:21:34 Clrd-01:35:46
-                  0111  Parking Violation                    Citation/Warning Issued
-        Call Taker:    Patrolman Dana J Miller
-  Location/Address:    195 AMES ST
-                ID:    Patrolman Dana J Miller
-                                                      Arvd-01:12:45   Clrd-01:20:14
-                  0113  Pickup a Prisoner on a Warrant       Unfounded / Nothing Loca
-        Call Taker:    Sergeant Christopher T Green
-  Location/Address:    61 DENTON ST
-                ID:    Patrolman Daniel Mac Intosh
-                       Disp-01:16:03                  Arvd-01:20:23 Clrd-01:23:40
-                       Patrolman James A Parker
-                  0125  Disturbance by a Drunk               Matter Settled
-        Call Taker:    Telephone Operator Caroline F MacMillan
-  Location/Address:    [BRO 2048] 364 CENTRE ST
-                ID:    Patrolman Jesse Drane Jr
-                       Disp-01:29:47                                  Clrd-01:30:50
-                ID:    Patrolman Dana J Miller
-                       Disp-01:30:20 Enrt-01:30:58 Arvd-01:46:37 Clrd-01:46:47
-                ID:    Patrolman Michael K Livingston
-                       Disp-01:30:35 Enrt-01:31:01 Arvd-01:34:08 Clrd-01:46:43
+                              Brockton Police Department Press Log                             Page: 1
+     Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+For Date: 08/29/2015     -  Saturday
+                  Time  Call Reason                          Action
+                  0000  DISTURBANCE                          Unfounded / Nothing Loca
+        Call Taker:    Telephone Operator Caroline F MacMillan
+       Vicinity of:    78 W CHESTNUT ST @ 1087 WARREN AVE
+                ID:    Patrolman Kathy Da Silva
+                       Disp-00:31:24                  Arvd-00:41:01 Clrd-00:42:49
+                       Patrolman Scott E Landry
+                  0027  M V A                                Report taken
+        Call Taker:    Patrolman John E Leary
+  Location/Address:    446 PLEASANT ST @ 39 BELAIR ST
+                ID:    Patrolman David L Delehoy
+                       Disp-00:29:32                  Arvd-00:29:37 Clrd-01:48:00
+                  0028  DISTURBANCE                          Matter Settled
+        Call Taker:    Telephone Operator Caroline F MacMillan
+  Location/Address:    22 SKINNER ST Apt. #3
+                ID:    Patrolman Christopher P Kerr
+                       Disp-00:54:28 Enrt-00:54:41 Arvd-00:58:23 Clrd-01:18:19
+                ID:    Patrolman Jesse Drane Jr
+                       Disp-00:54:37 Enrt-00:54:44 Arvd-01:00:07 Clrd-01:18:06
+                  0031  Alarm Telephone                      Cancelled
+        Call Taker:    Telephone Operators Patrick F Vellios
+  Location/Address:    [BRO 4031] 9 LONGWORTH AVE Apt. #124
+                ID:    Patrolman Hermer E Cole
+                       Disp-00:33:30 Enrt-00:34:09                    Clrd-00:42:24
+                  0102  Disturbance by a Drunk               Matter Settled
+        Call Taker:    Telephone Operators Patrick F Vellios
+  Location/Address:    [BRO 1870] 146 MONTELLO ST
+                ID:    Patrolman Kathy Da Silva
+                       Disp-01:05:38 Enrt-01:06:09 Arvd-01:08:12 Clrd-01:31:24
+                       Patrolman Scott E Landry
+                  0103  Gunshots Call                        Unfounded / Nothing Loca
+        Call Taker:    Telephone Operator Caroline F MacMillan
+  Location/Address:    179 WINTER ST @ 33 JORDAN ST
+                ID:    Patrolman Domingos G Nunes
+                       Disp-01:06:40                  Arvd-01:16:51 Clrd-01:23:02
+                  0105  911 Unknown Emergency                Merge: 15-84544 By: 537
+        Call Taker:    Telephone Operator Caroline F MacMillan
+       Vicinity of:    19 W RAILROAD AVE
+                  0106  Alarm Telephone                      FALSE ALARM
+        Call Taker:    Telephone Operators Patrick F Vellios
+  Location/Address:    [BRO 5820] 200 WESTGATE DR
+                ID:    Patrolman Hermer E Cole
+                       Disp-01:11:30 Enrt-01:12:10 Arvd-01:16:25 Clrd-01:21:28
+                  0112  DISTURBANCE                          Report taken
+        Call Taker:    Telephone Operator Caroline F  MacMillan
+  Location/Address:    [BRO 1877] 197 CRESCENT ST
+                ID:    Patrolman Christopher P Kerr
+                       Disp-01:19:05 Enrt-01:19:06    Arvd-01:19:38   Clrd-03:08:05
+                ID:    Patrolman Jesse Drane Jr
+                       Disp-01:19:25                  Arvd-01:19:33   Clrd-05:45:34
+                ID:    Patrolman Hermer E Cole
+                       Disp-01:54:58 Enrt-01:55:03    Arvd-01:59:06   Clrd-02:48:19
+                  0128  DISTURBANCE                          Matter Settled
+        Call Taker:    Telephone Operators Patrick F Vellios
+  Location/Address:    [BRO 4153] 318 QUINCY ST
+                ID:    Patrolman Domingos G Nunes
+                       Disp-01:31:55 Enrt-01:32:16 Arvd-01:35:16 Clrd-01:46:35
+                ID:    Patrolman Kathy Da Silva
+                       Disp-01:32:08 Enrt-01:32:20 Arvd-01:34:12 Clrd-02:10:45
 
-                            Brockton Police Department Press Log                             Page: 2
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                0128  MOTOR VEHICLE STOP                   No Citation Issued
-      Call Taker:    Patrolman Edward L Cruickshank
-Location/Address:    21 WAYLAND ST @ 64 FARRINGTON ST
-              ID:    Patrolman Erik R Hilliard
-                                                    Arvd-01:28:00 Clrd-01:30:45
-                     Patrolman George Almeida
-                0132  MOTOR VEHICLE STOP                   No Citation Issued
-      Call Taker:    Patrolman Jesse Drane Jr
-Location/Address:    287 E ASHLAND ST
-              ID:    Patrolman Jesse Drane Jr
-                                                    Arvd-01:32:41   Clrd-01:39:19
-                0132  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 58] 33 W ELM ST
-              ID:    Patrolman Lucas M Pedro
-                     Disp-01:37:56                  Arvd-01:38:45 Clrd-01:51:16
-              ID:    Patrolman Hermer E Cole
-                     Disp-01:38:41                                  Clrd-01:39:18
-              ID:    Patrolman Jesse Drane Jr
-                     Disp-01:40:54 Enrt-01:41:00 Arvd-01:42:32 Clrd-01:42:41
-                0133  SUSPICIOUS MV                        Matter Settled
-      Call Taker:    Telephone Operators Diane M Keane
-Location/Address:    339 GREEN ST
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-01:50:23                  Arvd-01:50:29 Clrd-02:06:47
-                     Patrolman James A Parker
-                0143  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Edward L Cruickshank
-Location/Address:    48 GLENWOOD SQ @ 32 GLENWOOD ST
-              ID:    Patrolman Erik R Hilliard
-                                                    Arvd-01:43:00 Clrd-01:54:50
-                     Patrolman George Almeida
-              ID:    Patrolman Hermer E Cole
-                                                    Arvd-01:44:30 Clrd-01:54:44
-                0152  DISTURBANCE                          Matter Settled
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 2536] 165 CARL AVE Apt. #A
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-02:21:33 Enrt-02:22:09 Arvd-02:26:45 Clrd-02:32:34
-                     Patrolman James A Parker
-                0153  B & E in Progress                    Arrest(s) Made
-      Call Taker:    Telephone Operators Diane M Keane
-Location/Address:    [BRO 872] 283 MAIN ST
-              ID:    Patrolman Michael K Livingston
-                     Disp-01:57:10 Enrt-01:58:03 Arvd-02:03:19 Clrd-04:35:49
-              ID:    Patrolman Lucas M Pedro
-                     Disp-01:57:28 Enrt-01:58:10 Arvd-02:01:26 Clrd-03:02:27
-              ID:    Patrolman Erik R Hilliard
-                     Disp-01:57:45 Enrt-01:58:13 Arvd-01:58:26 Clrd-02:55:23
-                     Patrolman George Almeida
-              ID:    Patrolman Arthur L Mc Nulty
-                     Disp-01:57:49 Enrt-01:57:50 Arvd-01:58:50 Clrd-02:31:10
-              ID:    Patrolman Francisco Lopez
-                     Disp-01:57:50 Enrt-01:58:16 Arvd-01:58:32 Clrd-02:55:26
-                     Patrolman Callie H Royster Jr
-              ID:    Patrolman Dana J Miller
-                     Disp-01:57:57 Enrt-01:58:06 Arvd-02:01:07 Clrd-02:21:11
-       Refer To Arrest:    15-3587-AR
-          Arrest:    MELCHIONNO, BRIAN
-         Address:    101 OAK LN Apt. #12   BROCKTON, MA
-             Age:    39
-         Charges:    DESTRUCTION OF PROPERTY +$250, MALICIOUS
-                     DESTRUCTION OF PROPERTY +$250, MALICIOUS
-                     B&E BUILDING NIGHTTIME FOR FELONY
-                0222  MOTOR VEHICLE STOP                   Arrest(s) Made
+                            Brockton Police Department Press Log                             Page: 2
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                     Patrolman Scott E Landry
+                0159  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Caroline F MacMillan
+                0200  DISTURBANCE                          Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Caroline F MacMillan
+     Vicinity of:    [BRO 2536] 165 CARL AVE
+              ID:    Patrolman Kathy Da Silva
+                     Disp-02:23:12 Enrt-02:23:35 Arvd-02:30:02 Clrd-02:34:22
+                     Patrolman Scott E Landry
+                0220  DISTURBANCE                          Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    1044 N MAIN ST
+              ID:    Patrolman David L Delehoy
+                     Disp-02:37:43 Enrt-02:38:56 Arvd-02:43:53 Clrd-02:45:57
+                0224  DISTURBANCE                          Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Caroline F MacMillan
+     Vicinity of:    277 SUMMER ST @ 83 EAST ST
+              ID:    Patrolman Kathy Da Silva
+                     Disp-02:34:42 Enrt-02:34:42 Arvd-02:43:23 Clrd-02:46:43
+                     Patrolman Scott E Landry
+                0225  Check Motorist Suspicious            Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    66 MARSDEN ST @ 52 ARDSLEY ST
+              ID:    Patrolman Kathy Da Silva
+                     Disp-02:49:07 Enrt-02:49:08 Arvd-02:55:25 Clrd-03:03:44
+                     Patrolman Scott E Landry
+                0250  M V A                                Citation/Warning Issued
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    [BRO F2139] 7 MAIN ST
+              ID:    Patrolman Hermer E Cole
+                     Disp-02:52:14 Enrt-02:53:13 Arvd-02:55:36 Clrd-04:48:09
+                0251  DISTURBANCE                          Matter Settled
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    [BRO 7181] 81 WARREN AVE Apt. #02301
+              ID:    Patrolman Peter R Towle
+                     Disp-02:53:06 Enrt-02:53:26 Arvd-02:56:25 Clrd-03:01:50
+                     Patrolman William A Devine
+                0304  DISTURBANCE                          Matter Settled
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    [BRO 2585] 100 PERKINS AVE Apt. #215
+              ID:    Patrolman Christopher P Kerr
+                     Disp-03:17:47                  Arvd-03:27:36 Clrd-04:09:39
+              ID:    Patrolman Peter R Towle
+                     Disp-03:17:53 Enrt-03:18:07 Arvd-03:22:16 Clrd-03:46:03
+                     Patrolman William A Devine
+                0309  MISSING PERSON                       Matter Settled
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO F1990] 391 WESTGATE DR
+              ID:    Patrolman David L Delehoy
+                     Disp-03:15:19                  Arvd-03:34:36 Clrd-04:00:46
+                0315  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Patrick F Vellios
+                0317  Disturbance by a Drunk               Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    [BRO 5251] 35 CRESCENT AVE
+              ID:    Patrolman Christopher P Kerr
+                     Disp-04:36:52                  Arvd-04:38:38 Clrd-04:41:05
+              ID:    Patrolman Domingos G Nunes
+                     Disp-04:37:30 Enrt-04:39:27                    Clrd-04:40:46
+                0324  DISTURBANCE                          Unfounded / Nothing Loca
 
-                            Brockton Police Department Press Log                             Page: 3
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-      Call Taker:    Patrolman Jesse Drane Jr
-Location/Address:    699 E ASHLAND ST
-              ID:    Patrolman Jesse Drane Jr
-                                                    Arvd-02:22:08   Clrd-05:57:58
-              ID:    Patrolman Hermer E Cole
-                                                    Arvd-02:31:55 Clrd-02:50:59
-              ID:    Patrolman Dana J Miller
-                     Disp-02:41:56                  Arvd-02:42:33 Clrd-02:59:53
-              ID:    Patrolman Hermer E Cole
-                     Disp-03:00:04 Enrt-03:00:12 Arvd-03:00:16 Clrd-03:56:05
-       Refer To Arrest:    15-3588-AR
-          Arrest:    SOTO, JOSE
-         Address:    58 BROCKTON AVE   ABINGTON, MA
-             Age:    40
-         Charges:    OUI LIQUOR
-                     STOP/YIELD, FAIL TO / /CAUSING OR CREATING GRIDLOCK
-                     UNLICENSED OPERATION OF MV
-                     INSPECTION/STICKER, NO
-                0246  Alarm Audible                        False 911 Call
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    102 MAPLEWOOD CIR
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-02:49:37                                  Clrd-02:51:11
-                     Patrolman James A Parker
-              ID:    Patrolman Hermer E Cole
-                     Disp-02:51:05                                  Clrd-02:55:06
-              ID:    Patrolman Hermer E Cole
-                     Disp-02:55:35                  Arvd-02:55:40 Clrd-02:59:44
-                0304  Check Property                       Matter Settled
-      Call Taker:    Patrolman Dana J Miller
-Location/Address:    40 FARRINGTON ST
-              ID:    Patrolman Dana J Miller
-                                                    Arvd-03:04:45   Clrd-03:06:19
-                0322  DISTURBANCE                          Matter Settled
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 3051] 621 MONTELLO ST
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-03:25:55                  Arvd-03:32:04 Clrd-03:34:58
-                     Patrolman James A Parker
-                0354  Animal Complaint Barking(Dist)       Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    83 BRAEMOOR RD
-              ID:    Patrolman Lucas M Pedro
-                     Disp-03:56:07 Enrt-03:56:59 Arvd-04:00:24 Clrd-04:06:55
-                0419  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Hermer E Cole
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman Hermer E Cole
-                                                    Arvd-04:19:22   Clrd-04:20:51
-                0419  Pickup a Prisoner on a Warrant       Arrest(s) Made
-      Call Taker:    Patrolman John E Leary
-Location/Address:    [BRO 538] 235 N PEARL ST
-              ID:    Patrolman Hermer E Cole
-                     Disp-04:21:22 Enrt-04:22:09                    Clrd-04:29:08
-              ID:    Patrolman Dana J Miller
-                     Disp-04:22:03 Enrt-04:22:14 Arvd-04:45:30 Clrd-04:45:32
-              ID:    Patrolman Hermer E Cole
-                     Disp-04:29:56                  Arvd-04:30:01 Clrd-05:29:08
-       Refer To Arrest:    15-3589-AR
-          Arrest:    YOUNG, MICHAEL T
-         Address:    349 N PEARL ST Apt. #609    BROCKTON, MA
-             Age:    38
-         Charges:    WARRANT, DEFAULT
-                     WARRANT, FOREIGN
-                0422  SUSPICIOUS ACTIVITY                  Unfounded / Nothing Loca
+                            Brockton Police Department Press Log                            Page: 3
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000    Printed: 08/31/2015
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    [BRO 1286] 369 CRESCENT ST
+                0335  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO 1071] 135 JON DR
+              ID:    Patrolman Domingos G Nunes
+                     Disp-03:37:57                  Arvd-03:45:00 Clrd-03:47:35
+                0341  Check Motorist Suspicious            Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    23 E CHESTNUT ST
+              ID:    Patrolman William A Devine
+                     Disp-04:57:20                  Arvd-05:01:15 Clrd-05:03:54
+                0342  Animal Complaint                     Matter Settled
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    14 ARGYLE AVE Apt. #3RD
+              ID:    Patrolman Domingos G Nunes
+                     Disp-03:49:29                  Arvd-04:00:24 Clrd-04:11:17
+                0345  Alarm Telephone                      Cancelled
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO F502] 480 FOREST AVE
+                0357  RECOVERED STOLEN MV                  Arrest(s) Made
+      Call Taker:    Patrolman Andrea T Salamone
+Location/Address:    440 PLEASANT ST @ 31 MORAINE ST
+              ID:    Patrolman Richard J Gaucher
+                                                    Arvd-03:57:00 Clrd-15:20:23
+              ID:    Patrolman William A Devine
+                     Disp-03:58:02                  Arvd-04:00:47 Clrd-04:56:09
+              ID:    Patrolman Erik R Hilliard
+                     Disp-03:59:31                  Arvd-04:23:15 Clrd-06:37:34
+                     Patrolman George Almeida
+       Refer To Arrest:    15-3611-AR
+          Arrest:    PINA, ANGELO
+         Address:    41 DRACUT ST Apt. #3    BOSTON, MA
+             Age:    24
+         Charges:    MOTOR VEH, RECEIVE STOLEN
+                     LICENSE SUSPENDED, OP MV WITH
+                0441  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO 4783] 758 CENTRE ST
+              ID:    Patrolman Domingos G Nunes
+                     Disp-04:42:59                  Arvd-04:47:09 Clrd-04:51:09
+                0453  Check Motorist Suspicious            Matter Settled
+      Call Taker:    Telephone Operators Patrick F Vellios
+     Vicinity of:    RAINTREE LN
+              ID:    Patrolman Domingos G Nunes
+                     Disp-04:59:35 Enrt-05:04:22 Arvd-05:11:47 Clrd-05:16:00
+                0522  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    [BRO 830] 908 N MONTELLO ST
+              ID:    Patrolman Domingos G Nunes
+                     Disp-05:25:37 Enrt-05:25:53 Arvd-05:32:51 Clrd-05:33:56
+                0554  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Caroline F MacMillan
+                0622  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operator Caroline F MacMillan
+                0637  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO 960] 150 CLINTON ST
+              ID:    Patrolman Christopher P Kerr
+                     Disp-06:38:39 Enrt-06:40:17 Arvd-06:40:35 Clrd-06:45:36
 
-                            Brockton Police Department Press Log                             Page: 4
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-      Call Taker:    Telephone Operator Caroline F MacMillan
-     Vicinity of:    32 E MAIN ST @ 12 E BATTLES ST
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-04:41:34 Enrt-04:42:17                    Clrd-04:46:05
-                     Patrolman James A Parker
-              ID:    Patrolman Dana J Miller
-                     Disp-04:45:59 Enrt-04:46:02 Arvd-04:49:59      Clrd-04:58:09
-                0443  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 1534] 135 BELMONT ST
-              ID:    Patrolman Lucas M Pedro
-                     Disp-04:46:19 Enrt-04:46:47 Arvd-05:03:45 Clrd-05:09:03
-                0530  B & E MV Investigation               Report taken
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    428 N MAIN ST Apt. #1
-              ID:    Patrolman Dana J Miller
-                     Disp-05:34:28 Enrt-05:35:08 Arvd-05:40:23 Clrd-06:09:11
-                0532  Unwanted Guest Disturbance           Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Diane M Keane
-Location/Address:    [BRO 475] 680 CENTRE ST Apt. #ER
-              ID:    Patrolman Michael K Livingston
-                     Disp-05:35:36 Enrt-05:36:07 Arvd-05:42:52 Clrd-05:48:06
-              ID:    Patrolman Hermer E Cole
-                     Disp-05:36:27 Enrt-05:36:30 Arvd-05:40:29 Clrd-05:48:24
-                0534  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 5734] 465 CENTRE ST
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-05:36:39                  Arvd-05:45:38 Clrd-05:48:17
-                     Patrolman James A Parker
-                0555  See the Complainant                  Matter Settled
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    832 MONTELLO ST Apt. #2
-              ID:    Patrolman Michael K Livingston
-                     Disp-06:08:08                  Arvd-06:20:02 Clrd-07:07:11
-                0633  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Hermer E Cole
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman Hermer E Cole
-                                                    Arvd-06:33:39   Clrd-06:41:28
-                0702  VANDALISM                            Matter Settled
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 1972] 443 BELMONT ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-08:28:04 Enrt-08:36:12 Arvd-08:41:49 Clrd-08:47:55
-                0708  SERVE WARRANT                        Matter Settled
-      Call Taker:    Patrolman John E Leary
-Location/Address:    32 BUNKER AVE
-              ID:    Patrolman Hermer E Cole
-                     Disp-07:10:16 Enrt-07:10:24    Arvd-07:12:57   Clrd-07:42:32
-              ID:    Patrolman Lucas M Pedro
-                     Disp-07:10:21 Enrt-07:10:26    Arvd-07:15:19   Clrd-07:56:38
-              ID:    Patrolman Thomas E Keating
-                     Disp-07:10:51                  Arvd-07:10:56   Clrd-12:15:20
-              ID:    Patrolman George Almeida
-                     Disp-07:11:02                  Arvd-07:11:06   Clrd-12:56:07
-              ID:    Patrolman Sean M Slattery
-                                                    Arvd-11:29:07   Clrd-11:47:01
-              ID:    Patrolman Thomas E Keating
-                     Disp-12:55:47                  Arvd-12:56:04   Clrd-12:56:09
-       Refer To Arrest:    15-3590-AR
-          Arrest:    MCKENZIE, TRACEY
-         Address:    32 BUNKER AVE Apt. #2    BROCKTON, MA
-             Age:    32
+                            Brockton Police Department Press Log                             Page: 4
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                0729  M V A                                Report taken
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO 1056] 409 PLEASANT ST
+              ID:    Patrolman Hermer E Cole
+                     Disp-07:34:53 Enrt-07:35:27 Arvd-07:38:05 Clrd-08:50:04
+                0733  Narcotic Violation in Progress       Matter Settled
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    [BRO 2415] 587 MAIN ST
+              ID:    Patrolman William A Devine
+                     Disp-07:38:23                  Arvd-07:40:37 Clrd-07:56:38
+                0746  See the Complainant                  Cancelled
+      Call Taker:    Telephone Operator Caroline F MacMillan
+Location/Address:    31 FAIRBANKS RD
+                0757  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Patrick F Vellios
+Location/Address:    [BRO 44] 184 W ELM ST
+              ID:    Patrolman Jesse Drane Jr
+                     Disp-08:00:07 Enrt-08:00:57 Arvd-08:04:08 Clrd-08:35:54
+                0806  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+                0817  Annoying Phone Calls                 Report taken
+      Call Taker:    Patrolman Stephen C Scibetta
+Location/Address:    420 PEARL ST
+              ID:    Patrolman Stephen C Scibetta
+                                                    Arvd-08:17:00   Clrd-09:36:07
+                0832  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    212 FIELD ST
+              ID:    Patrolman Jose A Lobo
+                     Disp-08:34:13 Enrt-08:34:16 Arvd-08:43:04 Clrd-08:49:37
+                0842  MOTOR VEHICLE STOP                   Citation/Warning Issued
+      Call Taker:    Patrolman Julie A Hill
+Location/Address:    55 LEGION PKWY
+              ID:    Patrolman Julie A Hill
+                                                    Arvd-08:42:42   Clrd-09:05:53
+                0859  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 1071] 135 JON DR
+              ID:    Patrolman Jose A Lobo
+                     Disp-09:02:50 Enrt-09:02:53 Arvd-09:11:18 Clrd-09:14:56
+                0901  A & B Dangerous Weapon Invest        Report taken
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 7353] 25 TREMONT ST Apt. #2ND
+              ID:    Patrolman Sean M Slattery
+                     Disp-09:13:14 Enrt-09:13:17 Arvd-09:22:54 Clrd-10:23:03
+              ID:    Patrolman Robert E Grayson
+                     Disp-09:36:55 Enrt-09:37:03 Arvd-09:38:33 Clrd-09:49:31
+              ID:    Patrolman Julie A Hill
+                     Disp-09:36:58 Enrt-09:37:01 Arvd-09:40:26 Clrd-09:49:27
+              ID:    Patrolman Jose A Lobo
+                     Disp-09:39:04                  Arvd-09:39:07 Clrd-09:49:29
+                0908  911 Unknown Emergency                Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Justin Baez
+     Vicinity of:    66 FREDERICK DOUGLAS AVE
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-09:10:51 Enrt-09:10:53 Arvd-09:11:34 Clrd-09:16:48
+                     Patrolman Carmen L Vazquez
+                0920  Unwanted Guest Disturbance           Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    54 VESEY ST Apt. #3
+              ID:    Patrolman Julie A Hill
 
-                            Brockton Police Department Press Log                             Page: 5
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-         Charges:    DRUG, POSSESS TO DISTRIB CLASS B
-                     CONSPIRACY TO VIOLATE DRUG LAW
-       Refer To Arrest:    15-3591-AR
-          Arrest:    OLIVEIRA, JOVINO A
-         Address:    26 ENTERPRISE ST Apt. #1    BROCKTON, MA
-             Age:    19
-         Charges:    DRUG, POSSESS TO DISTRIB CLASS B
-                     CONSPIRACY TO VIOLATE DRUG LAW
-       Refer To Arrest:    15-3592-AR
-          Arrest:    ABREU, SEDERICK
-         Address:    36 HOOVER AVE    BROCKTON, MA
-             Age:    18
-         Charges:    DRUG, POSSESS TO DISTRIB CLASS B
-                     CONSPIRACY TO VIOLATE DRUG LAW
-                0714  SUSPICIOUS MV                        Matter Settled
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    [BRO 3967] 45 OAKDALE ST
-              ID:    Patrolman Daniel Mac Intosh
-                     Disp-07:19:05                  Arvd-07:30:41 Clrd-07:48:55
-                     Patrolman James A Parker
-                0716  B & E MV Investigation               Report taken
-      Call Taker:    Telephone Operator Caroline F MacMillan
-Location/Address:    19 ELLSWORTH AVE Apt. #2
-              ID:    Patrolman Richard J Colon
-                     Disp-08:45:57 Enrt-08:57:25 Arvd-09:07:09 Clrd-09:32:34
-                0753  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Diane M Keane
-Location/Address:    [BRO 3180] 110 MULBERRY ST
-              ID:    Patrolman Jesse Drane Jr
-                     Disp-07:54:39 Enrt-07:55:15 Arvd-08:02:43 Clrd-08:21:28
-                0815  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 3985] 104 CASHMAN RD
-              ID:    Patrolman Richard J Colon
-                     Disp-08:19:34                                  Clrd-08:23:47
-              ID:    Patrolman Richard J Colon
-                     Disp-08:24:51 Enrt-08:24:52 Arvd-08:31:48 Clrd-08:43:54
-                0826  Check Motorist Suspicious            Matter Settled
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    7 HOBSON ST
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-08:29:32 Enrt-08:33:43 Arvd-08:36:42 Clrd-08:37:13
-                     Patrolman Kenneth F Egan
-                0839  B & E investigate                    Matter Settled
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 5382] 278 MAIN ST Apt. #02301
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-09:26:57 Enrt-09:26:57 Arvd-09:32:34 Clrd-10:07:26
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-10:19:55                  Arvd-10:20:55 Clrd-10:20:59
-                0840  Suspicious Person                    Could Not Locate
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    51 MENLO ST @ 791 WARREN AVE RES
-              ID:    Patrolman Sean M Slattery
-                                                    Arvd-09:11:01 Clrd-09:11:47
-                0844  B & E MV Investigation               Report taken
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    176 WOODARD AVE
-              ID:    Patrolman Sean M Slattery
-                     Disp-09:33:07 Enrt-09:36:14 Arvd-09:41:26 Clrd-10:27:27
-                0849  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 6473] 143 COUNTRY CLUB LN
+                            Brockton Police Department Press Log                             Page: 5
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                     Disp-09:25:02 Enrt-09:25:22    Arvd-09:32:34   Clrd-09:36:58
+              ID:    Patrolman Robert E Grayson
+                     Disp-09:25:15 Enrt-09:25:24    Arvd-09:25:35   Clrd-09:36:55
+              ID:    Patrolman Julie A Hill
+                     Disp-09:49:27                  Arvd-09:49:36   Clrd-09:51:35
+              ID:    Patrolman Robert E Grayson
+                     Disp-09:49:31                  Arvd-09:49:38   Clrd-09:54:30
+              ID:    Patrolman Julie A Hill
+                                                    Arvd-09:52:30   Clrd-09:54:45
+                0935  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                0939  Hit & Run Investigate                Report taken
+      Call Taker:    Patrolman Stephen C Scibetta
+Location/Address:    99 COURT ST @ 1 N MONTELLO ST
+              ID:    Patrolman Stephen C Scibetta
+                                                    Arvd-09:39:00   Clrd-10:02:04
+                0952  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1003  Malicious Damage  Motor Vehicle      Report taken
+      Call Taker:    Patrolman Stephen  C Scibetta
+Location/Address:    812 N MONTELLO ST  Apt. #1
+              ID:    Patrolman Stephen  C Scibetta
+                                                    Arvd-10:03:00 Clrd-10:24:07
+                1004  Assist Fire or Ambulance             Cancelled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 5221] 65 OAK ST EXT
+                1029  Overdose                             Merge: 15-84640 By: 398
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+Location/Address:    182 GREEN ST
+                1037  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 2223] 45 GREENBRIAR RD
+              ID:    Patrolman Julie A Hill
+                     Disp-10:42:12 Enrt-10:42:14 Arvd-10:47:34 Clrd-10:51:44
+                1047  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 1071] 135 JON DR
+              ID:    Patrolman Jose A Lobo
+                     Disp-10:50:59 Enrt-10:51:01 Arvd-10:56:20 Clrd-11:01:28
+                1110  Parking Violation                    Vehicle Towed
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    15 ELM AVE
+              ID:    Patrolman Julie A Hill
+                     Disp-11:32:15                                  Clrd-11:48:33
+              ID:    Patrolman Julie A Hill
+                     Disp-12:09:43 Enrt-12:09:43 Arvd-12:15:53 Clrd-13:02:05
+                1110  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+                1137  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    129 FLORENCE ST
+              ID:    Patrolman Sean M Slattery
+                     Disp-11:41:40 Enrt-11:41:42 Arvd-11:42:14 Clrd-11:54:31
+                1146  M V A - No PI                        Citation/Warning Issued
+      Call Taker:    Telephone Operator Justin Baez
+     Vicinity of:    566 ASH ST @ 347 FOREST AVE
+              ID:    Patrolman Scott Uhlman
+                     Disp-11:49:31 Enrt-11:49:34 Arvd-11:49:52 Clrd-12:10:50
+                1147  M V A with Injuries                  Report taken
 
-                            Brockton Police Department Press Log                             Page: 6
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-              ID:    Patrolman Sean M Slattery
-                     Disp-08:52:49                  Arvd-08:56:07   Clrd-09:05:14
-                0854  SERVE SUMMONS                        Order Served in Hand
-      Call Taker:    Patrolman Anthony C Giardini
-Location/Address:    385 BATTLES FARM DR
-              ID:    Patrolman Anthony C Giardini
-                                                    Arvd-08:57:22   Clrd-09:04:27
-                0855  TRAFFIC CONTROL                      Citation/Warning Issued
-      Call Taker:    Sergeant Bryan M Maker
-Location/Address:    102 N QUINCY ST @ 656 E ASHLAND ST
-              ID:    Sergeant Bryan M Maker
-                                                    Arvd-08:56:15 Clrd-10:37:00
-                0905  Code Enforcement                     Matter Settled
-      Call Taker:    Sergeant Timothy R Stanton
-Location/Address:    46 BUDD AVE
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-09:31:05 Enrt-09:32:44 Arvd-09:45:23 Clrd-10:21:01
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-10:30:16                  Arvd-10:41:49 Clrd-10:42:02
-                0908  Check Motorist Suspicious            Cancelled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    36 HOLBROOK AVE
-                0909  Disturbance by a Drunk               Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Robert Celia
-Location/Address:    215 MAIN ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-09:15:57 Enrt-09:16:10 Arvd-09:18:24 Clrd-09:28:46
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-09:16:07 Enrt-09:16:10 Arvd-09:17:15 Clrd-09:28:46
-                0924  Larceny Investigation                Report taken
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    19 HOLBROOK AVE
-              ID:    Patrolman Richard J Colon
-                     Disp-09:38:14 Enrt-09:38:18 Arvd-09:58:23 Clrd-11:37:06
-                0947  Runaway Investigation                Matter Settled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 2830] 63 CALMAR ST Apt. #2
-              ID:    Patrolman Raymond L Parrett
-                     Disp-09:54:50 Enrt-09:55:16 Arvd-10:05:16 Clrd-10:11:38
-                0954  Unwanted Guest Disturbance           Matter Settled
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    81 COWEESET DR
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-09:59:32 Enrt-10:04:29 Arvd-11:30:56 Clrd-11:53:40
-                     Patrolman Kenneth F Egan
-                0959  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 5998] 500 WESTGATE DR
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-10:07:26 Enrt-10:07:59 Arvd-10:13:30 Clrd-10:19:13
-                1003  Community Police Call                Clear No Action Needed
-      Call Taker:    Patrolman Anthony C Giardini
-Location/Address:    GOLDEN CIR
-              ID:    Patrolman Anthony C Giardini
-                                                    Arvd-10:03:36   Clrd-10:20:18
-                1013  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 4407] 338 CENTRE ST
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-10:21:01 Enrt-10:21:29 Arvd-10:22:39 Clrd-10:30:13
+                            Brockton Police Department Press Log                             Page: 6
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+Location/Address:    1145 WARREN AVE @ 76 MARKET ST
+              ID:    Patrolman Sean M Slattery
+                     Disp-11:55:01 Enrt-11:55:03 Arvd-11:56:35      Clrd-13:58:42
+                1147  M V A                                No Report Taken-Paper ex
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    1038 BELMONT ST @ 0 MANLEY ST
+              ID:    Patrolman Julie A Hill
+                     Disp-11:50:04 Enrt-11:50:07 Arvd-11:54:46 Clrd-12:07:22
+                1150  See the Complainant                  Cancelled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    23 MYSTIC ST
+                1154  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1157  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+                1203  DISTURBANCE                          Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 3581] 311 QUINCY ST
+              ID:    Patrolman Jose A Lobo
+                     Disp-12:06:34 Enrt-12:06:36 Arvd-12:16:39 Clrd-12:27:57
+                1204  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+                1225  SUSPICIOUS MV                        Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+Location/Address:    108 LENOX ST @ 181 PARK RD
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-12:46:28 Enrt-12:46:31 Arvd-12:55:00 Clrd-12:59:04
+                     Patrolman Carmen L Vazquez
+                1236  See the Complainant                  Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 2450] 68 FIELD ST
+              ID:    Patrolman John E Leary
+                     Disp-02:25:21                  Arvd-02:26:40 Clrd-08/30/2015 @ 02:27:56
+                1238  M V A                                Report taken
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    40 GROVE ST @ 715 MONTELLO ST
+              ID:    Patrolman Robert E Grayson
+                     Disp-12:40:29 Enrt-12:40:32 Arvd-12:45:07 Clrd-15:00:31
+                1241  Larceny of a M/V Investigation       Hot Sheet
+      Call Taker:    Patrolman Stephen C Scibetta
+Location/Address:    397 COURT ST
+              ID:    Patrolman Stephen C Scibetta
+                                                    Arvd-12:41:00 Clrd-12:47:26
+                1241  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1258  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 2259] 271 WEST ST
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-13:03:13 Enrt-13:03:17 Arvd-13:07:54 Clrd-13:18:10
+                     Patrolman Carmen L Vazquez
+                1315  Overdose                             Report taken
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    306 CRESCENT ST
+              ID:    Patrolman Christopher J Deiuliis
+                     Disp-13:17:57 Enrt-13:18:00 Arvd-13:27:06 Clrd-13:50:05
+                1317  Alarm Telephone                      FALSE ALARM
 
-                            Brockton Police Department Press Log                             Page: 7
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                1031  Larceny Investigation                Report taken
-      Call Taker:    Patrolman Stephen C Scibetta
-Location/Address:    51 BOUNDARY CIR
-              ID:    Patrolman Stephen C Scibetta
-                                                    Arvd-10:31:00   Clrd-11:08:35
-                1041  TRAFFIC CONTROL                      Citation/Warning Issued
-      Call Taker:    Sergeant Bryan M Maker
-Location/Address:    1 LEGION PKWY @ 60 MAIN ST
-              ID:    Sergeant Bryan M Maker
-                                                    Arvd-10:41:38   Clrd-12:05:39
-                1103  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Christine M Bosch
-                1106  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-11:06:04   Clrd-11:24:38
-                1125  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    1 OAK ST @ 826 N MAIN ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-11:25:03   Clrd-11:34:12
-                1135  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-11:35:30   Clrd-11:43:58
-                1139  Community Police Call                Services Rendered
-      Call Taker:    Patrolman Anthony C Giardini
-Location/Address:    [BRO 3552] 105 BELAIR ST
-              ID:    Patrolman Anthony C Giardini
-                                                    Arvd-11:39:05   Clrd-12:44:41
-                1143  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Robert Celia
-                1144  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-11:44:30   Clrd-11:59:27
-                1155  911 Hang Up                          False 911 Call
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    11 ANITA RD
-              ID:    Patrolman Jose A Lobo
-                     Disp-12:06:26 Enrt-12:06:33 Arvd-12:14:05 Clrd-12:22:16
-                1200  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-12:00:31   Clrd-12:02:55
-                1203  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-12:03:18   Clrd-12:12:23
-                1205  M V A Pedestrian                     Report taken
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    [BRO 6036] 521 BELMONT ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-12:12:25                                  Clrd-12:13:29
-              ID:    Sergeant Timothy R Stanton
+                            Brockton Police Department Press Log                             Page: 7
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+Location/Address:    [BRO 3155] 11 BOYDEN ST
+              ID:    Patrolman Jose A Lobo
+                     Disp-13:30:12 Enrt-13:30:14 Arvd-13:36:34      Clrd-13:46:48
+                1351  Animal Control Dog Complaint         Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 35] 105 KEITH AVE
+              ID:    Animal Control Tiana s Cabana
+                     Disp-13:52:40 Enrt-13:52:42 Arvd-14:09:12 Clrd-14:09:17
+                1355  See the Complainant                  Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Nicole R Jean - Pierre
+Location/Address:    25 FAXON ST
+              ID:    Patrolman Darvin Anderson
+                     Disp-17:40:02 Enrt-17:40:05 Arvd-17:45:51 Clrd-17:56:25
+                1419  Shoplifting Investigation            Complaint Filed
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 2202] 200 WESTGATE DR
+              ID:    Patrolman Stephen C Scibetta
+                     Disp-17:38:33                  Arvd-17:39:20 Clrd-18:24:47
+      Refer To Summons:    15-3619-AR
+         Summons:    SULLIVAN, CONNOR DORSEY
+         Address:    257 ROCKLAND ST    CANTON, MA
+             Age:    24
+         Charges:    SHOPLIFTING $100+ BY ASPORTATION
+                     TRESPASS
+                     THIEF, COMMON & NOTORIOUS
+                1433  Party Unconscious                    Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    40 HIGHLAND ST
+              ID:    Patrolman Sean M Slattery
+                     Disp-14:36:05 Enrt-14:36:09 Arvd-14:36:52 Clrd-14:47:55
+                1507  911 Unknown Emergency                Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO F1117] 180 N MAIN ST
+              ID:    Patrolman Sean M Slattery
+                     Disp-15:10:39 Enrt-15:10:41 Arvd-15:10:44 Clrd-15:18:53
+                1516  Unwanted Guest Disturbance           Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 5690] 712 CRESCENT ST
+              ID:    Patrolman Robert E Grayson
+                     Disp-15:18:33 Enrt-15:18:36 Arvd-15:22:38 Clrd-15:58:16
+                1517  Police Off has a Prisoner            Arrest(s) Made
+      Call Taker:    Patrolman Sean P Besarick
+Location/Address:    [BRO 5540] 200 WESTGATE DR
+              ID:    Patrolman Andrew H Kalp
+                                                    Arvd-15:17:00   Clrd-18:00:04
+              ID:    Patrolman Julie A Hill
+                     Disp-15:18:04 Enrt-15:18:07 Arvd-15:26:41      Clrd-16:47:00
+       Refer To Arrest:    15-3617-AR
+          Arrest:    ELDREDGE, ALYSSA
+         Address:    13 COOMBS ST    MIDDLEBORO, MA
+             Age:    23
+         Charges:    SHOPLIFTING BY ASPORTATION
+                     WARRANT, DEFAULT
+                1522  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1522  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1526  Alarm Telephone                      Clear Prior to Arrival
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 5058] 34 ATLANTA ST
+              ID:    Patrolman Christopher J Deiuliis
 
-                            Brockton Police Department Press Log                             Page: 8
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                     Disp-12:12:25 Enrt-12:13:24    Arvd-12:17:16   Clrd-13:34:46
-              ID:    Patrolman Raymond L Parrett
-                     Disp-12:13:14 Enrt-12:13:20    Arvd-12:14:42   Clrd-14:39:48
-              ID:    Patrolman Raymond L Parrett
-                     Disp-15:02:27                                  Clrd-15:02:38
-                1214  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-12:14:05   Clrd-12:22:40
-                1220  Assist Fire or Ambulance             Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    864 N MONTELLO ST @ 30 HOWARD ST
-              ID:    Patrolman Richard J Colon
-                     Disp-12:22:33 Enrt-12:22:42 Arvd-12:49:51 Clrd-14:04:54
-              ID:    Patrolman David F Santos
-                     Disp-12:24:48                  Arvd-12:24:53 Clrd-12:29:58
-              ID:    Patrolman David F Santos
-                     Disp-13:18:13                  Arvd-13:18:18 Clrd-13:59:26
-              ID:    Patrolman David F Santos
-                                                    Arvd-13:59:52 Clrd-14:10:55
-                1220  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 2527] 932 N MONTELLO ST
-              ID:    Patrolman David F Santos
-                     Disp-12:31:55                  Arvd-12:32:04 Clrd-13:17:52
-                1223  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-12:23:22   Clrd-12:24:48
-              ID:    Patrolman David F Santos
-                     Disp-12:30:02                  Arvd-12:30:15   Clrd-12:31:55
-              ID:    Patrolman David F Santos
-                     Disp-14:11:51                  Arvd-14:11:57   Clrd-14:41:17
-                1233  DISTURBANCE LOUD MUSIC               Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 5576] 764 N MAIN ST Apt. #1
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-14:02:02 Enrt-14:02:06                    Clrd-14:05:48
-                     Patrolman Kenneth F Egan
-                1234  M V A - No PI                        Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    634 PLEASANT ST @ 0 WEST ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-13:42:14 Enrt-13:42:33                    Clrd-13:44:46
-                1235  MOTOR VEHICLE STOP                   Complaint Filed
-      Call Taker:    Patrolman Jennifer Polynice
-Location/Address:    307 ROCKLAND ST
-              ID:    Patrolman Timothy R Donahue
-                     Disp-12:35:00                  Arvd-12:36:54 Clrd-13:01:30
-      Refer To Summons:    15-3596-AR
-         Summons:    BEAMER, ROBERT
-         Address:    307 ROCKLAND ST   BROCKTON, MA
-             Age:    21
-         Charges:    DRUG, DISTRIBUTE CLASS D
-                     CONSPIRACY TO VIOLATE DRUG LAW
-                     RESIST ARREST
-                     DANGEROUS WEAPON, CARRY
-      Refer To Summons:    15-3597-AR
-         Summons:    PIMENTEL, MARIAH
-         Address:    863 N MAIN ST Apt. #1    BROCKTON, MA
-             Age:    19
-         Charges:    CONSPIRACY TO VIOLATE DRUG LAW
-      Refer To Summons:    15-3598-AR
+                            Brockton Police Department Press Log                             Page: 8
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                     Disp-15:28:28  Enrt-15:28:30                   Clrd-15:28:45
+                1530  Code Enforcement                     Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    142 FOREST AVE
+              ID:    Patrolman Julie A Hill
+                     Disp-16:47:04 Enrt-16:47:06 Arvd-16:49:34 Clrd-16:53:06
+                1532  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1605  911 Unknown Emergency                Merge: 15-84739 By: 327
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    294 WARREN AVE @ 74 BELMONT ST
+                1636  Larceny in Progress                  Report taken
+      Call Taker:    Patrolman Kristen M O' Brien - Hilliard
+Location/Address:    [BRO F1988] 25 NORTH AVE Apt. #208
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-16:37:43                                  Clrd-17:01:33
+                1651  DISTURBANCE                          Report taken
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    [BRO 7333] 116 CRESCENT ST @ 217 MONTELLO ST
+              ID:    Patrolman Christopher P Kerr
+                     Disp-17:00:12 Enrt-17:00:14 Arvd-17:17:12 Clrd-17:21:26
+              ID:    Patrolman Stephen T Pina
+                     Disp-17:08:01                  Arvd-17:08:03 Clrd-17:19:40
+                1709  DISTURBANCE                          Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO F53] 80 PLEASANT ST
+              ID:    Patrolman Stephen C Scibetta
+                     Disp-17:27:32 Enrt-17:28:03 Arvd-17:34:08 Clrd-17:35:52
+                1714  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Patrolman Carmen L Vazquez
+                1718  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Patrolman Carmen L Vazquez
+                1723  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Patrolman Carmen L Vazquez
+                1726  M V A - No PI                        No Report Taken-Paper ex
+      Call Taker:    Patrolman Julie A Hill
+Location/Address:    [BRO 711] 66 MONTELLO ST
+              ID:    Patrolman Julie A Hill
+                                                    Arvd-17:26:54   Clrd-17:30:03
+                1740  SUSPICIOUS ACTIVITY                  Report taken
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 4410] 86 CLIFTON AVE
+              ID:    Patrolman Julie A Hill
+                     Disp-17:44:52 Enrt-17:45:05 Arvd-17:51:56 Clrd-19:33:08
+                1748  911 Unknown Emergency                Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    47 FARRINGTON ST Apt. #3RD
+              ID:    Patrolman Darvin Anderson
+                     Disp-17:56:35 Enrt-17:56:37 Arvd-18:01:34 Clrd-18:07:07
+                1803  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1804  Fire, Other                          Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    50 CRICKETT RD
+              ID:    Patrolman Stephen T Pina
+                     Disp-18:06:50 Enrt-18:06:52                    Clrd-18:07:59
+              ID:    Patrolman Darvin Anderson
+                     Disp-18:07:52 Enrt-18:07:57 Arvd-18:11:01 Clrd-18:26:12
 
-                            Brockton Police Department Press Log                             Page: 9
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-         Summons:    MAHONEY, SABRINA
-         Address:    84 HARTSTUFF ST   ROCKLAND, MA
-             Age:    21
-         Charges:    CONSPIRACY TO VIOLATE DRUG LAW
-                1251  See the Complainant                  Investigated
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    210 ARTHUR PAQUIN WAY
-              ID:    Patrolman Anthony C Giardini
-                     Disp-13:16:40 Enrt-13:16:40 Arvd-13:21:33 Clrd-13:42:31
-                1304  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 6056] 13 PARK ST Apt. #1
-              ID:    Patrolman Sean M Slattery
-                     Disp-13:05:00 Enrt-13:06:17 Arvd-13:08:54 Clrd-13:13:25
-                1306  Unwanted Guest Disturbance           Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 1968] 612 MONTELLO ST Apt. #1A
-              ID:    Patrolman Sean M Slattery
-                     Disp-13:14:10 Enrt-13:14:15 Arvd-13:15:23 Clrd-13:28:53
-              ID:    Patrolman Anthony C Giardini
-                     Disp-13:14:50 Enrt-13:14:54                    Clrd-13:15:43
-                1307  Keep the Peace                       Cancelled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    60 RESERVOIR ST Apt. #213
-                1310  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1318  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1325  Shoplifting - In Custody             Arrest(s) Made
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 2202] 200 WESTGATE DR
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-13:34:27 Enrt-13:34:33 Arvd-13:42:27 Clrd-15:31:34
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-15:52:38                  Arvd-15:52:42 Clrd-16:02:32
-       Refer To Arrest:    15-3600-AR
-          Arrest:    LOPES, HAYDEE
-         Address:    127 NEWBURY ST Apt. #2    BROCKTON, MA
-             Age:    25
-         Charges:    SHOPLIFTING BY ASPORTATION
-                1327  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 2071] 73 MAGOUN AVE
-              ID:    Patrolman Sean M Slattery
-                     Disp-13:30:03 Enrt-13:31:24 Arvd-13:34:50 Clrd-13:38:55
-                1339  Larceny in Progress                  Under Investigation
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 6886] 548 MAIN ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-13:47:33 Enrt-13:47:37 Arvd-14:02:55 Clrd-14:55:59
-                1350  M V A - No PI                        Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 2452] 245 N PEARL ST
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-14:05:57                                  Clrd-14:07:01
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-14:06:57 Enrt-14:07:23 Arvd-14:13:26 Clrd-14:17:00
-                     Patrolman Kenneth F Egan
-                1353  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
+                            Brockton Police Department Press Log                             Page: 9
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                1805  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    31 LANSDOWNE ST
+              ID:    Patrolman Scott E Landry
+                                                    Arvd-19:25:41   Clrd-19:26:58
+                     Patrolman Derek M Salamone
+                1808  DISTURBANCE                          Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    44 NILSSON ST @ 136 LAURESTON ST
+              ID:    Patrolman Stephen T Pina
+                     Disp-18:10:27 Enrt-18:10:29 Arvd-18:17:18 Clrd-18:22:46
+                1808  Narcotic Violation in Progress       Under Investigation
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    [BRO 7350] 157 CENTRE ST
+              ID:    Patrolman Nazaire Paul
+                     Disp-18:20:48 Enrt-18:20:51 Arvd-18:24:13 Clrd-18:24:16
+                     Patrolman Thomas R Hyland
+                1814  Party Unconscious                    Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+     Vicinity of:    74 CENTRE ST @ 75 MONTELLO ST
+              ID:    Patrolman Scott E Landry
+                     Disp-18:17:01                  Arvd-18:17:03 Clrd-18:25:22
+                     Patrolman Derek M Salamone
+                1826  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Patrolman Carmen L Vazquez
+                1833  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1833  911 Unknown Emergency                Unfounded / Nothing Loca
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    860 MAIN ST
+              ID:    Patrolman Stephen T Pina
+                     Disp-18:38:44 Enrt-18:38:46 Arvd-18:42:51 Clrd-19:01:27
+                1840  Malicious Damage Motor Vehicle       Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    462 COURT ST Apt. #2
+              ID:    Patrolman John E Leary
+                     Disp-01:15:16 Enrt-01:15:37 Arvd-01:18:17 Clrd-08/30/2015 @ 01:24:59
+                1855  MISSING PERSON                       Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 3271] 9 WASHINGTON AVE
+              ID:    Patrolman Stephen T Pina
+                     Disp-19:02:18 Enrt-19:02:20 Arvd-19:04:01 Clrd-19:47:46
+              ID:    Patrolman Stephen C Scibetta
+                     Disp-19:04:02 Enrt-19:04:08 Arvd-19:06:09 Clrd-19:21:24
+                1858  Parking Violation                    Merge: 15-84869 By: 398
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    382 ASH ST @ 47 WINONA ST
+                1900  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1907  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1909  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 471] 50 DIVISION ST
+              ID:    Patrolman Scott E Landry
+                     Disp-19:14:51 Enrt-19:14:53 Arvd-19:20:09 Clrd-19:23:33
+                     Patrolman Derek M Salamone
+                1917  DISTURBANCE LOUD MUSIC               Matter Settled
 
-                            Brockton Police Department Press Log                             Page: 10
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-              ID:    Patrolman Brian J Benvie Jr
-                                                    Arvd-13:53:46   Clrd-13:58:12
-                1353  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Christine M Bosch
-                1354  911 Verify Call                      False 911 Call
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 475] 680 CENTRE ST
-                1355  Larceny Investigation                Under Investigation
-      Call Taker:    Captain Steven J Williamson
-Location/Address:    [BRO 1959] 320 MAIN ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-14:25:48 Enrt-14:25:53    Arvd-14:29:11   Clrd-14:57:56
-                1356  Down Wires                           Taken/Referred to Other
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 3544] 372 CRESCENT ST
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-14:07:16 Enrt-14:07:20 Arvd-14:14:09 Clrd-14:54:52
-                1404  Disturbance by a Drunk               Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    [BRO 29] OAK ST
-              ID:    Patrolman Richard J Colon
-                     Disp-14:05:27 Enrt-14:05:33 Arvd-14:10:02 Clrd-14:12:53
-                1407  Unwanted Guest Drunk                 Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO F53] 80 PLEASANT ST
-              ID:    Patrolman Richard J Colon
-                     Disp-14:13:25 Enrt-14:14:57 Arvd-14:18:54 Clrd-14:20:15
-                1419  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 3218] 388 OAK ST
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-14:21:13 Enrt-14:21:28 Arvd-14:23:58 Clrd-14:30:01
-                     Patrolman Kenneth F Egan
-              ID:    Patrolman Richard J Colon
-                     Disp-14:21:13 Enrt-14:21:28 Arvd-14:26:13 Clrd-14:30:05
-                1420  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
-              ID:    Patrolman Brian J Benvie Jr
-                                                    Arvd-14:20:43 Clrd-14:26:14
-                1421  911 Unknown Emergency                Matter Settled
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    16 WYMAN ST Apt. #2ND
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-14:30:23 Enrt-14:30:28 Arvd-14:32:51 Clrd-14:53:46
-                     Patrolman Kenneth F Egan
-              ID:    Patrolman Richard J Colon
-                     Disp-14:30:23 Enrt-14:30:28 Arvd-14:32:51 Clrd-14:47:08
-              ID:    Patrolman Anthony C Giardini
-                                                    Arvd-14:34:34 Clrd-14:40:19
-                1423  Threats see the Complainant          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 1652] 54 N MAIN ST
-              ID:    Patrolman William Vellios
-                     Disp-17:45:29 Enrt-17:45:29 Arvd-17:48:58 Clrd-17:52:40
-                     Patrolman Peter R Towle
-                1430  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
-              ID:    Patrolman Brian J Benvie Jr
-                                                    Arvd-14:30:25 Clrd-14:34:53
+                            Brockton Police Department Press Log                             Page: 10
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+      Call Taker:    Telephone Operators Christine M Bosch
+     Vicinity of:    MONTGOMERY ST
+              ID:    Patrolman Stephen C Scibetta
+                     Disp-19:42:05 Enrt-19:42:08 Arvd-19:48:07      Clrd-19:50:26
+                1929  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    32 LANSDOWNE ST
+              ID:    Patrolman Stephen C Scibetta
+                     Disp-19:50:34 Enrt-19:50:37 Arvd-20:01:35 Clrd-20:01:52
+                1933  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 124] 92 ALGER ST
+              ID:    Patrolman Julie A Hill
+                     Disp-19:37:42 Enrt-19:37:49 Arvd-19:43:53 Clrd-19:50:16
+                1933  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 5386] 66 ADAMS ST
+              ID:    Patrolman Darvin Anderson
+                     Disp-19:38:00 Enrt-19:38:13 Arvd-19:49:17 Clrd-19:57:07
+                1940  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    49 PAULIN AVE
+              ID:    Patrolman Stephen T Pina
+                     Disp-19:48:18 Enrt-19:48:20 Arvd-19:56:40 Clrd-20:00:26
+                1941  MISSING PERSON                       Hot Sheet
+      Call Taker:    Patrolman Kristen M O' Brien - Hilliard
+Location/Address:    38 LAWSON TER
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-19:44:08                  Arvd-19:44:15 Clrd-20:58:16
+                1942  911 Verify Call                      False 911 Call
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    47 FARRINGTON ST Apt. #3
+              ID:    Patrolman Scott E Landry
+                     Disp-19:54:12 Enrt-19:54:12 Arvd-20:01:29 Clrd-20:12:53
+                     Patrolman Derek M Salamone
+                1942  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1946  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                1946  911 Transfer to Fire                 Taken/Referred to Other
+      Call Taker:    Telephone Operators Christine M Bosch
+                1953  DISTURBANCE LOUD MUSIC               Clear No Action Needed
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    25 ELLSWORTH ST
+                2003  M V A - No PI                        No Report Taken-Paper ex
+      Call Taker:    Patrolman Sean P Besarick
+Location/Address:    589 N MAIN ST @ 17 ANNIS AVE
+              ID:    Patrolman Stephen C Scibetta
+                                                    Arvd-20:03:00   Clrd-20:35:08
+                2008  Unwanted Guest Disturbance           Cancelled
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 58] 33 W ELM ST
+                2039  Alarm Telephone                      FALSE ALARM
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    101 APPLEBY ST
+              ID:    Patrolman Julie A Hill
+                     Disp-20:49:13 Enrt-20:49:15 Arvd-20:57:55 Clrd-20:59:52
+                2053  911 Transfer to Ambulance            Taken/Referred to Other
 
-                            Brockton Police Department Press Log                              Page: 11
-   Dispatch Log  From: 08/28/2015   Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                1434  911 Unknown Emergency                 False 911 Call
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    38 GLENWOOD SQ
-              ID:    Patrolman Raymond L Parrett
-                     Disp-14:39:48 Enrt-14:40:30 Arvd-14:46:46 Clrd-15:02:23
-              ID:    Patrolman Anthony C Giardini
-                     Disp-14:40:26 Enrt-14:40:30 Arvd-14:42:04 Clrd-15:04:06
-                1439  Alarm Telephone                       FALSE ALARM
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 2468] 235 N PEARL ST
-              ID:    Patrolman Richard J Colon
-                     Disp-14:48:23 Enrt-14:48:30 Arvd-14:53:57 Clrd-15:00:22
-                1441  MOTOR VEHICLE STOP                    Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                     Arvd-14:41:43   Clrd-14:46:56
-                1447  MOTOR VEHICLE STOP                    Citation/Warning Issued
-      Call Taker:    Patrolman David F Santos
-Location/Address:    826 N N MAIN ST @ 1 OAK ST
-              ID:    Patrolman David F Santos
-                                                     Arvd-14:47:31   Clrd-14:55:24
-                1448  Larceny of a Motor Vehicle            Under Investigation
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 112] 661 N MAIN ST
-              ID:    Patrolman Robert E Grayson
-                     Disp-17:08:59 Enrt-17:09:19                     Clrd-17:09:46
-              ID:    Patrolman Robert E Grayson
-                     Disp-17:36:09 Enrt-17:36:09 Arvd-17:38:07 Clrd-18:36:21
-                1456  MOTOR VEHICLE STOP                    Arrest(s) Made
-      Call Taker:    Patrolman David F Santos
-Location/Address:    [BRO 36] 108 OAK ST
-              ID:    Patrolman David F Santos
-                                                     Arvd-14:56:04   Clrd-17:40:40
-              ID:    Patrolman Ronald E Cunningham
-                     Disp-15:08:50 Enrt-15:08:55 Arvd-15:22:39       Clrd-16:05:10
-              ID:    Patrolman Carmen L Vazquez
-                     Disp-15:31:34                   Arvd-15:31:38   Clrd-15:52:38
-       Refer To Arrest:     15-3601-AR
-          Arrest:    VICTOR, DOVE E
-         Address:    101 TRIBOU ST Apt. #9    BROCKTON, MA
-             Age:    21
-         Charges:    WARRANT, DEFAULT
-                     WARRANT, FOREIGN
-                     WARRANT, FOREIGN
-                     INSPECTION/STICKER, NO
-                     LICENSE SUSPENDED, OP MV WITH, SUBSQ.OFF
-                1456  Check Motorist Drive Erratic          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    126 PLAIN ST @ 0 SARGENTS WAY
-              ID:    Patrolman Jose A Lobo
-                     Disp-15:08:22 Enrt-15:14:46 Arvd-15:25:58 Clrd-15:33:10
-                1457  M V A                                 Matter Settled
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    [BRO 4655] 740 BELMONT ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-14:59:49                                   Clrd-14:59:56
-              ID:    Patrolman Sean M Slattery
-                     Disp-15:00:07 Enrt-15:00:17 Arvd-15:05:17 Clrd-15:38:22
-                1459  MOTOR VEHICLE STOP                    Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
-              ID:    Patrolman Brian J Benvie Jr
+                            Brockton Police Department Press Log                             Page: 11
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+      Call Taker:    Telephone Operators Christine M Bosch
+                2103  Suspicious Package                   Cancelled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    154 LAURESTON ST
+                2103  Larceny in Progress                  Unfounded / Nothing Loca
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    [BRO 867] 620 BELMONT ST
+              ID:    Patrolman Jesse Drane Jr
+                     Disp-00:29:36 Enrt-00:31:54    Arvd-00:39:11   Clrd-08/30/2015 @ 00:47:10
+                2114  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    40 FARRINGTON ST
+              ID:    Patrolman Domingos G Nunes
+                     Disp-00:24:19                  Arvd-00:34:33   Clrd-08/30/2015 @ 00:38:15
+                2118  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 5078] 94 MENLO ST
+              ID:    Patrolman Christopher P Kerr
+                     Disp-01:30:22 Enrt-01:30:23 Arvd-01:33:11 Clrd-08/30/2015 @ 01:38:26
+                2139  DISTURBANCE                          Unfounded / Nothing Loca
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    74 CARLISLE ST @ 1 MARY ANNE AVE
+              ID:    Patrolman Stephen T Pina
+                                                    Arvd-23:10:38 Clrd-23:10:42
+                2144  Suspicious Person                    Unfounded / Nothing Loca
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    [BRO F584] 115 COLONEL BELL DR
+              ID:    Patrolman Richard J Gaucher
+                     Disp-00:22:32                  Arvd-00:33:44 Clrd-08/30/2015 @ 00:41:50
+                2147  B & E MV Investigation               Report taken
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 1093] 28 WARREN AVE
+              ID:    Patrolman Kristen M O' Brien - Hilliard
+                     Disp-22:21:30                  Arvd-22:21:38 Clrd-22:49:13
+                2200  DISTURBANCE                          Matter Settled
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    65 FRENCH AVE @ 63 CARROLL AVE
+              ID:    Patrolman Darvin Anderson
+                     Disp-23:05:54 Enrt-23:05:57 Arvd-23:19:13 Clrd-23:23:43
+                2204  Narcotic Violation in Progress       Merge: 15-84835 By: 327
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO F584] 115 COLONEL BELL DR
+                2208  Unwanted Guest Disturbance           Arrest(s) Made
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    [BRO 6372] 25 EXCHANGE ST
+              ID:    Patrolman Scott E Landry
+                     Disp-22:14:40 Enrt-22:14:43 Arvd-22:19:14 Clrd-08/30/2015 @ 03:52:34
+                     Patrolman Derek M Salamone
+              ID:    Sergeant David J Farrell
+                     Disp-22:17:59 Enrt-22:18:29 Arvd-22:21:40 Clrd-08/30/2015 @ 00:29:11
+              ID:    Patrolman Erik R Hilliard
+                     Disp-22:18:24 Enrt-22:18:27 Arvd-22:21:33 Clrd-22:40:01
+                     Patrolman George Almeida
+              ID:    Sergeant Frank F Vardaro
+                     Disp-22:19:45 Enrt-22:19:48 Arvd-22:21:36 Clrd-22:40:03
+                     Patrolman Francisco Lopez
+       Refer To Arrest:    15-3622-AR
+          Arrest:    ZAPATA, LUIS
+         Address:    25 EXCHANGE ST Apt. #1    BROCKTON, MA
+             Age:    38
+         Charges:    Domestic Violence Assualt & Battery
+                     A&B
 
-                            Brockton Police Department Press Log                             Page: 12
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                                                    Arvd-14:59:31   Clrd-15:03:12
-                1500  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                1501  Check Motorist Drunk                 Could Not Locate
-      Call Taker:    Telephone Operators Christine M Bosch
-Location/Address:    PLEASANT ST
-              ID:    Patrolman Anthony C Giardini
-                     Disp-15:18:09 Enrt-15:18:10 Arvd-15:18:13 Clrd-15:20:01
-                1506  911 Unknown Emergency                Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    630 N MAIN ST
-              ID:    Patrolman Christopher J Deiuliis
-                     Disp-15:10:32 Enrt-15:10:36 Arvd-15:21:27 Clrd-15:36:26
-                     Patrolman Kenneth F Egan
-                1507  Runaway Investigation                Matter Settled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 2896] 10 MEADOWBROOK RD
-                1511  Malicious Damage Motor Vehicle       Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    84 VINE ST
-              ID:    Patrolman William Vellios
-                     Disp-16:42:45 Enrt-16:42:46 Arvd-16:52:55 Clrd-17:00:27
-                     Patrolman Peter R Towle
-                1512  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
-              ID:    Patrolman Brian J Benvie Jr
-                                                    Arvd-15:12:51 Clrd-15:21:42
-                1517  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1520  Community Police Call                Matter Settled
-      Call Taker:    Patrolman Anthony C Giardini
-Location/Address:    [BRO 2046] 140 COLONEL BELL DR
-              ID:    Patrolman Anthony C Giardini
-                                                    Arvd-15:21:02   Clrd-16:10:17
-                1522  MOTOR VEHICLE STOP                   Citation/Warning Issued
-      Call Taker:    Patrolman Brian J Benvie Jr
-Location/Address:    558 W CHESTNUT ST @ 1028 ASH ST
-              ID:    Patrolman Brian J Benvie Jr
-                                                    Arvd-15:22:36 Clrd-15:27:02
-                1528  DISTURBANCE                          Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    OAKLAND ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-15:34:40 Enrt-15:34:58 Arvd-15:38:33 Clrd-15:45:31
-                1537  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1538  M V A                                Report taken
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    234 ASH ST @ 359 W ELM ST
-              ID:    Patrolman Sean M Slattery
-                     Disp-15:39:30                  Arvd-15:41:39 Clrd-17:23:55
-                1549  Robbery Investigation                Under Investigation
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    28 GRANTVIEW TER
-              ID:    Patrolman Jose A Lobo
-                     Disp-16:15:45 Enrt-16:19:06 Arvd-16:34:33 Clrd-17:20:13
-                1555  911 Transfer to Ambulance            Taken/Referred to Other
+                            Brockton Police Department Press Log                             Page: 12
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                     A&B
+                     DISTURBING THE PEACE
+                     RESIST ARREST
+                2209  DISTURBANCE LOUD MUSIC               Unfounded / Nothing Loca
+      Call Taker:    Telephone Operators Christine M Bosch
+     Vicinity of:    MONTGOMERY ST
+              ID:    Patrolman Andrew H Kalp
+                                                    Arvd-01:06:29 Clrd-08/30/2015 @ 01:09:30
+                2212  MOTOR VEHICLE STOP                   Matter Settled
+      Call Taker:    Patrolman Jennifer Polynice
+Location/Address:    39 SKINNER ST @ 108 LAWRENCE ST
+              ID:    Patrolman Erik R Hilliard
+                                                    Arvd-22:12:00 Clrd-22:15:10
+                     Patrolman George Almeida
+                2214  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                2215  Unwanted Guest Family                Report taken
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    [BRO 2536] 165 CARL AVE Apt. #43C
+              ID:    Patrolman Julie A Hill
+                     Disp-22:36:47 Enrt-22:36:59 Arvd-22:40:49 Clrd-23:21:14
+              ID:    Patrolman Richard J Gaucher
+                     Disp-22:36:53 Enrt-22:36:57 Arvd-22:42:02 Clrd-22:48:08
+                2216  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                2232  DISTURBANCE                          Matter Settled
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    12 SECOND ST Apt. #3RD
+              ID:    Patrolman Darvin Anderson
+                     Disp-23:33:41 Enrt-23:33:52    Arvd-23:43:03   Clrd-08/30/2015 @ 00:01:44
+              ID:    Patrolman Julie A Hill
+                     Disp-23:33:45 Enrt-23:33:47    Arvd-23:43:05   Clrd-08/30/2015 @ 00:02:11
+                2234  DISTURBANCE LOUD MUSIC               Cancelled
+      Call Taker:    Telephone Operators Christine M Bosch
+Location/Address:    142 WINTER ST
+                2249  SUSPICIOUS MV                        Matter Settled
+      Call Taker:    Patrolman Sean P Besarick
+Location/Address:    0 AUGUSTA AVE @ 0 CROSS AVE
+              ID:    Patrolman Erik R Hilliard
+                                                    Arvd-22:49:00   Clrd-23:18:50
+                     Patrolman George Almeida
+                2259  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                2307  911 Transfer to Ambulance            Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+                2309  DISTURBANCE LOUD MUSIC               Taken/Referred to Other
+      Call Taker:    Telephone Operator Justin Baez
+     Vicinity of:    57 GIFFORD ST
+                2310  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+Location/Address:    57 GIFFORD ST
+              ID:    Patrolman Hermer E Cole
+                     Disp-00:43:08                                  Clrd-08/30/2015 @ 00:45:54
+              ID:    Patrolman Christopher P Kerr
+                     Disp-00:58:11 Enrt-01:04:51 Arvd-01:14:56 Clrd-08/30/2015      @ 01:26:27
+              ID:    Patrolman Hermer E Cole
+                     Disp-01:02:31                                  Clrd-08/30/2015 @ 01:03:14
+              ID:    Patrolman Hermer E Cole
+                                                    Arvd-01:15:35 Clrd-08/30/2015   @ 01:25:43
 
-                            Brockton Police Department Press Log                             Page: 13
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1608  Keep the Peace                       Matter Settled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    200 CHATHAM WEST DR
-              ID:    Patrolman David L Delehoy
-                     Disp-16:19:51 Enrt-16:24:11 Arvd-16:37:01 Clrd-17:53:43
-                1621  911 Transfer to Ambulance            Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-                1624  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                1628  CDBG Proactive Patrol                Matter Settled
-      Call Taker:    Patrolman Efrain Vargas
-Location/Address:    1 HILL ST @ 494 CENTRE ST
-              ID:    Patrolman Efrain Vargas
-                                                    Arvd-16:34:14   Clrd-16:43:40
-                1629  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    60 GREENFIELD ST Apt. #2FL
-              ID:    Patrolman Efrain Vargas
-                     Disp-17:30:38                  Arvd-17:38:28 Clrd-17:47:07
-                1629  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1633  TRAFFIC CONTROL                      Citation/Warning Issued
-      Call Taker:    Patrolman Mark R Reardon
-Location/Address:    73 MAIN ST @ 1 LEGION PKWY
-              ID:    Patrolman Mark R Reardon
-                                                    Arvd-16:33:24   Clrd-19:12:49
-                1634  Disturbance by a Drunk               Transported to Hospital
-      Call Taker:    Patrolman Kathy Da Silva
-Location/Address:    [BRO 2244] 139 PLEASANT ST
-              ID:    Patrolman William A Devine
-                                                    Arvd-16:34:00   Clrd-16:41:26
-                1635  911 Transfer to Ambulance            Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-                1635  Parking Violation                    Matter Settled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    1 MULBERRY ST @ 72 ELLIOT ST
-              ID:    Patrolman Robert E Grayson
-                     Disp-16:53:25 Enrt-16:54:00 Arvd-17:02:36 Clrd-17:08:27
-                1640  Community Police Call                Clear No Action Needed
-      Call Taker:    Patrolman Richard J Gaucher
-Location/Address:    755 CRESCENT ST
-              ID:    Patrolman Richard J Gaucher
-                                                    Arvd-16:41:29   Clrd-16:55:52
-                1648  911 Transfer to Fire                 Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-                1649  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 3517] 88 KEENE ST
-              ID:    Patrolman William A Devine
-                     Disp-16:52:31                  Arvd-16:55:18 Clrd-17:03:19
-                1649  Check Property                       Matter Settled
-      Call Taker:    Patrolman William A Devine
-Location/Address:    [BRO 7181] 81 WARREN AVE Apt. #02301
-              ID:    Patrolman William A Devine
-                                                    Arvd-16:50:19 Clrd-16:52:23
-                1651  Keep the Peace                       Matter Settled
-
-                            Brockton Police Department Press Log                             Page: 14
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    46 LAWRENCE ST Apt. #3RDF
-              ID:    Patrolman Thomas L Robinson
-                     Disp-17:00:32                  Arvd-17:08:25   Clrd-17:40:12
-                1651  Check Motorist Disabled              Matter Settled
-      Call Taker:    Patrolman Scott E Landry
-Location/Address:    [BRO 182] 71 LEGION PKWY
-              ID:    Patrolman William A Devine
-                     Disp-17:11:02                  Arvd-17:17:20   Clrd-17:19:25
-                1656  Parking Violation                    No Citation Issued
-      Call Taker:    Patrolman Efrain Vargas
-Location/Address:    205 WARREN AVE
-              ID:    Patrolman Efrain Vargas
-                                                    Arvd-16:57:11   Clrd-16:58:22
-                1702  CDBG Proactive Patrol                Clear No Action Needed
-      Call Taker:    Patrolman Efrain Vargas
-Location/Address:    [BRO 5592] 151 DOVER ST
-              ID:    Patrolman Efrain Vargas
-                                                    Arvd-17:02:35   Clrd-17:21:21
-                1706  M V A with Injuries                  No Report Taken-Paper ex
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    792 OAK ST
-              ID:    Patrolman William Vellios
-                     Disp-17:09:17                  Arvd-17:12:51 Clrd-17:29:53
-                     Patrolman Peter R Towle
-                1706  ALARM, BURGLAR                       Cancelled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 6141] 1300 BELMONT ST
-              ID:    Patrolman Steven E Johnson
-                     Disp-17:10:24                                  Clrd-17:12:19
-                1708  M V A                                Merge: 15-84406 By: 529
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    798 OAK ST @ 101 FELTON ST
-                1708  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    82 CARY ST
-              ID:    Patrolman Robert E Grayson
-                     Disp-17:09:57                  Arvd-17:10:12 Clrd-17:31:15
-                1723  DISTURBANCE LOUD MUSIC               Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    55 KENNEDY DR
-              ID:    Patrolman David L Delehoy
-                                                    Arvd-18:16:09 Clrd-18:23:05
-                1723  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    316 N PEARL ST @ 70 OAK ST EXT
-              ID:    Patrolman Christopher P Kerr
-                     Disp-17:29:57                  Arvd-17:31:34 Clrd-17:44:57
-                1731  See the Complainant                  Matter Settled
-      Call Taker:    Patrolman William A Devine
-Location/Address:    [BRO F1009] 136 WARREN AVE
-              ID:    Patrolman William A Devine
-                                                    Arvd-17:31:25   Clrd-17:43:17
-                1734  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    [BRO 2462] 64 N MONTELLO ST
-              ID:    Patrolman William Vellios
-                     Disp-17:37:28 Enrt-17:37:29 Arvd-17:42:04 Clrd-17:44:49
-                     Patrolman Peter R Towle
-                1739  Pickup a Prisoner on a Warrant       Unfounded / Nothing Loca
-
-                            Brockton Police Department Press Log                             Page: 15
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-      Call Taker:    Patrolman Kathy Da Silva
-Location/Address:    6 NORMAN RD
-              ID:    Patrolman Domingos G Nunes
-                     Disp-01:24:26 Enrt-01:25:03    Arvd-01:28:27   Clrd-08/29/2015 @ 01:29:42
-                1744  911 Verify Call                      False 911 Call
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    121 BELAIR ST
-              ID:    Patrolman William A Devine
-                     Disp-17:46:32                  Arvd-17:52:05 Clrd-17:56:25
-                1747  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Patrolman Efrain Vargas
-Location/Address:    53 GREENFIELD ST
-              ID:    Patrolman Efrain Vargas
-                                                    Arvd-17:48:02   Clrd-17:57:00
-                1749  MOTOR VEHICLE STOP                   Clear No Action Needed
-      Call Taker:    Patrolman David F Santos
-Location/Address:    23 SHERIDAN ST
-              ID:    Patrolman David F Santos
-                                                    Arvd-17:49:05   Clrd-17:56:42
-                1749  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operators Emanuella  Hornocker
-Location/Address:    [BRO 1117] 95 HILLCREST AVE
-              ID:    Patrolman Richard J Gaucher
-                     Disp-17:52:41                  Arvd-17:58:31   Clrd-18:15:12
-              ID:    Patrolman David L Delehoy
-                     Disp-18:00:30                  Arvd-18:03:02   Clrd-18:14:09
-              ID:    Animal Control John J Kostka
-                     Disp-18:01:54                  Arvd-18:23:19   Clrd-18:23:22
-                1754  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                1807  Hit & Run Investigate                Report taken
-      Call Taker:    Patrolman Gary J Bartorelli
-Location/Address:    883 CENTRE ST @ 51 BATES RD
-              ID:    Patrolman Gary J Bartorelli
-                                                    Arvd-18:07:00   Clrd-18:43:06
-                1814  Road Rage                            Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    126 SUMMER ST
-              ID:    Patrolman Christopher P Kerr
-                     Disp-19:05:40                  Arvd-19:09:40 Clrd-19:25:00
-                1815  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Patrolman Kathy Da Silva
-Location/Address:    422 PLAIN ST @ 1 TWELFTH AVE
-              ID:    Patrolman Christopher P Kerr
-                                                    Arvd-18:15:00   Clrd-18:58:34
-              ID:    Patrolman David F Santos
-                                                    Arvd-18:45:01   Clrd-18:49:32
-                1819  DISTURBANCE                          Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    60 GREENFIELD ST Apt. #2FL
-              ID:    Patrolman Efrain Vargas
-                     Disp-18:25:44                  Arvd-18:33:31 Clrd-19:24:25
-                1822  M V A - No PI                        Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    294 WARREN AVE @ 74 BELMONT ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-18:23:45 Enrt-18:24:29 Arvd-18:28:42 Clrd-18:28:46
-              ID:    Patrolman Steven E Johnson
-                                                    Arvd-18:27:31 Clrd-18:28:31
-                1823  Community Police Call                Matter Settled
-      Call Taker:    Patrolman Richard J Gaucher
-
-                            Brockton Police Department Press Log                             Page: 16
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-Location/Address:    105 BELAIR ST
-              ID:    Patrolman Richard J Gaucher
-                                                    Arvd-18:24:23   Clrd-18:57:34
-                1830  Narcotic Violation in Progress       Investigated
-      Call Taker:    Patrolman Brian M Donahue
-Location/Address:    44 VINE ST @ 63 HOLBROOK AVE
-                1834  Keep the Peace                       Cancelled
-      Call Taker:    Patrolman Gary J Bartorelli
-Location/Address:    [BRO 4262] 76 WILDER ST
-                1840  TRAFFIC CONTROL                      Matter Settled
-      Call Taker:    Patrolman David F Santos
-Location/Address:    PERKINS AVE
-              ID:    Patrolman David F Santos
-                                                    Arvd-18:40:33   Clrd-18:45:01
-              ID:    Patrolman David F Santos
-                     Disp-18:49:38                  Arvd-18:50:08   Clrd-19:56:41
-                1841  M V A - No PI                        No Report Taken-Paper ex
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 454] 190 OAK ST
-              ID:    Patrolman David L Delehoy
-                     Disp-18:47:26 Enrt-18:51:31 Arvd-19:02:07 Clrd-19:12:14
-                1843  Larceny Investigation                Report taken
-      Call Taker:    Patrolman Gary J Bartorelli
-Location/Address:    [BRO 1056] 409 PLEASANT ST
-              ID:    Patrolman Gary J Bartorelli
-                                                    Arvd-18:43:00   Clrd-19:43:36
-                1846  M V A with Injuries                  Report taken
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    [BRO 672] 1090 W CHESTNUT ST
-              ID:    Patrolman Steven E Johnson
-                     Disp-18:49:45                  Arvd-18:53:57 Clrd-19:30:43
-                1905  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1916  Unwanted Guest Disturbance           Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 58] 33 W ELM ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-19:22:13                  Arvd-19:24:28 Clrd-19:47:20
-                1918  M V A Pedestrian                     Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    [BRO 5614] 9 MAIN ST
-              ID:    Patrolman William A Devine
-                     Disp-19:21:24                  Arvd-19:24:12 Clrd-19:47:26
-                1922  Check Motorist Disabled              Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    31 MAIN ST @ 1 GREEN ST
-                1925  TRAFFIC CONTROL                      Citation/Warning Issued
-      Call Taker:    Sergeant Bryan M Maker
-Location/Address:    102 N QUINCY ST @ 656 E ASHLAND ST
-              ID:    Sergeant Bryan M Maker
-                                                    Arvd-19:26:16 Clrd-21:03:54
-                1926  Community Police Call                Clear No Action Needed
-      Call Taker:    Patrolman Richard J Gaucher
-Location/Address:    [BRO 2046] 140 COLONEL BELL DR
-              ID:    Patrolman Richard J Gaucher
-                                                    Arvd-19:26:42   Clrd-19:57:25
-                1926  Check Motorist Drive Erratic         Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    826 N MAIN ST @ 1 OAK ST
-
-                            Brockton Police Department Press Log                             Page: 17
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-              ID:    Patrolman David L Delehoy
-                     Disp-19:30:19                  Arvd-19:44:53   Clrd-19:45:11
-                1931  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-                1937  CDBG Proactive Patrol                Clear No Action Needed
-      Call Taker:    Patrolman Efrain Vargas
-Location/Address:    214 OAK ST @ 388 BATTLES ST
-              ID:    Patrolman Efrain Vargas
-                                                    Arvd-19:39:03   Clrd-19:47:52
-                1940  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                1945  Alarm Telephone                      FALSE ALARM
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 975] 159 TORREY ST
-              ID:    Patrolman Steven E Johnson
-                     Disp-19:47:12                  Arvd-19:49:36 Clrd-19:50:40
-                1950  Gunshots Call                        Merge: 15-84469 By: 529
-      Call Taker:    Telephone Operator Justin Baez
-     Vicinity of:    70 APPLETON ST @ 75 PROSPECT ST
-                1950  Gunshots Call                        Arrest(s) Made
-      Call Taker:    Patrolman Kathy Da Silva
-Location/Address:    [BRO 2454] 75 TURNER ST
-              ID:    Patrolman William A Devine
-                     Disp-19:52:00                  Arvd-19:54:33   Clrd-08/29/2015 @ 02:23:19
-              ID:    Patrolman Erik R Hilliard
-                     Disp-19:52:25                  Arvd-19:57:42   Clrd-08/29/2015 @ 03:59:25
-                     Patrolman George Almeida
-              ID:    Sergeant David J Farrell
-                     Disp-19:52:33 Enrt-19:52:33    Arvd-19:54:13   Clrd-21:06:54
-              ID:    Patrolman David L Delehoy
-                     Disp-19:52:35 Enrt-19:53:05    Arvd-19:55:34   Clrd-20:09:59
-              ID:    Patrolman Thomas L Robinson
-                                                    Arvd-19:54:43   Clrd-20:05:35
-              ID:    Patrolman Efrain Vargas
-                     Disp-19:55:25                  Arvd-19:55:28   Clrd-23:58:33
-              ID:    Sergeant Mark Celia
-                     Disp-19:56:16                  Arvd-19:56:22   Clrd-08/29/2015 @ 03:40:06
-              ID:    Patrolman David F Santos
-                     Disp-19:56:53                  Arvd-19:56:59   Clrd-08/29/2015 @ 05:43:53
-              ID:    Captain John P Hallisey
-                     Disp-19:57:09                  Arvd-19:57:22   Clrd-08/29/2015 @ 00:11:15
-              ID:    Patrolman Callie H Royster Jr
-                     Disp-19:57:47                  Arvd-19:57:51   Clrd-08/29/2015 @ 06:41:45
-                     Patrolman Francisco Lopez
-              ID:    Patrolman Richard J Gaucher
-                                                    Arvd-19:58:05   Clrd-20:06:01
-              ID:    Patrolman Steven E Johnson
-                                                    Arvd-20:02:10   Clrd-21:15:45
-              ID:    Patrolman Nazaire Paul
-                     Disp-20:03:18                  Arvd-20:03:24   Clrd-08/29/2015 @ 06:41:50
-                     Patrolman Michael A Bunker
-              ID:    Patrolman Eric S Smith
-                     Disp-20:18:09                  Arvd-20:18:13   Clrd-21:34:31
-              ID:    Patrolman Robert E Grayson
-                     Disp-22:56:28 Enrt-22:56:33    Arvd-23:01:58   Clrd-08/29/2015 @ 05:25:31
-              ID:    Sergeant David J Farrell
-                                                    Arvd-23:00:30   Clrd-23:07:14
-              ID:    Sergeant David J Farrell
-                     Disp-23:09:12                  Arvd-23:09:18   Clrd-23:48:28
-              ID:    Sergeant David J Farrell
-                                                    Arvd-23:58:10   Clrd-08/29/2015 @ 00:39:31
-       Refer To Arrest:    15-3605-AR
-          Arrest:    MONTEIRO, AMANDA
-         Address:    6 LINDEN ST    TAUNTON, MA
-             Age:    31
-         Charges:    WARRANT, FOREIGN
-
-                            Brockton Police Department Press Log                             Page: 18
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                     FIREARM IN FELONY, POSSESS
-                     DRUG, POSSESS TO DISTRIB CLASS A
-                     DRUG, POSSESS TO DISTRIB CLASS B
-                     WITNESS, INTIMIDATE OBSTUCTION OF JUSTICE
-                     Ammunition, Unlawful Possession
-      Refer To Summons:    15-3620-AR
-         Summons:    BENJAMIN, CHAD ERNEST
-         Address:    168 HART AVE Apt. #1    TAUNTON, MA
-             Age:    37
-         Charges:    FIREARM IN FELONY, POSSESS
-                     DRUG, POSSESS TO DISTRIB CLASS A
-                     DRUG, POSSESS TO DISTRIB CLASS B
-                     Unlawful Posession of Ammunition
-                     FIREARM, DISCHARGE WITHIN 500 FT OF BLDG
-                1951  Gunshots Call                        Merge: 15-84469 By: 441
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 7248] 80 TURNER ST Apt. #3
-                1953  M V A with Injuries                  Complaint Filed
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    507 WARREN AVE @ 44 HARVARD ST
-              ID:    Patrolman Thomas L Robinson
-                     Disp-20:05:47                  Arvd-20:06:04 Clrd-20:06:19
-              ID:    Patrolman Richard J Gaucher
-                     Disp-20:06:13                                  Clrd-20:10:01
-              ID:    Patrolman Richard J Gaucher
-                     Disp-20:10:30                  Arvd-20:10:39 Clrd-22:34:37
-      Refer To Summons:    15-3604-AR
-         Summons:    SMITH, JERRY L
-         Address:    160 COPELAND ST   BROCKTON, MA
-             Age:    23
-         Charges:    Motor Vehicle Rules & Regulations
-                     LICENSE SUSPENDED, OP MV WITH
-                1955  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    700 CRESCENT ST
-              ID:    Patrolman Robert E Grayson
-                     Disp-20:35:48 Enrt-20:35:55 Arvd-20:39:01 Clrd-20:40:23
-                2000  Disturbance by a Drunk               Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    29 KINGMAN ST Apt. #2ND
-              ID:    Patrolman Robert E Grayson
-                     Disp-20:42:14 Enrt-20:42:35 Arvd-20:43:05 Clrd-20:50:24
-                2001  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                2006  Disturbance by a Drunk               Matter Settled
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    [BRO 6511] 99 WARREN AVE Apt. #15
-              ID:    Patrolman David L Delehoy
-                     Disp-20:10:12 Enrt-20:10:12 Arvd-20:11:09 Clrd-20:21:31
-                2034  Unwanted Guest Disturbance           Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 2729] 274 N MAIN ST
-              ID:    Patrolman David L Delehoy
-                     Disp-20:45:41 Enrt-20:45:41 Arvd-20:52:25 Clrd-20:55:00
-                2047  Narcotic Violation in Progress       Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    137 NILSSON ST Apt. #2NDF
-                2056  Prowler                              Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Nicole R Jean - Pierre
-Location/Address:    95 RAYMOND RD
-              ID:    Patrolman David L Delehoy
-                     Disp-21:05:35 Enrt-21:05:40 Arvd-21:15:22 Clrd-21:33:45
-
-                            Brockton Police Department Press Log                              Page: 19
-   Dispatch Log  From: 08/28/2015   Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                2101  Recovered M / V Out of Town           Vehicle Towed
-      Call Taker:    Patrolman Scott E Landry
-Location/Address:    51 W ROSSETER ST
-              ID:    Sergeant David J Farrell
-                     Disp-21:07:03                   Arvd-21:07:10   Clrd-22:59:43
-                2103  Narcotic Violation in Progress        Unfounded / Nothing Loca
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 1328] 648 PLEASANT ST
-              ID:    Patrolman David L Delehoy
-                     Disp-21:35:09 Enrt-21:35:10 Arvd-21:38:21 Clrd-21:41:52
-                2104  TRAFFIC  CONTROL                      Citation/Warning Issued
-      Call Taker:    Sergeant  Bryan M Maker
-Location/Address:    1 LEGION  PKWY @ 60 MAIN ST
-              ID:    Sergeant  Bryan M Maker
-                                                     Arvd-21:04:37   Clrd-23:03:22
-      Refer To Summons:    15-3606-AR
-         Summons:    FILHO, RENATO
-         Address:    261 UNION ST Apt. #33    ROCKLAND, MA
-             Age:    31
-         Charges:    SPEEDING
-                     UNLICENSED OPERATION OF MV
-                2104  DISTURBANCE                           Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    1270 MAIN ST
-              ID:    Patrolman Steven E Johnson
-                     Disp-22:24:58 Enrt-22:25:04 Arvd-22:28:07 Clrd-22:33:16
-                2109  911 Transfer to Ambulance             Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-                2115  911 Transfer to Ambulance             Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                2131  Alarm Telephone                       False 911 Call
-      Call Taker:    Patrolman Thomas L Robinson
-Location/Address:    [BRO 1563] 10 COMMERCIAL ST
-              ID:    Patrolman Robert E Grayson
-                     Disp-21:35:04 Enrt-21:35:10                     Clrd-21:36:08
-              ID:    Patrolman Christopher P Kerr
-                     Disp-21:35:56                   Arvd-21:36:02   Clrd-21:38:07
-                2213  Alarm Telephone                       Cancelled
-      Call Taker:    Patrolman Thomas L Robinson
-Location/Address:    [BRO 2223] 45 GREENBRIAR RD
-                2217  Overdose                              Merge: 15-84511 By: 355
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    [BRO 374] 472 N MAIN ST
-                2218  Overdose                              Report taken
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 374] 472 N MAIN ST
-              ID:    Patrolman David L Delehoy
-                     Disp-22:22:02 Enrt-22:22:03 Arvd-22:25:50 Clrd-22:36:24
-                2226  Alarm Telephone                       FALSE ALARM
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 1071] 135 JON DR
-              ID:    School Police Officer Michael Asack
-                     Disp-22:31:35 Enrt-22:31:42 Arvd-22:37:37 Clrd-22:46:10
-                2226  DISTURBANCE                           Matter Settled
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    76 PAULIN AVE @ 32 SOUTHFIELD DR
-              ID:    Patrolman Jose A Lobo
-                     Disp-23:33:52 Enrt-23:33:52 Arvd-23:41:26 Clrd-23:55:10
-                2234  911 Transfer to Ambulance             Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-
-                            Brockton Police Department Press Log                             Page: 20
-   Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-                2241  Unwanted Guest Disturbance           Clear No Action Needed
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    18 EXCHANGE ST
-              ID:    Patrolman Christopher P Kerr
-                     Disp-00:22:51 Enrt-00:24:05 Arvd-00:29:34 Clrd-08/29/2015 @ 00:38:00
-              ID:    Patrolman Jesse Drane Jr
-                     Disp-00:23:58 Enrt-00:24:08 Arvd-00:28:59 Clrd-08/29/2015 @ 00:32:21
-                2252  DISTURBANCE                          Matter Settled
-      Call Taker:    Lieutenant David M Dickinson
-Location/Address:    20 GRAND ST
-              ID:    Sergeant David J Farrell
-                     Disp-23:07:14 Enrt-23:07:31    Arvd-23:07:36   Clrd-23:08:47
-                2254  Check Motorist Drunk                 Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 1875] 664 CRESCENT ST
-              ID:    Patrolman Steven E Johnson
-                     Disp-22:59:08 Enrt-23:04:32 Arvd-23:13:58 Clrd-23:21:12
-                2255  Threats see the Complainant          Report taken
-      Call Taker:    Patrolman Gary J Bartorelli
-Location/Address:    402 PLEASANT ST @ 23 ASH ST
-              ID:    Patrolman Gary J Bartorelli
-                                                    Arvd-22:55:00   Clrd-23:54:32
-                2302  Unwanted Guest Disturbance           Matter Settled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    228 FOREST AVE Apt. #3
-              ID:    Patrolman Steven E Johnson
-                     Disp-23:21:31 Enrt-23:21:32 Arvd-23:28:00 Clrd-23:47:34
-                2305  DISTURBANCE                          Unfounded / Nothing Loca
-      Call Taker:    Telephone Operators Emanuella Hornocker
-Location/Address:    [BRO 4132] 282 GROVE ST Apt. #2FL
-              ID:    Patrolman Christopher P Kerr
-                     Disp-00:52:36 Enrt-00:53:09                    Clrd-08/29/2015 @ 00:53:45
-              ID:    Patrolman Jesse Drane Jr
-                     Disp-00:53:04 Enrt-00:53:13                    Clrd-08/29/2015 @ 00:53:49
-              ID:    Patrolman Kathy Da Silva
-                     Disp-00:55:01                  Arvd-00:59:58 Clrd-08/29/2015 @ 01:05:15
-                     Patrolman Scott E Landry
-                2306  DISTURBANCE                          Matter Settled
-      Call Taker:    Patrolman Thomas L Robinson
-Location/Address:    82 PROVOST ST
-              ID:    Patrolman Jose A Lobo
-                     Disp-23:23:43 Enrt-23:23:44    Arvd-23:25:32   Clrd-23:33:17
-                2315  Alarm Telephone                      Cancelled
-      Call Taker:    Telephone Operator Justin Baez
-Location/Address:    [BRO 5540] 200 WESTGATE DR
-              ID:    Patrolman Jose A Lobo
-                     Disp-23:20:34 Enrt-23:22:48                    Clrd-23:23:02
-                2320  911 Transfer to Ambulance            Taken/Referred to Other
-      Call Taker:    Telephone Operator Justin Baez
-                2348  See the Complainant                  Complaint Filed
-      Call Taker:    Patrolman Richard J Gaucher
-        Location:    BRIGHAM AND WOMENS HOSPITAL
-              ID:    Patrolman Richard J Gaucher
-                                                    Arvd-23:50:08   Clrd-08/29/2015 @ 03:57:00
-       Refer To Arrest:    15-3610-AR
-          Arrest:    KING, ANTHONY
-         Address:    56 HOWLAND ST    BROCKTON, MA
-             Age:    50
-         Charges:    Domestic Violence Assualt & Battery
-                2354  Threats see the Complainant          Complaint Filed
-      Call Taker:    Patrolman Gary J Bartorelli
-
-                              Brockton Police Department Press Log                             Page: 21
-     Dispatch Log  From: 08/28/2015  Thru: 08/29/2015      0000 - 0000     Printed: 08/31/2015
-  Location/Address:    105 BELCHER AVE
-                ID:    Patrolman Gary J Bartorelli
-                                                      Arvd-23:54:00   Clrd-08/29/2015 @ 00:25:41
-        Refer To Summons:    15-3608-AR
-           Summons:    MADELON, REBECCA
-           Address:    111 HOMESTEAD ST Apt. #8    DORCHESTER, MA
-               Age:    30
-           Charges:    THREAT TO COMMIT CRIME
-For Date: 08/29/2015     -  Saturday
-                  0000  DISTURBANCE                          Unfounded / Nothing Loca
-        Call Taker:    Telephone Operator Caroline F MacMillan
-       Vicinity of:    78 W CHESTNUT ST @ 1087 WARREN AVE
-                ID:    Patrolman Kathy Da Silva
-                       Disp-00:31:24                  Arvd-00:41:01 Clrd-00:42:49
-                       Patrolman Scott E Landry
+                            Brockton Police Department Press Log                             Page: 13
+   Dispatch Log  From: 08/29/2015  Thru: 08/30/2015      0000 - 0000     Printed: 08/31/2015
+                2327  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    12 CARLETON ST Apt. #3RD
+              ID:    Patrolman Andrew H Kalp
+                     Disp-00:51:08                  Arvd-00:59:12   Clrd-08/30/2015 @ 01:05:59
+                2336  DISTURBANCE                          Matter Settled
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    [BRO 7027] 109 ARTHUR ST Apt. #1
+              ID:    Patrolman John E Leary
+                     Disp-00:19:40 Enrt-00:21:40 Arvd-00:27:14 Clrd-08/30/2015 @ 00:29:25
+                2337  DISTURBANCE LOUD MUSIC               Merge: 15-84864 By: 537
+      Call Taker:    Patrolman Carmen L Vazquez
+Location/Address:    76 GIFFORD ST @ 23 WINONA ST
+                2341  DISTURBANCE LOUD MUSIC               Matter Settled
+      Call Taker:    Telephone Operator Justin Baez
+     Vicinity of:    510 CRESCENT ST
+              ID:    Patrolman Andrew H Kalp
+                     Disp-00:42:01 Enrt-00:42:16 Arvd-00:47:50 Clrd-08/30/2015 @ 00:50:06
 
