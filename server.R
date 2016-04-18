@@ -19,15 +19,12 @@ library(rpivotTable)
 
 ## renderLeaflet() is used at server side to render the leaflet map 
 shinyServer(function(input, output) {
+  
   testdata <- subset(testdata, !is.na(Date))
   
-<<<<<<< HEAD
-  testdata <- reactive({
-    testdata <- subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2])
-=======
   test <- reactive({
-      testdata <- subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2])%>% subset(hour(testdata$Date) >= input$time[1] & hour(testdata$Date) <= input$time[2])
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
+    testdata <- subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2]) %>%
+                subset(hour(testdata$Date) >= input$time[1] & hour(testdata$Date) <= input$time[2])
     if(!is.null(input$Charges)){
       if(input$Charges == "All"){
         testdata
@@ -37,21 +34,7 @@ shinyServer(function(input, output) {
           }
     }
     
-    
-    
-    
-    # subset(testdata, as.Date(Date) >= input$date1[1] & as.Date(Date) <= input$date1[2]) %>% subset(hour(testdata$Date) >= input$time[1] & hour(testdata$Date) <= input$time[2])
-    # 
-    # if(!is.null(input$dayweek)){
-    #   if(input$dayweek == "All"){
-    #     sfo_crime_data <- subset(sfo_crime_data, DayOfWeek %in% all_week_list)
-    #   }
-    #   else{
-    #     sfo_crime_data <- subset(sfo_crime_data, DayOfWeek == as.character(input$dayweek))
-    #   }            
-    # }
-   
-    })
+        })
   
   # http://www.treselle.com/blog/crime-analysis-with-shiny-r/
   
@@ -59,12 +42,9 @@ shinyServer(function(input, output) {
     
     Full_df
   })
-  
-  
-  output$mymap <- renderLeaflet({ 
-    if (input$radio == "Clusters"){
+  output$mymap <- renderLeaflet({
     # define the leaflet map object
-    if(input$graph=='Clusters'){
+    if(input$graph == 'Clusters'){
     leaflet(data = test() ) %>% 
       addTiles() %>% 
       setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~long, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
@@ -74,14 +54,8 @@ shinyServer(function(input, output) {
                                                               "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
                                                               "<b>","Arr/Summ Address: ","</b>", test()$Occurrence_location, "<br>",
                                                               "<b>","Age: ","</b>", test()$Age,"<br>",
-<<<<<<< HEAD
                                                               "<b>","Date: ","</b>",test()$Date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE))}
     else{
-=======
-                                                              "<b>","Date: ","</b>",test()$Date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE))
-    }else{
-      
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
       leaflet(data = test() ) %>% 
         addTiles() %>% 
         setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~long, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
@@ -93,17 +67,9 @@ shinyServer(function(input, output) {
                                                                                            "<b>","Age: ","</b>", test()$Age,"<br>",
                                                                                            "<b>","Date: ","</b>",test()$Date))
     }
-<<<<<<< HEAD
     
   })
-=======
-    })
-
- 
- 
->>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
   
 
 
 })
-
