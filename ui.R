@@ -45,16 +45,17 @@ shinyUI(navbarPage("Brockton Police Log", id ="nav",
                                                           min = min(as.Date(testdata$Date), na.rm = TRUE),
                                                           max = max(as.Date(testdata$Date), na.rm = TRUE),
                                                           format = "mm/dd/yy",
-                                                          separator = " to "
+                                                          separator = " - "
                                               ),
-                                               # sliderInput("time", "Animate by Time if Day:", 
-                                               #          min = 0, 
-                                               #          max = 23, 
-                                               #          value = c(0,23),
-                                               #          step = 1,
-                                               #          animate = TRUE),
+                                               sliderInput("time", "Animate by Time if Day:", 
+                                                        min = 0, 
+                                                        max = 23, 
+                                                        value = c(0,23),
+                                                        step = 1,
+                                                        animate = TRUE),
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
-                                                             options = NULL)
+                                                             options = NULL),
+                                              radioButtons("radio","Map Type:", c("Clusters","Markers"))
                                 ),
                                 
                                 tags$div(id ="cite",

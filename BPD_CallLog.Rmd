@@ -8,7 +8,6 @@ output: html_document
 
 By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
 ```{r}
-
 library(plyr)
 library(RCurl)
 library(stringr)
@@ -21,13 +20,14 @@ library(googleVis)
 library(sp)
 library(data.table)
 library(plotly)
+library(rjson)
 library(leaflet)
 library(magrittr)
+library(jsonlite)
 library(dygraphs)
 library(lubridate)
 library(xts)
 library(RDSTK)
-
 ```
 
 
@@ -38,7 +38,7 @@ Here I'm creating all the urls with leading zeros where days and months are less
 ```{r}
 
 prefix <- "http://brocktonpolice.com/wp-content/uploads/"
-AllDays <- seq.Date(from = as.Date('2015-01-01'), to = Sys.Date(), by = "day")
+AllDays <- seq.Date(from = as.Date('2016-03-02'), to = Sys.Date(), by = "day")
 links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
 
 ```
@@ -64,7 +64,7 @@ Here, we go against the website and download the data.
 ```{r , eval= FALSE, error= FALSE}
 #assiging a new WD to put the PDFs
 folder <- paste0(getwd(),"/","Police_logs")
-filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), 
+filenames <- str_c(format(seq.Date(from = as.Date("2016-03-02"), 
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
 filenames <- c(filenames,filenames)
 
@@ -74,6 +74,7 @@ for (i in seq_along(link)) {
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
                   download.file(link[i], filenames[i], mode = "wb")
+          print(paste0("Downloading: ", filenames[i]))
                   } }, error = function(e){})
       #since we bipassed the error and the file was created anyway, we go in and  
       #check for file size to make sure the file is deleted before the loop checks
@@ -95,7 +96,13 @@ pdf_list <- list.files(path = folder,
                        pattern = ".pdf",
                        full.names = TRUE)
 
+<<<<<<< HEAD
 txt_names <- list.files(folder, pattern = ".txt")
+=======
+txt_names <- list.files(path = folder,
+                       pattern = ".pdf") %>% str_replace_all(".pdf",".txt")
+
+>>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
@@ -104,6 +111,8 @@ for (i in seq_along(txt_names)) {
             }
            
 }
+
+txt_names <- list.files(folder, pattern = ".txt")
 
 ```
 
@@ -139,52 +148,64 @@ Processing texts
                     Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
                     
                     
-                    
-                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","")
+
+
+                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE")
                     address <- str_replace_all(address,' Apt\\. .*, ',', BROCKTON, ')
                     address <- str_replace_all(address,"NA, BROCKTON, MA","")
+
+                    police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n")
+                    police_officer <-str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
-                    
-                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")
+                    call_reason_action <- str_replace_all(call_reason_action, "[[:digit:]]{4}","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
                     Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","") 
                     
-                    Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n")
+                    Refer_To_Summons <- str_replace_all(Refer_To_Summons, "Refer To Summons:","")%>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    Summons <- str_extract_all(txtparts, "         Summons:    .*\n")  %>% str_replace_all("Summons:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    Summons <- str_extract_all(txtparts, "         Summons:    .*\n") %>%str_replace_all("Summons:","")  
+                    Summons <- str_replace_all(Summons, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n")  %>% str_replace_all("Arrest:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n") 
+                    Arrested <- str_replace_all(Arrested,"Arrest:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
+                    Age <- str_replace_all(Age, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") 
+                    Occurrence_location <- str_replace_all(Occurrence_location, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:","")) %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:",""))
+                    charges <- str_replace_all(charges, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
-                    response_time <- str_extract_all(txtparts,"Arvd.*\n") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace_all("c\\(","")
+                    response_time <- str_extract_all(txtparts,"Arvd.*\n") 
+                    response_time <- str_replace_all(response_time, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace_all("c\\(","")
   
   
                     #Putting everything together
   
                     BPD_log <- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
-                     BPD_log <- data.frame(BPD_log, stringsAsFactors = FALSE)
+                    BPD_log <- data.frame(BPD_log, stringsAsFactors = FALSE)
                     BPD_log[BPD_log == "character(0"] = NA 
                     BPD_log[BPD_log == "character(0)"] = NA
                     BPD_log[BPD_log == ""] = NA 
                     BPD_log$address[is.na(BPD_log$address)] <- 0
-                    BPD_log <- subset(BPD_log, !is.na(Date))
+                    BPD_log <- subset(BPD_log, !is.na(Call_taker))
 
                     for ( i in seq_along(BPD_log$Summons)){
                       
                           if(!is.na(BPD_log$Summons[i])){
-                            
+  
                             BPD_log$Arr_summ_ind[i] <- "Summoned"
                           } else
                             ifelse(!is.na(BPD_log$Refer_To_Arrest[i]),BPD_log$Arr_summ_ind[i] <- "Arrested",BPD_log$Arr_summ_ind[i] <- "Other")
                     }
+                  
         return(BPD_log)
                   }
+
 
 ```
 
@@ -200,7 +221,8 @@ while (i < length(txt_names)) {
       i = i + 1
 } 
 
-write.csv(Full_df,file = "Full_df.csv")
+write.csv(Full_df, "full_bpd_calls.csv")
+write.csv(Full_df[,c(1,4)], "address_bpd_calls.csv")
 ```
 
 This will run after we have all the days merged
@@ -209,6 +231,28 @@ Geocoding script for large list of addresses
 Define a function that will process googles server responses for us.
 
 ```{r , eval= FALSE, error= FALSE}
+
+geocode_attempt <- function(address) {
+    URL2 = paste("http://open.mapquestapi.com/geocoding/v1/address?key=", "Fmjtd%7Cluub2huanl%2C20%3Do5-9uzwdz", 
+        "&location=", address, "&outFormat='json'", "boundingBox=24,-85,50,-125", 
+        sep = "")
+    # print(URL2)
+    URL2 <- gsub(" ", "+", URL2)
+    x = getURL(URL2)
+    x1 <- fromJSON(x)
+    if (length(x1$results[[1]]$locations) == 0) {
+        return(NA)
+    } else {
+        return(c(x1$results[[1]]$locations[[1]]$displayLatLng$lat, x1$results[[1]]$locations[[1]]$displayLatLng$lng))
+    }
+}
+geocode_attempt("17 MADRID SQ, BROCKTON, MA")
+
+
+
+
+
+
 Full_df$address <- as.character(Full_df$address)
 
 Full_df$address[is.na(Full_df$address)] <- 0
@@ -217,10 +261,10 @@ getGeoDetails <- function(address){
    #use the gecode function to query google servers
    geo_reply = geocode(address, output='all', messaging=TRUE, override_limit=TRUE)
    #now extract the bits that we need from the returned list
-   answer <- data.frame(lat=NA, 
-                        long=NA, 
-                        accuracy=NA, 
-                        formatted_address=NA, 
+   answer <- data.frame(lat = NA, 
+                        long = NA, 
+                        accuracy = NA, 
+                        formatted_address = NA, 
                         address_type=NA, 
                         status=NA)
    answer$status <- geo_reply$status
@@ -257,8 +301,12 @@ geocoded <- data.frame()
 startindex <- 1
 #if a temp file exists - load it up and count the rows!
 
+<<<<<<< HEAD
 infile <- "input12"
 
+=======
+infile <- "inputb"
+>>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 tempfilename <- paste0(infile, '_temp_geocoded.rds')
 if (file.exists(tempfilename)){
        print("Found temp file - resuming from index:")
@@ -288,12 +336,18 @@ testdata$accuracy <- geocoded$accuracy
 testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
 testdata <- subset(testdata, !is.na(Date))
+<<<<<<< HEAD
 testdata <- subset(testdata, formatted_address != 'Olt County, Romania')
 test <- testdata[,c(4,18)]
 
 
  
 
+=======
+testdata <- subset(testdata, formatted_address != "Olt County, Romania")
+test <- testdata[,c(4,18)]
+
+>>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
 #finally write it all to the output files
 saveRDS(Full_df, paste0("../data/", infile ,"_geocoded.rds"))
 write.table(data, file=paste0("../data/", infile ,"_geocoded.csv"), sep=",", row.names=FALSE)
@@ -304,10 +358,10 @@ Test
 ```{r , eval= FALSE, error= FALSE}
 
 pal <- colorFactor(c("green", "black","red"), domain = testdata$Arr_summ_ind)
-mymap <- leaflet(data = testdata) %>% 
+mymap <- leaflet(data = check) %>% 
   addTiles() %>% 
   setView(-71.02016, 42.08667, zoom = 13) %>% 
-  addMarkers(~ long, ~ lat, popup = ~call_reason_action, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
+  addMarkers(~ lon, ~ lat, clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE)) 
 mymap
 
 # Creating a word cloud
@@ -323,6 +377,13 @@ wordcloud(BRCorpus, max.words = 100, random.order = FALSE)
 
 
 #trying to visualize patern on the frequency og calls by day or month
+hits_hour = count(testdata, vars = hour(testdata$Date))
+
+colnames(hits_hour) <- c("Hour","Calls")
+hist <- ggplot(data = hits_hour) + geom_line(aes(x = Hour, y =  Calls)) 
+
+library("rpivotTable")
+rpivotTable(testdata)
 
 ts <- as.ts(testdata, order.by = testdata[,1]) %>% subset(!is.na(Date))
 
@@ -331,12 +392,31 @@ ts <- as.ts(ts, order.by =vars)
 
 dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 
-unique(testdata$charges)
-
-
-
-
-
 ```
 
+<<<<<<< HEAD
+
+
+
+=======
+```{r}
+>>>>>>> 1ab37e93385d6dca08c5dc97709b89308857b1dc
+
+check <- testdata$address
+
+
+check <- geocode(Full_df$address[1:136], output='all', messaging=TRUE, override_limit=TRUE)
+ check$lat <- check$results[[1]]$geometry$location$lat
+   check$long <- check$results[[1]]$geometry$location$lng   
+   if (length(check$results[[1]]$types) > 0){
+       check$accuracy <- check$results[[1]]$types[[1]]
+   }
+   check$address_type <- paste(check$results[[1]]$types, collapse=',')
+   check$formatted_address <- check$results[[1]]$formatted_address
+
+   return(check)
+
+test <- cbind(Full_df$address[1:length(check)], check)
+
+```
 
