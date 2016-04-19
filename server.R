@@ -72,17 +72,47 @@ shinyServer(function(input, output) {
     
   })
   
-  call_volume <- reactive({
-    temp <- tally(group_by(test(), hour(Date)))
-    colnames(temp) <- c("Time", "Count")
-    
-  })
+  
 
   
   output$summary <- renderPlotly({
     
-    
-    plot_ly(call_volume(), x = Time, y = Count)
+      temp <- tally(group_by(test(), hour(Date)))
+      colnames(temp) <- c("Time", "Count")
+      
+    plot_ly(temp, x = Time, y = Count)
   })
 
+  output$summary2 <- renderPlotly({
+    
+    temp <- tally(group_by(test(),weekdays(Date)))
+    colnames(temp) <- c("Weekdays", "Count")
+    temp$Weekdays <- factor(temp$Weekdays, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+    temp <- arrange(temp, Weekdays)
+    plot_ly(temp, x = Weekdays, y = Count)
+  })
+  
+  output$trend <- renderPlotly({
+    trend <- Full_df %>% group_by(as.Date(Date)) %>% summarize(n=n())
+    colnames(trend) <- c("Date", "Count")
+    plot_ly(trend, x = Date, y = Count)
+  })
+  
+  output$table <- renderDataTable({
+    
+    fnl2 <- Full_df %>% group_by(Month = as.Date(Date, format = "%y %B")) %>%
+      summarize(n=n())
+  })
+    
 })
+
+
+
+
+
+
+
+
+
+
+

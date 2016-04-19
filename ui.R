@@ -34,7 +34,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                 
                                 # Shiny versions prior to 0.11 should use class="modal" instead.
                                 absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                              draggable = TRUE, top = 60, left = 20, right = "auto", bottom = "auto",
+                                              draggable = TRUE, top = 60, left = 20, right = "auto", bottom = 60,
                                               width = 330, height = "auto",
                                               
                                               h2("Apply Filters"),
@@ -56,9 +56,10 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
                                                              options = NULL),
                                               radioButtons("graph","Map Type:", c("Clusters","Markers")),
-                                              
-                                              plotlyOutput("summary", height = 200)
-                                                       
+                                              h5("Call Frequency by Time of Day"),
+                                              plotlyOutput("summary", height = 200),
+                                              h5("Call Frequency by Weekdays"),
+                                              plotlyOutput("summary2",height = 200)         
                                                        
                                               
                                 ),
@@ -70,10 +71,18 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                             )
                    ),
                    
-                   tabPanel("Data explorer (Full Dataset)",
+                   tabPanel("Data Explorer",
                             
                             dataTableOutput("Data")
                             
+                   ),
+                   tabPanel("Summary",
+                            
+                           plotlyOutput("trend"),
+                           
+                           dataTableOutput("table")
+                     
+                     
                    )
                    
                    

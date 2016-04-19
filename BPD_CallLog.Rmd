@@ -190,6 +190,9 @@ Processing texts
                     BPD_log[BPD_log == ""] = NA 
                     BPD_log$address[is.na(BPD_log$address)] <- 0
                     BPD_log <- subset(BPD_log, !is.na(Call_taker))
+                    BPD_log$Date <- as.POSIXct(BPD_log$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
+                    BPD_log$Month <-   month(BPD_log$Date, label = TRUE)
+                    BPD_log$Day <- day(BPD_log$Date)
 
                     for ( i in seq_along(BPD_log$Summons)){
                       
@@ -307,6 +310,8 @@ testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
 testdata$formatted_address <- geocoded$formatted_address
 testdata$Date <- as.POSIXct(testdata$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
+testdata$Month <-   month(testdata$Date, label = TRUE)
+testdata$Day <- day(testdata$Date)
 testdata <- subset(testdata, !is.na(Date))
 testdata <- subset(testdata, formatted_address != "Olt County, Romania")
 
