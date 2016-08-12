@@ -28,35 +28,32 @@ library(dygraphs)
 library(lubridate)
 library(xts)
 library(RDSTK)
+library(mondate)
 ```
 
 
 By examining the urls, sometimes there is no leading zero before days and months less than ten.  
+I also noticed that for some days, the months in the URL are different.
+Some of the links have the four digits year spelled out.
 
 Here I'm creating all the urls with leading zeros where days and months are less than ten.
 
 ```{r}
 
-prefix <- "http://brocktonpolice.com/wp-content/uploads/"
-AllDays <- seq.Date(from = as.Date('2016-03-02'), to = Sys.Date(), by = "day")
-links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
-
-```
-
-Here I'm creating all the urls with without leading zeros where days and months are less than ten.
-
-```{r}
-
+prefix <- "private_link"
+AllDays <- seq.Date(from = as.Date('2015-04-01'), to = Sys.Date(), by = "day")
+#Here I'm creating all the urls with without leading zeros where days and months are less than ten.
 AllDays_NL <- gsub("0", "", format(AllDays, '%m%d%y'))
+links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
 links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
+links3 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%Y'), '.pdf')
+links4 <- paste0(prefix, format(AllDays, '%Y/%m/'), format(as.mondate(AllDays)-1,"%m%d%y"),'.pdf')
 
-```
-
-Since there is not a clear pattern on when we do and don't have a leading zero, we will put the two lists together and extract the data whenever we have a match
-```{r , eval= FALSE, error= FALSE}
-
-link <- c(links1,links2)
-
+links <- data.frame(links1,links2,links3,links4)
+links$links1 <-as.character(links$links1) 
+links$links2 <-as.character(links$links2) 
+links$links3 <-as.character(links$links3) 
+links$links4 <-as.character(links$links4) 
 ```
 
 Here, we go against the website and download the data.
@@ -66,22 +63,27 @@ Here, we go against the website and download the data.
 folder <- paste0(getwd(),"/","Police_logs")
 filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
-filenames <- c(filenames,filenames)
-
 setwd(folder)
-for (i in seq_along(link)) {
+for (i in seq_along(links[,1])) {
       #using trycatch to bipass the error when url doesn't exist
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
-                  download.file(link[i], filenames[i], mode = "wb")
+                  download.file(links[i,1], filenames[i], mode = "wb")
           print(paste0("Downloading: ", filenames[i]))
-                  } }, error = function(e){})
-      #since we bipassed the error and the file was created anyway, we go in and  
-      #check for file size to make sure the file is deleted before the loop checks
-      #checks for file name again
-      if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
-            file.remove(filenames[i])
-      }
+                  } }, error = function(e){},
+                       finally = {
+                         for (j in seq_along(links[i,])){
+                               tryCatch({
+                               
+                               download.file(links[i,j], filenames[i], mode = "wb")
+                             }, error = function(e){}
+                           
+                          )
+                             }
+                       }
+      
+      )
+      
       
 }
 
@@ -363,7 +365,7 @@ dygraph(ts, main = "Call Frequency", xlab = "Date", ylab = "Frequency")
 ```
 
 
-```{r}
+```{r, eval= FALSE, error= FALSE}
 
 check <- testdata$address
 
