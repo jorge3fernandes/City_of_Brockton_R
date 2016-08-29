@@ -40,52 +40,71 @@ Here I'm creating all the urls with leading zeros where days and months are less
 
 ```{r}
 
-prefix <- "private_link"
+prefix <- "http://www.brocktonpolice.com/wp-content/uploads/"
 AllDays <- seq.Date(from = as.Date('2015-04-01'), to = Sys.Date(), by = "day")
+backdays <- AllDays - 30
 #Here I'm creating all the urls with without leading zeros where days and months are less than ten.
 AllDays_NL <- gsub("0", "", format(AllDays, '%m%d%y'))
+AllDays_NL_5 <- gsub("0", "", format(backdays, '%m%d%y'))
 links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
 links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
 links3 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%Y'), '.pdf')
-links4 <- paste0(prefix, format(AllDays, '%Y/%m/'), format(as.mondate(AllDays)-1,"%m%d%y"),'.pdf')
+links4 <- paste0(prefix, format(AllDays, '%Y/%m/'), format(backdays,"%m%d%y"),'.pdf')
+links5 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL_5,'.pdf')
 
-links <- data.frame(links1,links2,links3,links4)
-links$links1 <-as.character(links$links1) 
-links$links2 <-as.character(links$links2) 
-links$links3 <-as.character(links$links3) 
-links$links4 <-as.character(links$links4) 
+links <- c(links1,links2,links3, links4, links5)
 ```
 
 Here, we go against the website and download the data.
 
 ```{r , eval= FALSE, error= FALSE}
+
 #assiging a new WD to put the PDFs
 folder <- paste0(getwd(),"/","Police_logs")
 filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
                                    to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
+filenames_Total <- c(filenames,filenames,filenames,filenames,filenames)
 setwd(folder)
-for (i in seq_along(links[,1])) {
+
+test <- data.frame(filenames_Total,links)
+
+for (i in seq_along(links4)) {
       #using trycatch to bipass the error when url doesn't exist
       tryCatch({
       if (!file.exists(str_c(folder,"/",filenames[i]))) { 
-                  download.file(links[i,1], filenames[i], mode = "wb")
+                  download.file(links4[i], filenames[i], mode = "wb")
           print(paste0("Downloading: ", filenames[i]))
-                  } }, error = function(e){},
-                       finally = {
-                         for (j in seq_along(links[i,])){
-                               tryCatch({
-                               
-                               download.file(links[i,j], filenames[i], mode = "wb")
-                             }, error = function(e){}
-                           
-                          )
-                             }
-                       }
+      } },error = function(e){}
       
       )
       
-      
+      #since we bipassed the error and the file was created anyway, we go in and  
+      #check for file size to make sure the file is deleted before the loop checks
+      #checks for file name again
+      if (is.na(file.info(filenames[i])$size) | file.info(filenames[i])$size == 0) {
+            file.remove(filenames[i])}
 }
+##########################################ALTERNANTE DOWNLOAD########################
+for (i in seq_along(links)) {
+      #using trycatch to bipass the error when url doesn't exist
+      tryCatch({
+                  download.file(links[i],paste0("file_",i,".pdf") , mode = "wb")
+          print(paste0("Downloading: ", paste0("file_",i,".pdf")))
+       },error = function(e){}
+      
+      )
+      
+      #since we bipassed the error and the file was created anyway, we go in and  
+      #check for file size to make sure the file is deleted before the loop checks
+      #checks for file name again
+      if (is.na(file.info(paste0("file_",i,".pdf"))$size) | file.info(paste0("file_",i,".pdf"))$size == 0) {
+            file.remove(paste0("file_",i,".pdf"))}
+}
+
+# Checking for missing files
+Missingfilenames <- filenames[which(!(filenames%in%pdf_list))]
+missing_links <- links4[which(!(filenames%in%pdf_list))]
+test <- data.frame(Missingfilenames,missing_links)
 
 ```
 
@@ -95,14 +114,14 @@ Since the data is in pdf format, we use pdftools to extract text from the PDFs
 # I use PDFtools to extract text from PDF
 
 pdf_list <- list.files(path = folder,
-                       pattern = ".pdf",
-                       full.names = TRUE)
+                       pattern = ".pdf")
+
 
 
 txt_names <- list.files(path = folder,
                        pattern = ".pdf") %>% str_replace_all(".pdf",".txt")
 
-
+i <- 1
 for (i in seq_along(txt_names)) {
             if (!file.exists(folder[i])) { 
                   write(pdf_text(pdf_list[i]), file = txt_names[i])
@@ -113,13 +132,15 @@ for (i in seq_along(txt_names)) {
 
 txt_names <- list.files(folder, pattern = ".txt")
 
+folder[2]
+
 ```
 
 Processing texts
 
 ```{r , eval= FALSE, error= FALSE}
- df <- function(call_log) {
-                    text <- readLines(call_log)
+ df <- function(txt_names[111]) {
+                    text <- readLines("file_111.txt")
   
                     #marking where to split
   
@@ -149,9 +170,10 @@ Processing texts
                     
 
 
-                    address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE")
-                    address <- str_replace_all(address,' Apt\\. .*, ',', BROCKTON, ')
-                    address <- str_replace_all(address,"NA, BROCKTON, MA","")
+                    Response_address <- str_extract(txtparts, "Location/Address:.*\n|Vicinity of:.*\n")%>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE")
+                    #Since I'm capturing only the raw data, I'll save the next steps for later
+                   # address <- str_replace_all(address,' Apt\\. .*, ',', BROCKTON, ')
+                   # address <- str_replace_all(address,"NA, BROCKTON, MA","")
 
                     police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n")
                     police_officer <-str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
@@ -172,8 +194,9 @@ Processing texts
                     
                     Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
                     Age <- str_replace_all(Age, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
+                    #age_m <- unlist(str_split(Age, ","))
                     
-                    Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") 
+                    Suspect_Address <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") 
                     Occurrence_location <- str_replace_all(Occurrence_location, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","")
                     
                     charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:",""))
@@ -185,15 +208,15 @@ Processing texts
   
                     #Putting everything together
   
-                    BPD_log <- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
+                    BPD_log <- cbind(Date, Call_taker, call_reason_action, Response_address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Suspect_Address, charges, response_time)
                     BPD_log <- data.frame(BPD_log, stringsAsFactors = FALSE)
                     BPD_log[BPD_log == "character(0"] = NA 
                     BPD_log[BPD_log == "character(0)"] = NA
                     BPD_log[BPD_log == ""] = NA 
-                    BPD_log$address[is.na(BPD_log$address)] <- 0
+                    BPD_log$Response_address[is.na(BPD_log$Response_address)] <- 0
                     BPD_log <- subset(BPD_log, !is.na(Call_taker))
                     BPD_log$Date <- as.POSIXct(BPD_log$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
-                    BPD_log$Month <-   month(BPD_log$Date, label = TRUE)
+                    BPD_log$Month <- month(BPD_log$Date)
                     BPD_log$Day <- day(BPD_log$Date)
 
                     for ( i in seq_along(BPD_log$Summons)){
@@ -206,7 +229,17 @@ Processing texts
                     }
                   
         return(BPD_log)
-                  }
+ }
+
+for (i in seq_along(BPD_log$Age)){
+  if (length(unlist(BPD_log$Age[174], ",")) > 1){
+          temp <- unlist(BPD_log$Age[i]
+    for (j in seq_along(temp)){
+      
+      BPD_log$Age_arrested() <- temp[j]
+    }
+  }
+}
 
 
 ```
@@ -306,7 +339,7 @@ for (ii in seq(startindex, length(Full_df$address))){
 }
 
 #now we add the latitude and longitude to the main data
-testdata <- Full_df[1:length(geocoded[,1]),]
+CrimeData <- Full_df[!is.na(Full_df$Refer_To_Summons),]
 testdata$lat <- geocoded$lat
 testdata$long <- geocoded$long
 testdata$accuracy <- geocoded$accuracy
