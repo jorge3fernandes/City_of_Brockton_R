@@ -58,58 +58,55 @@ for(i in seq_along(pdf_list)){
 }
 
 #Updating the dataset
-pdf_list <- list.files(path = folder, pattern = ".pdf")
-Missingfilenames <- filenames[which(!(filenames%in%pdf_list))]
-links_update <- data.frame(filenames,links1,links2,links2b,links3, links4, links5,links5b)
-miss_subset <- links_update[which(links_update$filenames %in% Missingfilenames),]
+download_update <- function (){
+                            setwd("/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs")
+                            pdf_list <- list.files(path = folder, pattern = ".pdf")
+                            Missingfilenames <- filenames[which(!(filenames%in%pdf_list))]
+                            links_update <- data.frame(filenames,links1,links2,links2b,links3, links4, links5,links5b)
+                            miss_subset <- links_update[which(links_update$filenames %in% Missingfilenames),]
+                            
+                            for (i in seq_along(miss_subset$filenames)) {
+                              if (!file.exists(str_c(folder,"/",miss_subset$filenames[i]))) {
+                                for (j in 2:8) {
+                                  tryCatch({
+                                    download.file(as.character(miss_subset[i,j]), paste0("file",i,".pdf"), mode = "wb")
+                                    
+                                  },error = function(e){}
+                                  )
+                                  
+                                }
+                              }  
+                            }
+                            pdf_list <- list.files(path = folder, pattern = ".pdf")
+                            txt_list <- list.files(path = folder, pattern = ".txt") %>% str_replace(".txt",".pdf")
+                            miss_txt_list <- pdf_list[which(!(pdf_list %in% txt_list))]
+                            
+                            for(i in seq_along(miss_txt_list)){
+                              
+                              txt <- str_c(pdf_text(miss_txt_list[i]), collapse = "\n")
+                              date <- str_extract(txt, "\\d{2}/\\d{2}/\\d{4}")
+                              name <- paste0(str_replace_all(date,"/","_"),".pdf")
+                              file.rename(miss_txt_list[i],name)
 
-for (i in seq_along(miss_subset$filenames)) {
-  if (!file.exists(str_c(folder,"/",miss_subset$filenames[i]))) {
-    for (j in 2:8) {
-      tryCatch({
-        download.file(as.character(miss_subset[i,j]), paste0("file",i,".pdf"), mode = "wb")
-        
-      },error = function(e){}
-      )
-      
-    }
-  }  
-}
-
-miss_txt_list <- pdf_list[which(!(pdf_list %in% links_update$filenames))]
-for(i in seq_along(miss_txt_list)){
-  
-  txt <- str_c(pdf_text(miss_txt_list[i]), collapse = "\n")
-  date <- str_extract(txt, "\\d{2}/\\d{2}/\\d{4}")
-  name <- paste0(str_replace_all(date,"/","_"),".pdf")
-  file.rename(miss_txt_list[i],name)
-}
-
-# Since the data is in pdf format, we use pdftools to extract text from the PDFs
-
-# I use PDFtools to extract text from PDF
-
-pdf_list <- list.files(path = folder,
-                       pattern = ".pdf")
-
-
-
-txt_names <- list.files(path = folder,
-                        pattern = ".pdf") %>% str_replace_all(".pdf",".txt")
-
-i <- 1
-for (i in seq_along(txt_names)) {
-  if (!file.exists(folder[i])) { 
-    write(pdf_text(pdf_list[i]), file = txt_names[i])
-    print(paste("Working on file: ",pdf_list[i]))
+                            }
+                             
+                              
   }
+### use the function to update the dataset
+download_update()
+
+
+for (i in seq_along(miss_txt_list)) {
+  txt_list <- list.files(path = folder, pattern = ".txt") %>% str_replace(".txt",".pdf")
+  miss_txt_list <- pdf_list[which(!(pdf_list %in% txt_list))] 
+  write(pdf_text(miss_txt_list[i]), file = str_replace(miss_txt_list[i],".pdf",".txt"))
+  print(paste("Working on file: ",miss_txt_list[i]))
   
 }
+######################################## Creating the dataframe ##############################
 
-txt_names <- list.files(folder, pattern = ".txt")
-
-
-# Processing texts
+# using the library stringr and regex here we extract the information 
+# from the text files and turn it into a dataframe
 
 df <- function(txt_names) {
   text <- readLines(txt_names)
@@ -202,6 +199,7 @@ df <- function(txt_names) {
   
   return(BPD_log)
 }
+txt_names <- list.files(path = folder, pattern = ".txt")
 
 # Combining daily logs into one data frame
 
@@ -215,4 +213,4 @@ while (i < length(txt_names)) {
 } 
 Full_df$Date <- as.POSIXct(Full_df$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
 write.csv(Full_df, "full_bpd_calls.csv")
-write.csv(Full_df[,c(1,4)], "address_bpd_calls.csv")
+crimes <- unique(Full_df$charges)
