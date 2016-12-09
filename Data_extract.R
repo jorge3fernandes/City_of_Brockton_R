@@ -32,7 +32,7 @@
   
   
   #assiging a new WD to put the PDFs
-  folder <- paste0(getwd(),"/","Police_logs")
+  folder <- "/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs"
   filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
                                      to = Sys.Date(), by = "day"),"%m_%d_%Y"),".pdf")
   setwd(folder)
@@ -58,9 +58,12 @@
   
   #Updating the dataset
   download_update <- function(){
-                              data <- read.csv("full_bpd_calls.csv")
+                              folder <- "/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs"
+                              setwd(folder)
+                              data <- read.csv("full_bpd_calls.csv", row.names = NULL)
+                              data$Date <- as.POSIXct(data$Date)
                               prefix <- "http://www.brocktonpolice.com/wp-content/uploads/"
-                              AllDays <- seq.Date(from = as.Date('2015-04-01'), to = Sys.Date(), by = "day")
+                              AllDays <- seq.Date(from = as.Date(max(data$Date)), to = Sys.Date(), by = "day")
                               #Here I'm creating all the urls with without leading zeros where days and months are less than ten.
                               AllDays_NL <- gsub("0", "", format(AllDays, '%m%d%y'))
                               AllDays_NL_5 <- gsub("0", "", format(AllDays, '%m%d%y'))
@@ -73,8 +76,7 @@
                               links5b <- paste(substring(links4, 1, 57), substring(links4, 59), sep = "")
                               
                               links <- as.character(c(links1,links2,links2b,links3, links4, links5,links5b))
-                              setwd("/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs")
-                              filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
+                              filenames <- str_c(format(seq.Date(from = as.Date(max(data$Date)), 
                                        to = Sys.Date(), by = "day"),"%m_%d_%Y"),".pdf")
                               pdf_list <- list.files(path = folder, pattern = ".pdf")
                               Missingfilenames <- filenames[which(!(filenames %in% pdf_list))]
@@ -93,10 +95,14 @@
                                   }
                                 }  
                               }
-                              pdf_list <- list.files(path = folder, pattern = ".pdf")
-                              txt_list <- list.files(path = folder, pattern = ".txt") %>% str_replace(".txt",".pdf")
-                              miss_txt_list <- pdf_list[which(!(pdf_list %in% txt_list))]
+                              #Getting the list of PDFs that haven't been converted yet
+                              full_existing_txt <- list.files(path = folder, pattern = ".txt")
+                              #get a list of all the PDFs and convert to .txt
+                              txt_list <- list.files(path = folder, pattern = ".pdf") %>% str_replace(".pdf",".txt")
+                              #extract the missing ones and replace the extension back to pdf 
+                              miss_txt_list <- txt_list[which(!(txt_list %in% full_existing_txt))] %>% str_replace(".txt",".pdf")
                               
+                              #extracting data from new PDFs
                               for (i in seq_along(miss_txt_list)) {
                                 
                                 txt <- str_c(pdf_text(miss_txt_list[i]), collapse = "\n")
@@ -231,6 +237,7 @@
   # using the library stringr and regex here we extract the information 
   # from the text files and turn it into a dataframe
   new_txt <- str_replace(miss_txt_list,".pdf",".txt") 
+  #new_txt <- list.files(path = folder, pattern = ".txt")
   df <- function(new_txt) {
     text <- readLines(new_txt)
     
