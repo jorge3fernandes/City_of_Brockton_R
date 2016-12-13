@@ -32,7 +32,7 @@
   
   
   #assiging a new WD to put the PDFs
-  folder <- "/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs"
+  folder <- "/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs"
   filenames <- str_c(format(seq.Date(from = as.Date("2015-04-01"), 
                                      to = Sys.Date(), by = "day"),"%m_%d_%Y"),".pdf")
   setwd(folder)
@@ -58,7 +58,7 @@
   
   #Updating the dataset
   download_update <- function(){
-                              folder <- "/Users/legs_jorge/Desktop/RBrockton/RBrockton/Police_logs"
+                              folder <- "/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs"
                               setwd(folder)
                               data <- read.csv("full_bpd_calls.csv", row.names = NULL)
                               data$Date <- as.POSIXct(data$Date)
@@ -95,6 +95,17 @@
                                   }
                                 }  
                               }
+                              
+                              
+                              ##### Deleting the empty PDFs#####
+                              PDFs_Empty <- list.files(pattern = "*.pdf")   
+                              
+                              # Use file.size() immediate, instead of file.info(docs)$size:
+                              inds <- file.size(PDFs_Empty) < 0.01 
+                              
+                              # Remove all documents with file.size < 0.01 from the directory
+                              file.remove(PDFs_Empty[inds])
+                              ######----------------------########
                               #Getting the list of PDFs that haven't been converted yet
                               full_existing_txt <- list.files(path = folder, pattern = ".txt")
                               #get a list of all the PDFs and convert to .txt
@@ -102,6 +113,13 @@
                               #extract the missing ones and replace the extension back to pdf 
                               miss_txt_list <- txt_list[which(!(txt_list %in% full_existing_txt))] %>% str_replace(".txt",".pdf")
                               
+                              ###### Early Check to see if there is anything new ######
+                             
+                              if (length(miss_txt_list) == 0 ){
+                               
+                                stop("No updates today, Jorge! Let's check back tomorrow! It's time to update this man.")
+                              }
+                              ########################################################
                               #extracting data from new PDFs
                               for (i in seq_along(miss_txt_list)) {
                                 
@@ -209,6 +227,8 @@
                                 return(BPD_log)
                               }
                               # Combining daily logs into one data frame
+                              
+                              new_txt <- 
                               
                               Full_df <- df(new_txt[1])
                               i <- 2
