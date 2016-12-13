@@ -27,19 +27,26 @@ Week_sum <- arrange(Week_sum, Weekdays)
 plot_ly(Week_sum, x = Weekdays, y = Count)
 ggplot(Date_sum, aes(Date, Count)) + geom_line() + xlab("") + ylab("Daily Count")
 
-#unmerging cells with multiple names
+#unmerging cells with multiple values and turning them into their specific rows
 SummonsDF <- clean_data %>% 
   mutate(Summons = strsplit(as.character(Summons), "\", \"")) %>% 
   unnest(Summons)
 
 SummonsDF <- SummonsDF[,c("Date","Refer_To_Summons","Summons")]
+  
+SummonsDF$Summons <- str_replace_all(SummonsDF$Summons, "\"","")
 
 ArrestedDF <- clean_data %>% 
   mutate(Arrested = strsplit(as.character(Arrested), "\", \"")) %>% 
   unnest(Arrested)
 ArrestedDF <- ArrestedDF[,c("Date","Refer_To_Arrest" , "Arrested")]
+ArrestedDF$Arrested <- str_replace_all(ArrestedDF$Arrested, "\"","")
 
 Suspect_AddressDF <- clean_data %>% 
   mutate(Suspect_Address = strsplit(as.character(Suspect_Address), "\", \"")) %>% 
   unnest(Suspect_Address)
-Suspect_AddressDF <- Suspect_AddressDF[,c("Date","Suspect_Address")]
+
+Suspect_AddressDF <- Suspect_AddressDF[,c("Date","Suspect_Address","Refer_To_Summons","Refer_To_Arrest")]
+Suspect_AddressDF$Suspect_Address <- str_replace_all(Suspect_AddressDF$Suspect_Address,"c\\(\" ","") %>% str_replace_all("\\\\n","") %>% str_replace_all("\"\\)","")
+
+test <- merge(x = Suspect_AddressDF, y = ArrestedDF, by = c("Date","Refer_To_Arrest"), all.x = TRUE)
