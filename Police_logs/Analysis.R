@@ -1,7 +1,9 @@
-library(ggplot2)
+library(ggploRefer_To_Summons)
 library(tidyr)
 library(dplyr)
-
+library(plotly)
+library(sqldf)
+library(fuzzyjoin)
 # Cleanning the data for analysis
 
 setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs")
@@ -9,44 +11,70 @@ clean_data <- read.csv("full_bpd_calls.csv")
 
 clean_data$X <- NULL
 
-# focusing on the data where people where summond or arrested
-
-crimes <- subset(clean_data, !is.na(clean_data$Refer_To_Summons) | !is.na(clean_data$Refer_To_Arrest) )
-crimes$Date <- as.POSIXct(crimes$Date)
-
-ggplot(crimes, aes(weekdays(Date),count(Date))+geom_bar())
-
-Date_sum <- count(crimes, as.Date(Date))
-colnames(Date_sum) <- c('Date', 'Count')
-
-Week_sum <- count(crimes, weekdays(Date))
-
-colnames(Week_sum) <- c('Weekdays', 'Count')
-Week_sum$Weekdays <- factor(Week_sum$Weekdays, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-Week_sum <- arrange(Week_sum, Weekdays)
-plot_ly(Week_sum, x = Weekdays, y = Count)
-ggplot(Date_sum, aes(Date, Count)) + geom_line() + xlab("") + ylab("Daily Count")
-
+##################### Use sqldf to do the join next time you start on the project
 #unmerging cells with multiple values and turning them into their specific rows
-SummonsDF <- clean_data %>% 
-  mutate(Summons = strsplit(as.character(Summons), "\", \"")) %>% 
-  unnest(Summons)
 
-SummonsDF <- SummonsDF[,c("Date","Refer_To_Summons","Summons")]
-  
-SummonsDF$Summons <- str_replace_all(SummonsDF$Summons, "\"","")
+################# Summons
 
-ArrestedDF <- clean_data %>% 
-  mutate(Arrested = strsplit(as.character(Arrested), "\", \"")) %>% 
-  unnest(Arrested)
-ArrestedDF <- ArrestedDF[,c("Date","Refer_To_Arrest" , "Arrested")]
-ArrestedDF$Arrested <- str_replace_all(ArrestedDF$Arrested, "\"","")
+Summonsdf <- clean_data[,c("Date","Summons","charges")]
+colnames(Summonsdf) <- c("Date","Summons","charges.summons")
+Summonsdf = na.omit(Summonsdf)
 
-Suspect_AddressDF <- clean_data %>% 
-  mutate(Suspect_Address = strsplit(as.character(Suspect_Address), "\", \"")) %>% 
-  unnest(Suspect_Address)
+Summonsdf = separate(Summonsdf, col = Summons, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = "\", \"")
+Summonsdf = gather(Summonsdf, key = "x", value = "Summons", Name1:Name10)
+Summonsdf = na.omit(Summonsdf)
 
-Suspect_AddressDF <- Suspect_AddressDF[,c("Date","Suspect_Address","Refer_To_Summons","Refer_To_Arrest")]
-Suspect_AddressDF$Suspect_Address <- str_replace_all(Suspect_AddressDF$Suspect_Address,"c\\(\" ","") %>% str_replace_all("\\\\n","") %>% str_replace_all("\"\\)","")
+############### Refer_To_Summons
+Refer_To_Summonsdf <- clean_data[,c("Date","Refer_To_Summons")] 
+Refer_To_Summonsdf = na.omit(Refer_To_Summonsdf)
 
-test <- merge(x = Suspect_AddressDF, y = ArrestedDF, by = c("Date","Refer_To_Arrest"), all.x = TRUE)
+Refer_To_Summonsdf = separate(Refer_To_Summonsdf, col = Refer_To_Summons, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = ",")
+Refer_To_Summonsdf = gather(Refer_To_Summonsdf, key = "x", value = "Refer_To_Summons", Name1:Name10)
+Refer_To_Summonsdf = na.omit(Refer_To_Summonsdf)
+
+Summons.Refer <- full_join(Summonsdf,Refer_To_Summonsdf, by= c("x"="x" , "Date"= "Date"))
+
+##################Arrest#############################
+
+Arrestdf <- clean_data[,c("Date","Arrested","charges")]
+colnames(Arrestdf) <- c("Date","Arrested","charges.Arrest")
+Arrestdf = na.omit(Arrestdf)
+
+Arrestdf = separate(Arrestdf, col = Arrested, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = "\", \"")
+Arrestdf = gather(Arrestdf, key = "x", value = "Arrested", Name1:Name10)
+Arrestdf = na.omit(Arrestdf)
+
+############## Refer_To_Arrest
+Refer_To_Arrestdf <- clean_data[,c("Date","Refer_To_Arrest")]
+Refer_To_Arrestdf = na.omit(Refer_To_Arrestdf)
+
+Refer_To_Arrestdf = separate(Refer_To_Arrestdf, col = Refer_To_Arrest, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = ",")
+Refer_To_Arrestdf = gather(Refer_To_Arrestdf, key = "x", value = "Refer_To_Arrest", Name1:Name10)
+Refer_To_Arrestdf = na.omit(Refer_To_Arrestdf)
+
+Arrest.Refer <- full_join(Arrestdf,Refer_To_Arrestdf, by= c("x"="x" , "Date"= "Date"))
+
+#################Merging Arrests and Summons#################
+Arrest.Summons <- full_join(Summons.Refer,Arrest.Refer, by= c("x"="x" , "Date"= "Date"))
+##################Age#############################
+
+Agedf <- clean_data[,c("Date","Age")]
+Agedf = na.omit(Agedf)
+
+Agedf1 = separate(Agedf, col = Age, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = ",")
+Agedf2 = gather(Agedf1, key = "x", value = "Age", Name1:Name10)
+Agedf2 = na.omit(Agedf2)
+
+## Suspect_Address
+susp.Addressdf <- clean_data[,c("Date","Suspect_Address")]
+susp.Addressdf = na.omit(susp.Addressdf)
+susp.Addressdf1 = separate(susp.Addressdf, col = Suspect_Address, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = "\", \"")
+susp.Addressdf2 = gather(susp.Addressdf1, key = "x", value = "Suspect_Address", Name1:Name10)
+susp.Addressdf2 = na.omit(susp.Addressdf2)
+
+Age.Address <- full_join(Agedf2,susp.Addressdf2, by = c("x"="x" , "Date"= "Date"))
+
+individual.full <- full_join(Arrest.Summons,Age.Address, by= c("x"="x" , "Date"= "Date"))
+
+write.csv(individual.full,"individual.full.csv", row.names = FALSE)
+

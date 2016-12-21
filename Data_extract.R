@@ -58,6 +58,8 @@
   
   #Updating the dataset
   download_update <- function(){
+    
+    
                               folder <- "/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs"
                               setwd(folder)
                               data <- read.csv("full_bpd_calls.csv", row.names = NULL)
@@ -80,20 +82,17 @@
                                        to = Sys.Date(), by = "day"),"%m_%d_%Y"),".pdf")
                               pdf_list <- list.files(path = folder, pattern = ".pdf")
                               Missingfilenames <- filenames[which(!(filenames %in% pdf_list))]
-                              links_update <- data.frame(filenames,links1,links2,links2b,links3, links4, links5,links5b)
+                              links_update <- c(links1,links2,links2b,links3, links4, links5,links5b)
                               miss_subset <- links_update[which(links_update$filenames %in% Missingfilenames),]
                               
-                              for (i in seq_along(miss_subset$filenames)) {
-                                if (!file.exists(str_c(folder,"/",miss_subset$filenames[i]))) {
-                                  for (j in 2:8) {
+                              for (i in seq_along(links_update)) {
                                     tryCatch({
-                                      download.file(as.character(miss_subset[i,j]), paste0("file",i,".pdf"), mode = "wb")
+                                      download.file(as.character(links_update[i]), paste0("file",i,".pdf"), mode = "wb")
                                       
                                     },error = function(e){}
                                     )
                                     
-                                  }
-                                }  
+                                  
                               }
                               
                               
@@ -146,7 +145,7 @@
                               # using the library stringr and regex here we extract the information 
                               # from the text files and turn it into a dataframe
                               new_txt <- str_replace(miss_txt_list,".pdf",".txt") 
-                              df <- function(new_txt) {
+                df <- function(new_txt) {
                                 text <- readLines(new_txt)
                                 
                                 #marking where to split
@@ -204,7 +203,7 @@
                                 #age_m <- unlist(str_split(Age, ","))
                                 
                                 Suspect_Address <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","") %>% str_replace("character\\(0\\)","")
-                                Occurrence_location <- str_replace_all( Occurrence_location, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
+                                #Occurrence_location <- str_replace_all( Occurrence_location, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
                                 
                                 charges <- unlist(str_extract_all(txtparts,"Charges:    .*\n") %>% str_replace_all("Charges:",""))
                                 charges <- str_replace_all(charges, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
@@ -227,8 +226,6 @@
                                 return(BPD_log)
                               }
                               # Combining daily logs into one data frame
-                              
-                              new_txt <- 
                               
                               Full_df <- df(new_txt[1])
                               i <- 2
@@ -353,5 +350,20 @@
   
   
   write.csv(Full_df, "full_bpd_calls.csv", row.names = FALSE)
+  
+  links_update[3,2]
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
