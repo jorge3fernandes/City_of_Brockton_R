@@ -1,7 +1,7 @@
 library(ggplot2)
 library(tidyr)
 library(dplyr)
-library(sqldf)
+library(stringr)
 library(fuzzyjoin)
 library(stringdist)
 # Cleanning the data for analysis
@@ -9,9 +9,7 @@ library(stringdist)
 setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs")
 clean_data <- read.csv("full_bpd_calls.csv")
 
-# Changing only factor columns to  Characters
-clean_data %>% mutate_if(is.factor, as.character) -> clean_data
-clean_data[is.na(clean_data)] <- "Data Not available"
+
 ##################### Use sqldf to do the join next time you start on the project
 #unmerging cells with multiple values and turning them into their specific rows
 
@@ -24,11 +22,20 @@ Summonsdf = separate(Summonsdf, col = Summons, into = c("Name1", "Name2", "Name3
 Summonsdf = gather(Summonsdf, key = "x", value = "Summons", Name1:Name10)
 Summonsdf = na.omit(Summonsdf)
 
-test_data <- clean_data[,c('Date', 'Summons')]
-test_data <- na.omit(test_data)
+Summonsdf %>% mutate_if(is.factor, as.character) -> Summonsdf
+#Summonsdf[is.na(Summonsdf)] <- "Data Not available"
 
-clean_data <- clean_data %>%
+test_data <- clean_data[1:500,]
+#test_data <- na.omit(test_data)
+
+test_data %>% mutate_if(is.factor, as.character) -> test_data
+#test_data[is.na(test_data)] <- "Data Not available"
+
+test_data1 <- test_data %>%
   regex_left_join( Summonsdf, by = c(Summons = "Summons", Date = "Date")) %>% unique()
+
+
+
 
 ############### Refer_To_Summons
 Refer_To_Summonsdf <- clean_data[,c("Date","Refer_To_Summons", "charges")] 
@@ -37,6 +44,9 @@ Refer_To_Summonsdf = na.omit(Refer_To_Summonsdf)
 Refer_To_Summonsdf = separate(Refer_To_Summonsdf, col = Refer_To_Summons, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = ",")
 Refer_To_Summonsdf = gather(Refer_To_Summonsdf, key = "x", value = "Refer_To_Summons", Name1:Name10)
 Refer_To_Summonsdf = na.omit(Refer_To_Summonsdf)
+
+Refer_To_Summonsdf %>% mutate_if(is.factor, as.character) -> Refer_To_Summonsdf
+test_data1 %>% mutate_if(is.factor, as.character) -> test_data1
 
 Summons.Refer <- full_join(Summonsdf,Refer_To_Summonsdf, by = c("x" = "x" , "Date" = "Date"))
 
@@ -68,9 +78,7 @@ Arrest.Summons <- full_join(Summons.Refer,Arrest.Refer, by= c("x"="x" , "Date"= 
 
 ##################Age#############################
 
-Agedf <- clean_data[,c("Date","Age", "Suspect_Address")]
-Agedf$Suspect_Address <- str_replace_all(Agedf$Suspect_Address, "c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
-
+Agedf <- clean_data[,c("Date","Age")]
 Agedf = na.omit(Agedf)
 
 Agedf1 = separate(Agedf, col = Age, into = c("Name1", "Name2", "Name3", "Name4", "Name5", "Name6", "Name7", "Name8", "Name9", "Name10"), sep = ",")
@@ -87,14 +95,10 @@ susp.Addressdf2 = na.omit(susp.Addressdf2)
 susp.Addressdf2$Suspect_Address <- str_replace_all(susp.Addressdf2$Suspect_Address, "c\\(\\\"    ","") %>% str_replace_all("\\\n\""," : ") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
 
 
-Age.Address <- stringdist_full_join(susp.Addressdf2, Agedf2, by = c("x" = "x" , "Date" = "Date", "Suspect_Address" = "Suspect_Address"), max_dist = 4, method = "qgram")
-
-
-Age.Address <- distinct(Age.Address)
 
 ################ Putting it all together #####################
 
-individual.full <- full_join(Age.Address,Arrest.Summons, by = c("x" = "x" , "Date" = "Date"))
+individual.full <- full_join(Agedf2,Arrest.Summons, by = c("x" = "x" , "Date" = "Date"))
 
 ################ Making the Complete Dataset #################
 
@@ -103,8 +107,23 @@ colnames(clean_data)
 colnames(individual.full)
 clean_dataT <- clean_data
 clean_dataT[is.na(clean_dataT)] <- 'Data Not Available'
-individual <- stringdist_full_join(clean_data, individual.full, by = c("Summons" = "Summons" , "Date"= "Date", "Refer_To_Summons" = "Refer_To_Summons",
+individual <- stringdist_full_join(clean_data, individual.full, by = c("Summons" = "Summons" , "Date" = "Date", "Refer_To_Summons" = "Refer_To_Summons",
                                                                            "Arrested" = "Arrested", "Refer_To_Arrest" = "Refer_To_Arrest", "Age" = "Age"))
 
+###############Joinning everything together ###########
 
-ain(susp.Addressdf2$Suspect_Address, Agedf2$Suspect_Address)
+
+test_data1 <- test_data %>%
+  regex_left_join( Summonsdf, by = c(Summons = "Summons", Date = "Date")) %>% unique()
+
+
+test_data1 <- test_data %>%
+  regex_left_join( Summonsdf, by = c(Summons = "Summons", Date = "Date")) %>% unique()
+
+
+test_data1 <- test_data %>%
+  regex_left_join( Summonsdf, by = c(Summons = "Summons", Date = "Date")) 
+
+
+test_data1 <- test_data %>%
+  regex_left_join( Summonsdf, by = c(Summons = "Summons", Date = "Date")) 
