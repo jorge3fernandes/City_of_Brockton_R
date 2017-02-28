@@ -1,0 +1,262 @@
+---
+title: 'Notes from Automated Data Collection With R:  A practical Guide to Web Scraping
+  and Text Mining'
+author: "Jorge Fernandes"
+date: "February 7, 2016"
+output: html_document
+---
+
+#Chapter 3
+##Parsing
+
+To achieve a useful representation of HTML files, we need to employ a program that understands the special meaning of the markup structures and reconstructs the implied hierarchy of an HTML file within some R-specific data structure. This representation is also referred to as the **Document Object Model** (DOM). It is a queryable data object that we can build from any HTML file and is useful for further processing of document parts
+
+```{r}
+url <- "http://www.r-datacollection.com/materials/html/fortunes.html"
+fortunes <- readLines(con = url)
+fortunes
+```
+
+
+```{r}
+library(XML)
+parsed_fortune <- htmlParse(file = url )
+print(parsed_fortune)
+```
+
+### Discarting Nodes
+
+The function specifies a request for a node's name (xmlName) and implements a control structure that returns the NULL object if the node's name is either div or title (meaning we discard this node) or else includes the full node in the DOM tree.  
+The second handler element (comment) specifies a function for discarding any HTML comment:
+
+####Specifying handler functions
+We first create an object h1 containing a list of a function named after the node we want to delete.  We then pass this object to the htmlTreeParse() function via its handlers argument. Printing parsed_doc to the screen shows that the <body> node is not part of the DOM tree anymore
+```{r}
+h1 <- list("body" = function(x){NULL})
+parsed_fortune <- htmlTreeParse(url, handlers = h1, asTree = TRUE)
+parsed_fortune$children
+
+
+```
+Via the XML package we can pass generic handler functions to operate on specific XML elements such as the processing instructions, XML comments, CDATA, or the general node set. A complete overview over these generic handlers is presented in Table below. 
+
+Function Name | Node Type
+------------- | ----------- 
+startElement()| XML element
+text()	  | Text node
+comment()	  | Comment node
+cdata()	  | <CDATA> node
+processingInstruction()	| Processing instruction
+namespace()	| XML namespace
+entity()	| Entity reference
+
+####Generic handlers
+To illustrate their use, consider the problem of deleting all nodes with name div or title as well as comments that appear in the document.  
+We start again by creating a list of handler functions. Inside this list, the first handler element specifies a function for all XML nodes in the document (startElement). Handlers of that name allow describing functions that are executed on all nodes in the document. The function specifies a request for a node's name (xmlName) and implements a control structure that returns the NULL object if the node's name is either div or title (meaning we discard this node) or else includes the full node in the DOM tree. The second handler element (comment) specifies a function for discarding any HTML comment:
+
+```{r}
+h2 <- list(
+       startElement = function(node, ...){
+             name <- xmlName(node)
+             if (name %in% c("div", "title")){NULL} else{node} 
+       },
+       comment = function(node){NULL}
+)
+```
+
+Let us pass the handler function to htmlTreeParse():
+
+```{r}
+parsed_fortunes <- htmlTreeParse(file = url, handlers = h2, asTree = TRUE)
+
+
+```
+If we print parsed_fortunes to the screen, we find that we rid ourselves of the nodes specified in the handlers:
+
+```{r}
+parsed_fortunes
+```
+####Extracting information in the building process
+
+Consider the problem of extracting the information from fortunes.html that is written in italics, that is, encapsulated with <i> tags.  
+We start by defining a nesting function getItalics(). i_container is our local container variable that will hold all information set in italics. Next, we define the handler function for the <i> nodes. On the right side of the first line of this function, we concatenate the contents of the container variable with a new instance of the <i> node value. The resulting vector then overwrites the existing container object by using the super assignment operator < < − , which allows making an assignment to nonlocal variables. Lastly, we create a function called returnI() with the purpose of returning the container object just created:
+
+```{r}
+getItalics <- function(){
+      i_container = character()
+      list(i = function(node, ...){
+            i_container <<- c(i_container, xmlValue(node))
+      },returnI = function() i_container)
+}
+```
+Next, we execute getItalics() and route its return values into a new object h3.  
+Essentially, h3 now contains our handler function, but additionally, the function can access i_container and returnI() as these two objects were created in the same environment as the handler function:
+
+```{r}
+h3 <- getItalics()
+
+```
+Now we can pass this function to htmlTreeParse()’s handlers argument:
+
+```{r}
+invisible(htmlTreeParse(url, handlers = h3))
+
+```
+For clarity, we employ the invisible() function to suppress printing of the DOM to the screen.  
+To take a look at the fetched information we can make a call to h3()’s returnI() function to print all the occurrences of <i> nodes in the document to the screen:
+
+```{r}
+h3$returnI()
+```
+
+#Chapter 4
+##4.1 XPath—a query language for web documents
+
+```{r}
+library(XML)
+parsed_doc <- htmlParse(file = url)
+```
+
+In XPath, we can express this hierarchical order by constructing a sequence of nodes separated by the / (forward slash). This is called a hierarchical addressing mechanism and it is similar to a location path on a local file system. The resemblance is not accidental but results from a similar hierarchical organization of the underlying document/file system. Just like folders can be nested inside other folders on a local hard drive, the DOM treats an XML document as a tree of nodes, where the nestedness of nodes within other nodes creates a node hierarchy.
+
+####Absolute paths
+The distinctive feature about absolute paths is that they always emanate from the root node and describe a sequence of consecutive nodes to the target node.
+
+```{r}
+xpathSApply(doc = parsed_doc, path = "/html/body/div/p/i")
+```
+
+####Relative paths
+As an alternative we can construct shorter, relative paths to the target node. Relative paths tolerate “jumps” between nodes, which we can indicate with //
+
+```{r}
+xpathSApply(parsed_doc,"//body//p/i")
+
+```
+This statement reads as follows: Find the ```<body>``` node at some level of the document's hierarchy—it does not have to be the root—then find one or more levels lower in the hierarchy a ```<p>``` node, immediately followed by an ```<i>``` node.  
+
+We obtain the same set of ```<i>``` nodes as previously. An even more concise path for the ```<i> ```nodes would be the following:  
+```{r}
+xpathSApply(parsed_doc,"//p/i")
+```
+
+So why do we construct a long absolute path if a valid relative path exists that returns the same information? xpathSApply() traverses through the complete document and resolves node jumps of any width and at any depth within the document tree. The appeal of relative paths derives from their shortness, but there are reasons for favoring absolute paths in some instances. Relative path statements result in complete traversals of the document tree, which is rather expensive computationally and decreases the efficiency of the query. For the small HTML file we consider here, computational efficiency is of no concern. Nonetheless, the additional strain will become noticeable in the speed of code execution when larger file sizes or extraction tasks for multiple documents are concerned. Hence, if speed is an issue to your code execution, it is advisable to express node locations by absolute paths.
+
+#Chapte 9
+##Retrievel Scenarios
+
+
+For the following scenarios of web data retrieval, we rely on the following set of R packages which were introduced in the first part of the book. 
+
+```{r}
+library(RCurl)
+library(XML)
+library(stringr)
+```
+
+###Identifying locations
+
+The links to the CSV files are scattered across several tables on the page. We are only interested in some of the documents, namely those that contain the raw election results for the general election. The page provides data on the primaries and on ballot questions, too.  
+  
+In order to retrieve the desired files, we want to proceed in three steps:  
+  
+1. We identify the links to the desired files.  
+2. We construct a download function.  
+3. We execute the downloads. 
+  
+  
+The XML package provides a neat function to identify links in an HTML document— ```getHTMLLinks()```.  
+  
+We use ```getHTMLLinks()``` to extract all the URLs and external file names in the HTML document that we first assign to the object ```url```. The list of links in ```links``` comprises more entries than we are interested in, so we apply the regular expression ```_General.csv``` to retrieve the subset of external file names that point to the general election result CSVs. 
+
+```{r}
+url <- 'http://www.elections.state.md.us/elections/2012/election_data/index.html'
+
+links <- getHTMLLinks(url)
+
+filenames <- links[str_detect(links, '_General.csv')]
+
+filenames_list <- as.list(filenames)
+filenames_list[1:3]
+
+```
+
+###Constructing a download function
+
+Next, we set up a function to download all the files and call the function ```downloadCSV()```. The function wraps around the base R function ```download.file()```, which is perfectly sufficient to download URLs or other files in standard scenarios. Our function has three arguments. ```filename``` refers to each of the entries in the ```filenames_list``` object. ```baseurl``` specifies the source path of the files to be downloaded. Along with the file names, we can thus construct the full URL of each file. We do this using ```str_c()``` and feed the result to the ```download.file()``` function. The second argument of the function is the destination on our local drive. We determine a folder where we want to store the CSV files and add the file name parameter.  
+  
+We tweak the download by adding:  
+
+* a condition which ensures that the file download is only performed if the file does not already exist in the folder using the ```file.exists()``` function and  
+* a pause of 1 second between each file download. 
+
+```{r}
+downloadCSV <- function(filename, baseurl, folder){
+      dir.create(folder, showWarnings = FALSE)
+      fileurl <- str_c(baseurl, filename)
+      if (!file.exists(str_c(folder,"/",filename))){
+            download.file(fileurl,
+                          destfile = str_c(folder,"/",filename))
+            Sys.sleep(1)
+      }
+}
+```
+
+We apply the function to the list of CSV file names ```filenames_list``` using ```l_ply()``` from the ```plyr``` package. The function takes a list as main argument and passes each list element as argument to the specified function, in our case ```downloadCSV()```. We can pass further arguments to the function. For baseurl we identify the path where all CSVs are located. With folder we select the local folder where want to store the files.
+
+###Executing the download
+
+```{r}
+library(plyr)
+
+l_ply(filenames_list, downloadCSV,
+            baseurl = 'http://www.elections.state.md.us/elections/2012/election_data/',
+            folder = "elec12_maryland")
+```
+
+To check the results, we consider the number of downloaded files and the first couple of entries.
+
+```{r}
+length(list.files('./elec12_maryland'))
+list.files('./elec12_maryland')[1:3]
+```
+
+####Using ```RCurl``` for more advanced Downloading 
+
+```download.file()``` frequently does not provide the functionality we need to download files from certain sites.  
+In particular, ```download.file()``` does not support data retrieval via HTTPS by default and is not capable of dealing with cookies or many other advanced features of HTTP. In such situations, we can switch to RCurl’s high-level functions which can easily handle problems like these—and offer further useful options.  
+  
+  As a showcase we try to retrieve PDF files of the 2012 Maryland legislative district maps, complementing the voting data from above. The maps are available at the Maryland Department of Planning's website:  
+  [http://planning.maryland.gov/Redistricting/2010/legiDist.shtml](http://planning.maryland.gov/Redistricting/2010/legiDist.shtml).
+  
+    
+      
+The targeted PDFs are accessible in a three-column table at the bottom right of the screen and named “1A,” “1B,” and so on. We reuse the download procedure from above, but specify a different base URL and regular expression to detect the desired files.
+```{r}
+url <- 'http://planning.maryland.gov/Redistricting/2010/legiDist.shtml'
+links <- getHTMLLinks(url)
+filenames <- links[str_detect(links, '2010maps/Leg/Districts_')]
+filenames_list <- str_extract_all(filenames, 'Districts.+pdf')
+
+
+downloadPDF <- function(filename, baseurl, folder, handle){
+      dir.create(folder, showWarnings = FALSE)
+      fileurl <- str_c(baseurl, filename)
+      if (!file.exists(str_c(folder,"/",filename))){  
+            content <- getBinaryURL(fileurl, curl = handle )
+            writeBin(content, str_c(folder,"/",filename))
+            Sys.sleep(1)
+      }
+}
+```
+
+
+
+
+
+
+
+
+
+
+
