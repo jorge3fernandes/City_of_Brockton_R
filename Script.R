@@ -2,6 +2,7 @@ library(RCurl)
 library(stringr)
 library(pdftools)
 library(dplyr)
+library(tidyr)
 library(ggmap)
 library(installr)
 
@@ -103,7 +104,7 @@ download_update <- function(){
   # from the text files and turn it into a dataframe
   new_txt <- str_replace(miss_txt_list,".pdf",".txt") 
   df <- function(new_txt) {
-    text <- readLines(new_txt)
+    text <- readLines('04_22_2015.txt')
     
     #marking where to split
     
@@ -177,6 +178,19 @@ download_update <- function(){
     BPD_log[BPD_log == ""] = NA 
     BPD_log$Response_address[is.na(BPD_log$Response_address)] <- 0
     BPD_log <- subset(BPD_log, !is.na(Call_taker))
+    
+    ################# Separating arrests into individual rows####
+    
+    BPD_logt<-BPD_log %>%  mutate(Distin_PO = strsplit(as.character(Arrested), "\", \"")) %>% unnest(Distin_PO)
+    
+    
+    
+    
+    
+    
+    
+    
+    
     # BPD_log$Date <- as.POSIXct(BPD_log$Date,format ="%m/%d/%Y %H:%M", tz = "EST")
     # BPD_log$Month <- month(BPD_log$Date)
     # BPD_log$Day <- day(BPD_log$Date)
