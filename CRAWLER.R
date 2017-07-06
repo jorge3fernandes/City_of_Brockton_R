@@ -1,100 +1,48 @@
+library(rvest) # For webscraping
+library(stringr) # For text manipulation
+library(pdftools) # For PDF to Text Conversion
 
-#############Practice##############
-require(XML)
+setwd("~/Documents/Data Science Projects/RBrockton/crawler_result_Conversion")
 
-#reading all the tables from the website and choosing the first one (which = 1)
+root <- read_html("http://www.brocktonpolice.com/category/police-log/")
 
-bowl <- readHTMLTable("http://www.jaredlander.com/2012/02/another-kind-of-super-bowl-pool/", header = FALSE, stringAsfactors = FALSE, which = 1)
+##### Collecting all the links on the side bar ####
+##### Using Selector Gadget to find the right nodes
 
-bowl
+sidebar_links <- root %>% 
+                  html_nodes("#sidebar :nth-child(1)") %>% #finds all links on the sidebar
+                  html_attr("href") %>% #extracts the urls
+                  .[!is.na(.)] # removes NA
+r <- 0 #to generate sequence to the files downloaded
+##### Following the links to download the PDFs####
+for (i in seq_along(sidebar_links)) {
+        nav <- read_html(sidebar_links[i]) %>% html_nodes(".alignleft") %>% html_attr("href")
+       #after clicking on the sidebar links 
+        for (j in seq_along(nav)) {
+                r <- r + 1
+                tryCatch({
+                  read_html(nav[j]) %>%
+                  html_nodes("a") %>%       # find all links
+                  html_attr("href") %>%     # get the url
+                  str_subset("\\.pdf") %>%  # find those that end in pdf
+                  
+                    download.file(paste0("file",r,".pdf"), mode = "wb") 
+                        pdf_txt <- pdf_text(paste0("file",r,".pdf"))
+                        txt <- str_c(pdf_txt, collapse = "\n")
+                        date <- str_extract(txt, "Dispatch.*Thru: \\d{2}/\\d{2}/\\d{4}")
+                        name_pdf <- paste0(str_replace_all(date,"/","_") %>% str_replace_all(" ","") %>% str_replace_all(":",""),".pdf")
+                        name_txt <- paste0(str_replace_all(date,"/","_") %>% str_replace_all(" ","") %>% str_replace_all(":",""),".txt")
+                        
+                        file.rename(paste0("file",r,".pdf"),name_pdf)
+                        write(pdf_txt, name_txt)
+                  },error = function(e){}
+                  )
+                  
+        }
+}
 
-
-## Reading the data by parsing and using the Xpath.
-#getting the address. By inspecting the element we can see where the address is located withing the html
-
-address <- "http://www.menupages.com/restaurants/fiores-pizza/menu"
-thepage <- readLines(address)
-head(thepage)
-require(XML)
-pagerender <- htmlParse(thepage)
-
-address <- xpathApply(pagerender,"//li[@class='address adr']/span[@class='addr street-address']",xmlValue)[[1]]
-address
-
-city <- xpathApply(pagerender,"//li[@class='address adr']/span/span[@class='locality']")[[1]]
-city
-
-headers <- xpathSApply(pagerender, "//*[@id='restaurant-menu']/h3",xmlValue)
-headers
-
-items <- xpathSApply(pagerender, "//table[starts-with(@class,prices-)]")
-items
-
-items <- lapply(items,readHTMLTable, stringAsFactors = F)
-head(items)
-
-require(plyr)
-menu <- "http://www.menupages.com/restaurants/all-areas/all-neighborhoods/pizza/"
-doc <- htmlParse(menu)
-
-placeNameLink <- xpathApply(doc, "//table/tr/td[@class='name-address']/a[@class='link']",
-                fun = function(x){c(Name = xmlValue(x,recursive = FALSE),
-                                      Link = xmlAttrs(x)[2])})
-placeNameLink
-
-placeNameLink <- ldply(placeNameLink)
-
-head(placeNameLink)
-
-#comments
-require(XML)
-teafile <- "http://www.jaredlander.com/data/SocialComments.xml"
-teaParsed <- xmlToList(teafile)
-
-length(teaParsed)
-str(teaParsed)
-teaParsed[[1]][[1]]$id
-teaParsed[[1]][[1]]$author$name
-teaParsed[[1]][[1]]$published
-teaParsed[[1]][[1]]$content$.attrs
-teaParsed[[1]][[1]]$content$.attrs[["sentimentScore"]]
-
-
-
-# How to download PDF
-url <- 'http://brocktonpolice.com/wp-content/uploads/2016/02/2116.pdf'
-download.file(url, 'BPF_FEBRUARY.pdf', mode = 'wb')
-
-
-#####################RSelenium############################
-
-install.packages("RSelenium")
-library("RSelenium")
-
-startServer()
-
-checkForServer()
-
-mybrowser <- remoteDriver(browserName = "chrome")
-
-mybrowser$open()
-
-
-
-x = as.character(c(3:5))
-y = as.character(c(6:9)) 
-
-as.list(str_c(x[1],y))
-
-
-
-
-
-
-
-
-
-
+# Deleting PDF's with File name NA
+list.files(pattern = "NA.") %>% file.remove()
 
 
 

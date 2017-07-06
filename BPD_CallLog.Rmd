@@ -7,7 +7,7 @@ output: html_document
 
 
 By inpecting the  website, you can see that the data is presented in an archive by date. Noticing that will make our extraction easier. we will just manipulate the URL to make it go through the whole archive.
-```{r}
+```{r, echo=TRUE}
 library(plyr)
 library(RCurl)
 library(stringr)
