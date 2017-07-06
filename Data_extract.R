@@ -5,7 +5,9 @@
   library(dplyr)
   library(gtools)
   library(ggmap)
-
+# Seargent Perez - Record Division
+# Email: 
+  
   download_update <- function(){
     
                               #folder <- "/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs"
