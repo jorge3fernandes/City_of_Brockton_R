@@ -1,0 +1,16 @@
+
+
+DataFilePath:
+/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs/full_bpdcalls.csv
+HasHeader:
+  Yes
+Separator:
+  ','
+Target:
+  
+DateTimeColumns:
+  Date: "%m/%d/%Y %H:%M""
+ColumnsToExclude:
+  
+RLogFilePath:
+  test.log.r
