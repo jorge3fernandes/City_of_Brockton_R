@@ -100,13 +100,13 @@
                               # from the text files and turn it into a dataframe
                               new_txt <- str_replace(miss_txt_list,".pdf",".txt") 
                 df <- function(new_txt) {
-                                text <- readLines(new_txt[3])
+                                text <- readLines(disp_txt[20])
                                 
                                 #marking where to split
                                 
                                 for (i in seq_along(text)) { 
                                   
-                                  if (str_detect(text[i],'                [[:digit:]]{4}')) { 
+                                  if (str_detect(text[i],'[[:digit:]]{2}-[[:digit:]]{5}.*[[:digit:]]{4}')) { 
                                     text[i] <- paste0("CALL BEGINS HERE",text[i] )
                                   }
                                   
