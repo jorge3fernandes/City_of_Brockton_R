@@ -1,4 +1,5 @@
 library(googleway)
+library(ggmap)
 
 folder <- "/Users/legs_jorge/Documents/Data Science Projects/RBrockton/Police_logs"
 setwd(folder)
@@ -6,7 +7,10 @@ GEO_Data <- read.csv("full_bpd_calls.csv", row.names = NULL)
 
 getGeoData <- function(location){
   location <- gsub(' ','+',location)
-  geo_data <- getURL(paste("https://maps.googleapis.com/maps/api/geocode/json?address=",location,"&key=**AIzaSyCCYKZEqF5wmzEvfyIqocq0wgOuUWuXoh0**", sep =""))
+  #geo_data <- getURL(paste("https://maps.googleapis.com/maps/api/geocode/json?address=",location,"&key=**AIzaSyCCYKZEqF5wmzEvfyIqocq0wgOuUWuXoh0**", sep =""))
+  
+  geo_data <- getURL(paste("https://unwiredlabs.com/v2/search.php?token=94be5c8619f56e&q=",location,sep =""))
+  
   raw_data_2 <- fromJSON(geo_data)
   return(raw_data_2)
 }
@@ -14,8 +18,6 @@ getGeoData <- function(location){
 test <- geocode(GEO_Data$address_Geo)
 
 
-
-key <- "AIzaSyCCYKZEqF5wmzEvfyIqocq0wgOuUWuXoh0"
 
 
 geocode(as.character(GEO_Data$address_Geo), )
