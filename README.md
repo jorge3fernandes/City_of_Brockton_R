@@ -1,6 +1,6 @@
-# City of Brockton - Fighting crime using Data Science
+# City of Brockton - Public Data meets Data Science
 
-This project is focused on web scraping the Brockton Police website for dispatch logs to identify opportunities to fight crimes.  
+This project is focused on web scraping the Brockton Police website for dispatch logs to identify opportunities to better the community.  
 
 For more details look into;
 - CRAWLER.R for how I'm crawling the website
