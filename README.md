@@ -3,9 +3,9 @@
 This project is focused on web scraping the Brockton Police website for dispatch logs to identify opportunities to fight crimes.  
 
 For more details look into;
-- crawler.r for how I'm crawling the website
-- Parser.r for how I'm conversing the PDFs to texts and extracting relevant informations
-- Analysis.r for how I'm shaping the data and extracting meaning insights
+- CRAWLER.R for how I'm crawling the website
+- Parser.R for how I'm conversing the PDFs to texts and extracting relevant informations
+- Analysis.R for how I'm shaping the data and extracting meaning insights
 
 
 
