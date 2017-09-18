@@ -6,7 +6,7 @@ library(fuzzyjoin)
 library(stringdist)
 library(ggmap)
 library(zoo)
-install.packages("networkD3")
+library("networkD3")
 # Cleanning the data for analysis
 # Using a year due to geocoding limitations
 
