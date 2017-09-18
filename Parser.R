@@ -60,10 +60,9 @@ for (e in seq_along(disp_txt)) {
                         
                         
                         
-                        Response_address <- str_extract_all(txtparts, "Location/Address:.*\n|Vicinity of:.*\n") %>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","") %>% paste0( ", BROCKTON, MA") %>% str_replace_all("\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE")
+                        Response_address <- str_extract_all(txtparts, "Location/Address:.*\n|Vicinity of:.*\n") %>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","")
                         #Since I'm capturing only the raw data, I'll save the next steps for later
-                        address_Geo <- str_replace_all(Response_address,' Apt\\. .*, ',', BROCKTON, ')
-                        address_Geo <- str_replace_all(address_Geo,"NA, BROCKTON, MA","")
+                        address_Geo <- str_replace_all(Response_address,"\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE") %>% trimws() %>% str_replace_all(' @',", BROCKTON, MA &") %>% str_replace_all(' Apt.*','') %>% paste0( ", BROCKTON, MA") %>% str_replace_all('character(0), BROCKTON, MA ',"")
                         
                         police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>% str_extract_all("ID:.*\n|Patrolman.*\n")
                         police_officer <- str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
@@ -105,7 +104,7 @@ for (e in seq_along(disp_txt)) {
                         BPD_log$Response_address[is.na(BPD_log$Response_address)] <- 0
                         BPD_log <- subset(BPD_log, !is.na(Call_taker))
                         BPD_log = unique(BPD_log)
-                        BPD_log$timeStamp <- as.POSIXct(BPD_log$timeStamp,format ="%m/%d/%Y %H:%M", tz = "EST")
+                        #BPD_log$timeStamp <- as.POSIXct(BPD_log$timeStamp,format ="%m/%d/%Y %H:%M", tz = "EST")
                         new_data = rbind(new_data, BPD_log)
                         BPD_log = NULL
                         rm("timeStamp","Date", "Call_taker", "call_reason_action", "Response_address", "address_Geo", "police_officer", "Refer_To_Summons", "Summons", "Refer_To_Arrest", "Arrested","Age",  "Suspect_Address", "charges", "response_time")
