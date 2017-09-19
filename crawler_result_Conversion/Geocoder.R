@@ -1,20 +1,17 @@
 library(RCurl)
 library(RJSONIO)
 library(plyr)
-library(svDialogs)
+library(dplyr)
+library(stringr)
 
 
-address <- unique(fnl_data$address_Geo) %>% unlist()
-address <- address[address!= 'character(0), BROCKTON, MA']
-intersection <- address['&' == str_extract(address,'&')] # identifying all intersections
-intersection <- intersection[!is.na(intersection)]
-#address <- address[address != intersection] #identifying normal addresses
+gg_address <- unique(fnl_data$address_Geo) %>% unlist()
+gg_address <- gg_address[gg_address != 'character(0), BROCKTON, MA']
+address <- str_replace_all(gg_address,'@',",&") # for LocationIQ
 
+#Using google API(More Accurate than loaction IQ)
+#Location IQ will be used as a back-up
 
-
-
-
-#Using google API
 url <- function(address, return.call = "json", sensor = "false", API = "") {
   root <- "https://maps.googleapis.com/maps/api/geocode/"
   u <- paste(root, return.call, "?address=", address, "&key=", API, sep = "")
@@ -30,7 +27,7 @@ geoCode <- function(address,verbose=TRUE) {
   if(x$status == "OK") {
     lat <- x$results[[1]]$geometry$location$lat
     lng <- x$results[[1]]$geometry$location$lng
-    location_type  <- x$results[[1]]$geometry$location_type
+    location_type  <- x$results[[1]]$types[[1]]
     formatted_address  <- x$results[[1]]$formatted_address
     return(c(lat, lng, location_type, formatted_address))
     Sys.sleep(0.5)
@@ -40,19 +37,25 @@ geoCode <- function(address,verbose=TRUE) {
 }
 
 
-locations  <- ldply(intersection[1:100], function(x) geoCode(x))
-names(locations)  <- c("lat","lon","location_type", "formatted")
-head(locations)
+gg_address  <- ldply(gg_address, function(x) geoCode(x))
+names(gg_address)  <- c("lat","lon","location_type", "formatted")
 
-locations$test <- intersection[1:100]
+gg_address$Actual_Address <- address
+
+setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
+
+write.csv(gg_address,"gg_address.csv", row.names = FALSE)
+
+fnl_data_geocoded = left_join(fnl_data,gg_address, by=c("address_Geo" = "Actual_Address"))
 
 
 #Using LocationIQ API 
-#i.e.http://locationiq.org/v1/search.php?key=<API_KEY>&format=json&q=Empire%20State%20Building
+#i.e.https://unwiredlabs.com/v2/search.php?token=YOUR_API_TOKEN&q=SEARCH_STRING
+#Documentation https://unwiredlabs.com/docs/?python#locationiq
 
-IQ_url <- function(address, return.call = "json", API = "") {
-  IQ_root <- "https://locationiq.org/v1/search.php?key="
-  IQ_u <- paste(IQ_root, API,"&format=", return.call, "&q=", address,  sep = "")
+IQ_url <- function(address, API = "") {
+  IQ_root <- "https://unwiredlabs.com/v2/search.php?token="
+  IQ_u <- paste(IQ_root, API,"&q=", address,  sep = "")
   return(URLencode(IQ_u))
 }
 
@@ -62,21 +65,26 @@ IQ_geoCode <- function(address,verbose=TRUE) {
   IQ_u <- IQ_url(address)
   IQ_doc <- getURL(IQ_u)
   IQ_x <- fromJSON(IQ_doc,simplify = FALSE)
-  if(x$status == "ok") {
-    IQ_lat <- IQ_x[[1]]$lat
-    IQ_lng <- IQ_x[[1]]$lon
-    IQ_location_type  <- IQ_x[[1]]$type
-    IQ_formatted_address  <- IQ_x[[1]]$display_name
+  if( IQ_x$status == "ok"){
+    IQ_lat <- IQ_x$address[[1]]$lat
+    IQ_lng <- IQ_x$address[[1]]$lon
+    #IQ_location_type  <- IQ_x[[1]]$type
+    IQ_formatted_address  <- IQ_x$address[[1]]$display_name
     #IQ_address_type <- IQ_x$results[[1]]$types[[1]]
     #IQ_address_importance <- IQ_x[[1]]$importance
-    return(c(IQ_lat, IQ_lng, IQ_location_type, IQ_formatted_address))
+    return(c(IQ_lat, IQ_lng,IQ_formatted_address))
     Sys.sleep(0.5)
-  } else {
-    return(c(NA,NA,NA, NA))
+  }else {
+    return(c(NA,NA, NA))
   }
+  
 }
 
-IQ_locations  <- ldply(address[1:8000], function(x) IQ_geoCode(x))
-names(IQ_locations)  <- c("lat","lon","location_type", "formatted")
-IQ_locations$address <- address[1:8000]
-head(IQ_locations)
+IQ_locations  <- ldply(address[1:100], function(x) IQ_geoCode(x))
+names(IQ_locations)  <- c("lat","lon","formatted")
+IQ_locations$address <- address[1:100]
+
+
+
+
+
