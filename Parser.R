@@ -1,6 +1,8 @@
 library(stringr)
 library(pdftools)
 library(dplyr)
+library(plyr)
+library(zoo)
 library(gtools)
 library(ggmap)
 library(microbenchmark)
@@ -63,7 +65,7 @@ for (e in seq_along(disp_txt)) {
                         
                         Response_address <- str_extract_all(txtparts, "Location/Address:.*\n|Vicinity of:.*\n") %>% str_replace_all("Location/Address:|Vicinity of:","") %>% str_replace_all("\n","")
                         #Since I'm capturing only the raw data, I'll save the next steps for later
-                        address_Geo <- str_replace_all(Response_address,"\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE") %>% trimws() %>% str_replace_all(' @',", BROCKTON, MA @") %>% str_replace_all(' Apt.*','') %>% paste0( ", BROCKTON, MA") %>% str_replace_all('character(0), BROCKTON, MA ',"")
+                        address_Geo <- str_replace_all(Response_address,"\\[BRO.*\\]","") %>% str_replace_all(" EXT, ","") %>% str_replace_all(" SQ,", "SQUARE") %>% str_replace_all(' @',", BROCKTON, MA @") %>% str_replace_all(' Apt.*','') %>% paste0( ", BROCKTON, MA") %>% str_replace_all('character(0), BROCKTON, MA ',"") %>% trimws() 
                         
                         police_officer <- str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)") %>% str_extract_all("ID:.*\n|Patrolman.*\n")
                         police_officer <- str_replace_all(police_officer,"ID:","") %>% str_replace_all("c\\(\\\"    ","") %>% str_replace_all("\\\n\"","") %>% str_replace_all("\"","") %>% str_replace_all("\\)","") %>% str_replace_all("\\\\n","") %>% str_replace("character\\(0","")
@@ -119,29 +121,41 @@ for (e in seq_along(disp_txt)) {
 
 #setting a new working directory
 setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
+write.csv(fnl_data,"Dispatch.csv")
 
 #Check for new address to be added to the geocoded address database
 
 gg_address_view <- read.csv("gg_address.csv", stringsAsFactors = FALSE) #reading in the geocoded addresses
 
-#getting distinct addresses from the recntly parsed data
+#getting distinct addresses from the recently parsed data
 distinct_address <- unique(fnl_data$address_Geo) 
 
 #checking for addresses that haven't been geocoded
 new_address <- distinct_address[!(distinct_address %in% gg_address_view$Actual_Address)]
 
+#new_address <-  c('character(0), BROCKTON, MA',distinct_address[1:3])
+#new_address[new_address == 'character(0), BROCKTON, MA'] <- NA
+
 #geocoding the new addresses and adding them to the database
-gg_new_address  <- ldply(new_address, function(x) geocode(x, output = "more")) %>% select(lat,lon,type,address)
+gg_new_address  <- tryCatch({geocode(new_address, output = "more") %>% select(lat,lon,type,address)},error = function(e){}
+)
 
 names(gg_new_address)  <- c("lat","lon","location_type", "formatted")
 
+
+
 gg_new_address$Actual_Address <- new_address
+gg_new_address <- subset(gg_new_address, !is.na(lat))
+
+gg_address_view <- smartbind(gg_address_view,gg_new_address)
 
 # appending new geocoded addresses to the database
 
-write.csv(gg_new_address, "gg_address.csv", append = TRUE)
-  
-write.csv(fnl_data,"Dispatch.csv")
+write.csv(gg_new_address, "gg_address.csv", row.names = FALSE)
 
-  
+# Preparing file for Qlik Sense cloud
+# 
+Qlik_data <- subset(fnl_data, as.Date(date, format = "%m/%d/%Y") >= as.Date("01/01/2017", format = "%m/%d/%Y"))
+
+write.csv(Qlik_data,"Qlik_data.csv", row.names = FALSE)
   
