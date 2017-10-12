@@ -17,8 +17,8 @@ library(rpivotTable)
 
 ## leafletOutput is used at the ui side to display the rendered map.
 
-drop_down <- sort(unique(substr(testdata$call_reason_action, start = 17,stop = 52)))
-crime <- c("All", sort(as.character(unique(testdata$charges))))
+drop_down <- sort(unique(substr(ent_dt$call_reason_action, start = 17,stop = 52)))
+crime <- c("All", sort(as.character(unique(ent_dt$charges))))
 
 
 shinyUI(navbarPage("Brockton Police Log", id = "nav",
@@ -39,11 +39,11 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                               
                                               h2("Apply Filters"),
                                               
-                                              dateRangeInput('date1','Choose Begin Date:',
-                                                          start = min(as.Date(testdata$Date), na.rm = TRUE),
-                                                          end = max(as.Date(testdata$Date), na.rm = TRUE),
-                                                          min = min(as.Date(testdata$Date), na.rm = TRUE),
-                                                          max = max(as.Date(testdata$Date), na.rm = TRUE),
+                                              dateRangeInput('date1','Choose Begin date:',
+                                                          start = min(as.Date(ent_dt$date), na.rm = TRUE),
+                                                          end = max(as.Date(ent_dt$date), na.rm = TRUE),
+                                                          min = min(as.Date(ent_dt$date), na.rm = TRUE),
+                                                          max = max(as.Date(ent_dt$date), na.rm = TRUE),
                                                           format = "mm/dd/yy",
                                                           separator = " - "
                                               ),
