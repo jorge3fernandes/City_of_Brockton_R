@@ -9,7 +9,11 @@ getGeoData <- function(location){
   location <- gsub(' ','+',location)
   #geo_data <- getURL(paste("https://maps.googleapis.com/maps/api/geocode/json?address=",location,"&key=", sep =""))
   
+<<<<<<< HEAD
   geo_data <- getURL(paste("https://unwiredlabs.com/v2/search.php?token=",location,sep =""))
+=======
+  geo_data <- getURL(paste("https://unwiredlabs.com/v2/search.php?token=&q=",location,sep =""))
+>>>>>>> c16eb0527499c8616a0884ef8aea1b75e028227e
   
   raw_data_2 <- fromJSON(geo_data)
   return(raw_data_2)
