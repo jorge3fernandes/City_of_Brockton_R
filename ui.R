@@ -15,6 +15,16 @@ library(plotly)
 library(magrittr)
 library(rpivotTable)
 
+
+disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
+
+address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
+
+ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Address"))
+ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
+ent_dt$date <- as.Date(ent_dt$date, format = "%m/%d/%Y")
+ent_dt$WeekDays <- weekdays(ent_dt$date)
+
 ## leafletOutput is used at the ui side to display the rendered map.
 
 drop_down <- sort(unique(substr(ent_dt$call_reason_action, start = 17,stop = 52)))
@@ -23,7 +33,7 @@ crime <- c("All", sort(as.character(unique(ent_dt$charges))))
 
 shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
-                   tabPanel("Interactive map - Current Year",
+                   tabPanel("Interactive map",
                             div(class = "outer",
                                 
                                 tags$head(
@@ -71,7 +81,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                             )
                    ),
                    
-                   tabPanel("Data Explorer (April 2015 - Present)",
+                   tabPanel("Raw Data",
                             
                             dataTableOutput("Data")
                             
