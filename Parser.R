@@ -2,7 +2,6 @@ library(stringr)
 library(pdftools)
 library(dplyr)
 library(plyr)
-library(zoo)
 library(gtools)
 library(ggmap)
 library(microbenchmark)
@@ -121,7 +120,6 @@ for (e in seq_along(disp_txt)) {
 
 #setting a new working directory
 setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
-write.csv(fnl_data,"Dispatch.csv")
 
 #Check for new address to be added to the geocoded address database
 
@@ -133,25 +131,23 @@ distinct_address <- unique(fnl_data$address_Geo)
 #checking for addresses that haven't been geocoded
 new_address <- distinct_address[!(distinct_address %in% gg_address_view$Actual_Address)]
 
-#new_address <-  c('character(0), BROCKTON, MA',distinct_address[1:3])
-#new_address[new_address == 'character(0), BROCKTON, MA'] <- NA
+# new_address <-  c('character(0), BROCKTON, MA',distinct_address)
+# new_address[new_address =='character(0), BROCKTON, MA'] <- NA
 
 #geocoding the new addresses and adding them to the database
-gg_new_address  <- tryCatch({geocode(new_address, output = "more") %>% select(lat,lon,type,address)},error = function(e){}
-)
+gg_new_address  <- geocode(new_address, output = "more") %>% select(lat,lon,type,address)
 
 names(gg_new_address)  <- c("lat","lon","location_type", "formatted")
 
-
-
 gg_new_address$Actual_Address <- new_address
-gg_new_address <- subset(gg_new_address, !is.na(lat))
-
-gg_address_view <- smartbind(gg_address_view,gg_new_address)
 
 # appending new geocoded addresses to the database
 
-write.csv(gg_new_address, "gg_address.csv", row.names = FALSE)
+updtd_address = smartbind(gg_address_view, gg_new_address)
+
+write.csv(updtd_address, "gg_address.csv", row.names = FALSE)
+  
+write.csv(fnl_data,"Dispatch.csv")
 
 # Preparing file for Qlik Sense cloud
 # 
