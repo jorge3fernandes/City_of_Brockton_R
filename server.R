@@ -20,9 +20,7 @@ library(fuzzyjoin)
 
 disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
 
-summary(disptch_data)
 address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
-summary(address_dt)
 
 ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Address"))
 ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")

@@ -7,9 +7,9 @@ GEO_Data <- read.csv("full_bpd_calls.csv", row.names = NULL)
 
 getGeoData <- function(location){
   location <- gsub(' ','+',location)
-  #geo_data <- getURL(paste("https://maps.googleapis.com/maps/api/geocode/json?address=",location,"&key=**AIzaSyCCYKZEqF5wmzEvfyIqocq0wgOuUWuXoh0**", sep =""))
+  #geo_data <- getURL(paste("https://maps.googleapis.com/maps/api/geocode/json?address=",location,"&key=", sep =""))
   
-  geo_data <- getURL(paste("https://unwiredlabs.com/v2/search.php?token=94be5c8619f56e&q=",location,sep =""))
+  geo_data <- getURL(paste("https://unwiredlabs.com/v2/search.php?token=",location,sep =""))
   
   raw_data_2 <- fromJSON(geo_data)
   return(raw_data_2)
