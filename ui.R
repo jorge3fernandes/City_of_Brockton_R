@@ -13,7 +13,6 @@ library(sp)
 library(data.table)
 library(plotly)
 library(magrittr)
-library(rpivotTable)
 
 
 disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
@@ -38,7 +37,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                 
                                 tags$head(
                                   includeCSS("styles.css")
-                                ),
+                                 ),
                                 
                                 leafletOutput("mymap", width = "100%", height = "100%"),
                                 
@@ -98,6 +97,3 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
                    
 ))
-
-install.packages("RODBC", type = "source", 
-                 configure.args = "--with-odbc-include=/PATH.TO/iODBC/libiodbc-3.52.12/include/")
