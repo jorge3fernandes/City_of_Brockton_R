@@ -65,7 +65,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                                         animate = TRUE),
                                               selectizeInput("Charges", 'Search for crime', crime, selected = "All", multiple = TRUE,
                                                              options = NULL),
-                                              radioButtons("graph","Map Type:", c("Clusters","Markers")),
+                                              radioButtons("graph","Map Type:", c("Arrests/Summons","All")),
                                               h5("Call Frequency by Time of Day"),
                                               plotlyOutput("summary", height = 200),
                                               h5("Call Frequency by Weekdays"),
@@ -99,4 +99,5 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
 ))
 
-
+install.packages("RODBC", type = "source", 
+                 configure.args = "--with-odbc-include=/PATH.TO/iODBC/libiodbc-3.52.12/include/")

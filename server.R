@@ -17,6 +17,11 @@ library(rpivotTable)
 library(dygraphs)
 library(xts)
 library(fuzzyjoin)
+pack <- available.packages()
+pack["rvest","Depends"]
+
+
+
 
 disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
 
@@ -26,6 +31,9 @@ ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Addr
 ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
 ent_dt$date <- as.Date(ent_dt$date, format = "%m/%d/%Y")
 ent_dt$WeekDays <- weekdays(ent_dt$date)
+
+Arrest_Summon = subset(ent_dt, !is.na(Summons)|!is.na(Arrested))
+
 ## renderLeaflet() is used at server side to render the leaflet map 
 shinyServer(function(input, output) {
   
@@ -53,28 +61,29 @@ shinyServer(function(input, output) {
   })
   output$mymap <- renderLeaflet({
     # define the leaflet map object
-    if(input$graph == 'Clusters'){
-    leaflet(data = test() ) %>% 
+    if(input$graph == 'Arrests/Summons'){
+      arrest_summons = test() %>% subset(!is.na(Summons)|!is.na(Arrested))
+    leaflet(data = arrest_summons) %>% 
       addTiles() %>% 
-      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
-                                                              "<b>","Occurrence Address: ","</b>", test()$formatted, "<br>",
-                                                              "<b>","Charges: ","</b>", test()$charges, "<br>",
-                                                              "<b>","Summoned:","</b>", test()$Summons, "<br>",
-                                                              "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
-                                                              "<b>","Arr/Summ Address: ","</b>", test()$Occurrence_location, "<br>",
-                                                              "<b>","Age: ","</b>", test()$Age,"<br>",
-                                                              "<b>","date: ","</b>",test()$date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE))}
+      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", arrest_summons$call_reason_action,"<br>",
+                                                              "<b>","Occurrence Address: ","</b>", arrest_summons$formatted, "<br>",
+                                                              "<b>","Charges: ","</b>", arrest_summons$charges, "<br>",
+                                                              "<b>","Summoned:","</b>", arrest_summons$Summons, "<br>",
+                                                              "<b>","Arrested: ","</b>", arrest_summons$Arrested, "<br>",
+                                                              "<b>","Arr/Summ Address: ","</b>", arrest_summons$Suspect_Address, "<br>",
+                                                              "<b>","Age: ","</b>", arrest_summons$Age,"<br>",
+                                                              "<b>","date: ","</b>",arrest_summons$date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE))}
     else{
       leaflet(data = test() ) %>% 
         addTiles() %>% 
         setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
-                                                                                           "<b>","Occurrence Address: ","</b>", test()$formatted, "<br>",
-                                                                                           "<b>","Charges: ","</b>", test()$charges, "<br>",
-                                                                                           "<b>","Summoned:","</b>", test()$Summons, "<br>",
-                                                                                           "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
-                                                                                           "<b>","Arr/Summ Address: ","</b>", test()$Occurrence_location, "<br>",
-                                                                                           "<b>","Age: ","</b>", test()$Age,"<br>",
-                                                                                           "<b>","date: ","</b>",test()$date))
+                                                                                          "<b>","Occurrence Address: ","</b>", test()$formatted, "<br>",
+                                                                                          "<b>","Charges: ","</b>", test()$charges, "<br>",
+                                                                                          "<b>","Summoned:","</b>", test()$Summons, "<br>",
+                                                                                          "<b>","Arrested: ","</b>", test()$Arrested, "<br>",
+                                                                                          "<b>","Arr/Summ Address: ","</b>", test()$Suspect_Address, "<br>",
+                                                                                          "<b>","Age: ","</b>", test()$Age,"<br>",
+                                                                                          "<b>","date: ","</b>",test()$date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE))
     }
     
   })
