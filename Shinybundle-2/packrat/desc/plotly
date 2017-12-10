@@ -1,0 +1,43 @@
+Package: plotly
+Title: Create Interactive Web Graphics via 'plotly.js'
+Version: 3.4.1
+Authors@R: c(person("Carson", "Sievert", role = c("aut", "cre"),
+    email = "cpsievert1@gmail.com"),
+    person("Chris", "Parmer", role = c("aut", "cph"),
+    email = "chris@plot.ly"),
+    person("Toby", "Hocking", role = "aut",
+    email = "tdhock5@gmail.com"),
+    person("Scott", "Chamberlain", role = "aut",
+    email = "myrmecocystus@gmail.com"),
+    person("Karthik", "Ram", role = "aut",
+    email = "karthik.ram@gmail.com"),
+    person("Marianne", "Corvellec", role = "aut",
+    email = "marianne@plot.ly"),
+    person("Pedro", "Despouy", role = "aut",
+    email = "pedro@plot.ly"))
+License: MIT + file LICENSE
+Description: Easily translate 'ggplot2' graphs to an interactive web-based version and/or create custom web-based visualizations directly from R. Once uploaded to a 'plotly' account, 'plotly' graphs (and the data behind them) can be viewed and modified in a web browser.
+URL: https://plot.ly/r, https://github.com/ropensci/plotly
+BugReports: https://github.com/ropensci/plotly/issues
+Depends: ggplot2 (>= 2.1.0)
+Imports: scales, httr, jsonlite, magrittr, digest, viridis, base64enc,
+        htmlwidgets, tidyr, plyr
+Suggests: dplyr, maps, ggthemes, GGally, testthat, knitr, devtools,
+        shiny, htmltools, curl, rmarkdown, RColorBrewer, Rserve,
+        RSclient, broom, hexbin
+LazyData: true
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
+NeedsCompilation: no
+Packaged: 2016-03-13 23:22:23 UTC; cpsievert
+Author: Carson Sievert [aut, cre],
+  Chris Parmer [aut, cph],
+  Toby Hocking [aut],
+  Scott Chamberlain [aut],
+  Karthik Ram [aut],
+  Marianne Corvellec [aut],
+  Pedro Despouy [aut]
+Maintainer: Carson Sievert <cpsievert1@gmail.com>
+Repository: CRAN
+Date/Publication: 2016-03-14 07:54:27
+Built: R 3.2.4; ; 2016-03-15 01:21:08 UTC; windows

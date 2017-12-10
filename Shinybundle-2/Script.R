@@ -1,0 +1,174 @@
+library(plyr)
+library(RCurl)
+library(stringr)
+library(pdftools)
+library(dplyr)
+library(ggmap)
+library(ggplot2)
+library(maps)
+library(googleVis)
+library(sp)
+
+rsconnect::setAccountInfo(name='jomisilfe',
+                          token='92C0DD8F30100BB17590255422D1C8E3',
+                          secret='')
+
+
+
+
+
+prefix <- "http://brocktonpolice.com/wp-content/uploads/"
+AllDays <- seq.Date(from = as.Date('2015-01-01'), to = Sys.Date(), by = "day")
+links1 <- paste0(prefix, format(AllDays, '%Y/%m/%m%d%y'), '.pdf')
+
+AllDays_NL <- gsub("0", "", format(AllDays, '%m%d%y'))
+links2 <- paste0(prefix, format(AllDays, '%Y/%m/'), AllDays_NL,'.pdf')
+
+link <- c(links1,links2)
+
+#assiging a new WD to put the PDFs
+folder <- paste0(getwd(),"/","Police_logs")
+filenames <- str_c(format(seq.Date(from = as.Date("2015-01-01"), 
+                                   to = Sys.Date(), by = "day"),"%Y_%m_%d"),".pdf")
+filenames <- c(filenames,filenames)
+setwd(folder)
+
+
+pdf_list <- list.files(path = folder,
+                       pattern = ".pdf",
+                       full.names = TRUE)
+
+txt_names <- list.files(folder, pattern = "pdf") %>% str_replace(".pdf",".txt")
+
+
+df <- function(call_log) {
+      text <- readLines("2015_04_04.txt")
+      
+      #marking where to split
+      
+      for (i in seq_along(text)) { 
+            
+            if (str_detect(text[i],'                [[:digit:]]{4}')) { 
+                  text[i] <- paste0("CALL BEGINS HERE",text[i] )
+            }
+            
+      }
+      
+      
+      txt <- str_c(text, collapse = "\n")
+      
+      #split the text by calls
+      txtparts <- unlist(str_split(txt, "CALL BEGINS HERE"))
+      
+      #extracting specific fields
+      Time <- str_trim(str_extract(txtparts, "                [[:digit:]]{4}")) 
+      Time <- sub("(..)$", ":\\1", Time) 
+      
+      date <- rep(str_extract(txtparts[1], "\\d{2}/\\d{2}/\\d{4}"),length(Time)) %>% as.Date('%d/%m/%Y')
+      Date <- as.POSIXct(paste0(date," ",Time), format = "%Y-%m-%d %H:%M")
+      Call_taker <- str_replace_all(str_extract(txtparts, "Call Taker:.*\n"),"Call Taker:","" ) %>% str_replace_all("\n","")
+      address <- (str_replace_all(str_extract(txtparts, "Location/Address:.*\n"),"Location/Address:","") %>% str_replace_all("\n","")) %>% paste0( ", BROCKTON, MA") %>%                                      str_replace_all("\\[BRO.*\\]","")
+      address <- str_replace_all(address,"NA.*MA","")
+      police_officer <- unlist(str_extract_all(txtparts, "(?s)Location\\/Address:[^\n]*\\R(.*)") %>%str_extract_all("ID:.*\n|Patrolman.*\n") %>% str_replace_all("ID:",""))
+      call_reason_action <- str_extract_all(txtparts, "                [[:digit:]]{4}.*\n")%>% str_replace_all("[[:digit:]]{4}","")
+      Refer_To_Arrest <- str_extract(txtparts, "Refer To Arrest:.*\n") %>% str_replace_all("Refer To Arrest:","") 
+      Refer_To_Summons <- str_extract_all(txtparts, "Refer To Summons:.*\n") %>% str_replace_all("Refer To Summons:","")
+      Summons <- str_extract_all(txtparts, "         Summons:    .*\n")  %>% str_replace_all("Summons:","")
+      Arrested <- str_extract_all(txtparts, "          Arrest:    .*\n")  %>% str_replace_all("Arrest:","")
+      Age <- str_extract_all(txtparts,"Age:.*\n") %>% str_replace_all("Age:","")
+      Occurrence_location <- str_extract_all(txtparts,"         Address:    .*\n") %>% str_replace_all("Address:","")
+      charges <- str_extract_all(txtparts,"Charges:    .*\n")%>% str_replace_all("Charges:","")
+      
+      response_time <- str_extract_all(txtparts,"Arvd.*\n")
+      
+      
+      #Putting everything together
+      
+      BPD_log <- cbind(Date, Call_taker, call_reason_action, address, police_officer, Refer_To_Summons, Summons, Refer_To_Arrest, Arrested,Age,  Occurrence_location, charges, response_time)
+      BPD_log <- as.data.frame(BPD_log)
+      BPD_log[BPD_log == "character(0)"] = NA 
+      BPD_log[BPD_log == ""] = NA 
+      # BPD_log$Date <- as.POSIXct(BPD_log$Date, format = "%Y-%m-%d %H:%M")
+      return(BPD_log)
+}
+
+Full_df <- df(txt_names[1])
+i <- 2
+while (i < length(txt_names)) {
+      
+      Full_df <- rbind(Full_df,df(txt_names[i])) 
+      
+      i = i + 1
+} 
+
+
+
+
+getGeoDetails <- function(address){
+      address <- as.character(address)
+      #use the gecode function to query google servers
+      geo_reply = geocode(address, output = 'all', 
+                          messaging = TRUE, override_limit = TRUE)
+      #now extract the bits that we need from the returned list
+      answer <- data.frame(lat = NA, long = NA, 
+                           accuracy = NA, formatted_address = NA, 
+                           address_type = NA, status = NA)
+      answer$status <- geo_reply$status
+      
+      #if we are over the query limit - want to pause for an hour
+      while (geo_reply$status == "OVER_QUERY_LIMIT") {
+            print("OVER QUERY LIMIT - Pausing for 1 hour at:") 
+            time <- Sys.time()
+            print(as.character(time))
+            Sys.sleep(60*60)
+            geo_reply = geocode(as.character(address), 
+                                output = 'all', messaging = TRUE, 
+                                override_limit = TRUE)
+            answer$status <- geo_reply$status
+      }
+      
+      #return Na's if we didn't get a match:
+      if (geo_reply$status != "OK") {
+            return(answer)
+      }   
+      #else, extract what we need from the Google server reply into a dataframe:
+      answer$lat <- geo_reply$results[[1]]$geometry$location$lat
+      answer$long <- geo_reply$results[[1]]$geometry$location$lng   
+      if (length(geo_reply$results[[1]]$types) > 0) {
+            answer$accuracy <- geo_reply$results[[1]]$types[[1]]
+      }
+      answer$address_type <- paste(geo_reply$results[[1]]$types, collapse = ',')
+      answer$formatted_address <- geo_reply$results[[1]]$formatted_address
+      
+      return(answer)
+}
+
+#initialise a dataframe to hold the results
+geocoded <- data.frame()
+# find out where to start in the address list (if the script was interrupted before):
+startindex <- 1
+infile <- "input"
+#if a temp file exists - load it up and count the rows!
+tempfilename <- paste0(infile, '_temp_geocoded.rds')
+if (file.exists(tempfilename)) {
+      print("Found temp file - resuming from index:")
+      geocoded <- readRDS(tempfilename)
+      startindex <- nrow(geocoded)
+      print(startindex)
+}
+
+# Start the geocoding process - address by address. geocode() function takes care of query speed limit.
+for (i in seq_along(Full_df$address)) {
+      print(paste("Working on index", i, "of", length(Full_df$address)))
+      #query the google geocoder - this will pause here if we are over the limit.
+      result = getGeoDetails(Full_df$address[i]) 
+      print(result$status)     
+      result$index <- i
+      #append the answer to the results file.
+      geocoded <- rbind(geocoded, result)
+      #save temporary results as we are going along
+      saveRDS(geocoded, tempfilename)
+}
+
+
+
