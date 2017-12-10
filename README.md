@@ -87,7 +87,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Jorge Fernandes** - *Owener* - [LinkedIn](https://www.linkedin.com/in/jorge3fernandes/)
+* **Jorge Fernandes** - *Owner* - [LinkedIn](https://www.linkedin.com/in/jorge3fernandes/)
 
 See also the list of [contributors](./CONTRIBUTING.md) who participated in this project.
 
