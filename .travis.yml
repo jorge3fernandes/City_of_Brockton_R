@@ -12,12 +12,12 @@ before_install:
   - ./travis-tool.sh bootstrap
 install:
   ## For a CRAN package
-  - ./travis-tool.sh install_r RCurl
-  - ./travis-tool.sh install_r RJSONIO
-  - ./travis-tool.sh install_r plyr
-  - ./travis-tool.sh install_r dplyr
-  - ./travis-tool.sh install_r stringr
-  - ./travis-tool.sh install_deps
+  #- ./travis-tool.sh install_r RCurl
+  #- ./travis-tool.sh install_r RJSONIO
+  #- ./travis-tool.sh install_r plyr
+  #- ./travis-tool.sh install_r dplyr
+  #- ./travis-tool.sh install_r stringr
+  #- ./travis-tool.sh install_deps
 #script: ./travis-tool.sh run_tests
 script: echo 'Something' && exit 0
 
