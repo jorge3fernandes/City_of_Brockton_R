@@ -1,4 +1,5 @@
 # City of Brockton - Public Data meets Data Science
+[![Build Status](https://travis-ci.org/sconde/City_of_Brockton_R.svg?branch=master)](https://travis-ci.org/sconde/City_of_Brockton_R)
 
 A project focused on web scraping the Brockton Police website for dispatch logs to identify opportunities to better the community.
 
