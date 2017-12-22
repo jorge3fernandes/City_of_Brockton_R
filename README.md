@@ -80,6 +80,10 @@ Add additional notes about how to deploy this on a live system
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
+###Coding Style
+
+The project is mostly writing in R. We follow [Google's R Style Guide](https://google.github.io/styleguide/Rguide.xml) to make the code "easier to read, share, and verify".
+
 ## Versioning
 
 <!--
