@@ -57,6 +57,6 @@ if __name__ == "__main__":
     year = getYear()
     months = getMonths(year)
     cont = filter(lambda x: len(x) > 0,getListOfContent(months))
-    print cont
+    print (cont)
 
 
