@@ -1,6 +1,5 @@
 library(rvest)  # For webscraping
 library(stringr)  # For text manipulation
-library(pdftools)  # For PDF to Text Conversion
 library(testthat)  # For unittesting: test_that
 
 currentWD <- getwd() # first get the current path just in case
@@ -20,6 +19,7 @@ DownloadEverythingOnFirstPage <- function(listOfLinks, savePath){
     # listOfLinks: a vector of links 
     # savePath: path to save the results in
 
+  library(pdftools)  # For PDF to Text Conversion
   # Log always printed on Thrusday (Thru) so regex for this day
   regexDate <- "Dispatch.*Thru: \\d{2}/\\d{2}/\\d{4}"
 
