@@ -113,9 +113,14 @@ for (e in seq_along(disp_txt)) {
             } 
             
             fnl_data = rbind(fnl_data, new_data)
+            fnl_data = unique(fnl_data)
+            
             new_data = NULL
     
-    }
+}
+
+fnl_data$ID <- row.names(fnl_data) #adding an ID field for each call. this will be crucial when we need to create views
+
 
 #setting a new working directory
 setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
@@ -146,7 +151,7 @@ updtd_address = smartbind(gg_address_view, gg_new_address)
 
 write.csv(updtd_address, "gg_address.csv", row.names = FALSE)
   
-write.csv(fnl_data,"Dispatch.csv")
+write.csv(fnl_data,"Dispatch.csv", row.names = FALSE)
 
 # Preparing file for Qlik Sense cloud
 # 

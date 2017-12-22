@@ -17,18 +17,14 @@ library(rpivotTable)
 library(dygraphs)
 library(xts)
 library(fuzzyjoin)
-pack <- available.packages()
-pack["rvest","Depends"]
 
+setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
 
-
-
-disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
-
+disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) 
 address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
 
 ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Address"))
-ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
+ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M", tz = "GMT")
 ent_dt$date <- as.Date(ent_dt$date, format = "%m/%d/%Y")
 ent_dt$WeekDays <- weekdays(ent_dt$date)
 
