@@ -2,7 +2,8 @@ library(rvest) # For webscraping
 library(stringr) # For text manipulation
 library(pdftools) # For PDF to Text Conversion
 
-setwd("~/Documents/Data Science Projects/RBrockton/crawler_result_Conversion")
+#set local path
+setwd("../crawler_result_Conversion")
 ############################ PLEASE FIND THE UPDATED CRAWLER AT THE BOTTOM OF THE PAGE ###############################
 # root <- read_html("http://www.brocktonpolice.com/category/police-log/")
 # 
