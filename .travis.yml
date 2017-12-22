@@ -17,9 +17,12 @@ install:
   - ./travis-tool.sh install_r pdftools
   - ./travis-tool.sh install_r stringr
   - ./travis-tool.sh install_r testthat
+  #- ./travis-tool.sh install_r covr
 
 script: 
     - Rscript $TRAVIS_BUILD_DIR/src/crawler.R
+    - cd $TRAVIS_BUILD_DIR/src/ &&  Rscript $TRAVIS_BUILD_DIR/src/parser.R & cd $TRAVIS_BUILD_DIR
+    #- Rscript -e 'covr::codecov()'
     #- echo 'Something' && exit 0
 
 after_failure:
@@ -27,5 +30,5 @@ after_failure:
 
 notifications:
   email:
-    on_success: change
-    on_failure: change
+    on_success: always
+    on_failure: always

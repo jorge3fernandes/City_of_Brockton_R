@@ -1,5 +1,6 @@
 # City of Brockton - Public Data meets Data Science
 [![Build Status](https://travis-ci.org/sconde/City_of_Brockton_R.svg?branch=master)](https://travis-ci.org/sconde/City_of_Brockton_R)
+[![Coverage Status](https://coveralls.io/repos/github/sconde/City_of_Brockton_R/badge.svg?branch=master)](https://coveralls.io/github/sconde/City_of_Brockton_R?branch=master)
 
 A project focused on web scraping the Brockton Police website for dispatch logs to identify opportunities to better the community.
 
@@ -80,7 +81,7 @@ Add additional notes about how to deploy this on a live system
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-###Coding Style
+### Coding Style
 
 The project is mostly writing in R. We follow [Google's R Style Guide](https://google.github.io/styleguide/Rguide.xml) to make the code "easier to read, share, and verify".
 
