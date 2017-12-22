@@ -45,3 +45,4 @@ vignettes/*.pdf
 *.DS_Store
 
 swap/
+*.swp
