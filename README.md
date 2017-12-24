@@ -104,6 +104,13 @@ See also the list of [contributors](./CONTRIBUTING.md) who participated in this 
 
 ## Acknowledgments
 
+This project was inpired by;
+ - A shiny [app](https://trestletech.shinyapps.io/dallas-police/) developed by [Jeffrey D. Allen](https://www.linkedin.com/in/jeffreydallen1). You can find more details [here](https://github.com/trestletech/dallas-police). 
+
+ - The book [**Automated Data Collection with R**](http://www.r-datacollection.com/) which gave me a strong foundation to build the crawler.r and parser.r. 
+
+ - Last but not least, [Catalina Garcia Franklin](https://www.linkedin.com/in/dreamjobfinder) who interviewed me for a position with Facebook back in 2015 and suggested I start a pet project.
+
 <!--
 * Hat tip to anyone who's code was used
 * Inspiration
