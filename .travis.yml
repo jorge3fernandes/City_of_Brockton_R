@@ -17,6 +17,7 @@ install:
   - ./travis-tool.sh install_r pdftools
   - ./travis-tool.sh install_r stringr
   - ./travis-tool.sh install_r testthat
+  - ./travis-tool.sh install_r here
   #- ./travis-tool.sh install_r covr
 
 script: 
