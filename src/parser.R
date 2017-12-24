@@ -1,5 +1,7 @@
 library(stringr)
 library(testthat)  # For unittesting: test_that
+library(here) # For relative working directory. Looks for where there is a file with .Rproj extension and sets that folder as the root. 
+
 
 # Parsing the txt files into a dataframe
 # using the library stringr and regex to extract the information 
@@ -8,7 +10,7 @@ library(testthat)  # For unittesting: test_that
 # this function looks at a multiple files, breaks it down by month, day, 
 # parses it and then binds everything together to form one dataset
 
-currentWD <- getwd() # first get the current path just in case
+currentWD <- dr_here() # first get the current path just in case
 crawlerResultPath <- '../crawler_result_Conversion/'
 
 
