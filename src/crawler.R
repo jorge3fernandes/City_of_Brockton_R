@@ -50,8 +50,6 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
   return(allLinks)
 }
 
-AllLinks <- GetAllLinks(firstPg,PgPrefix)
-
 DownloadAllLinks <- function(listOfLinks){
   # Description: 
     # download everything on the first page for each links in the listOfLinks
@@ -86,6 +84,7 @@ DownloadAllLinks <- function(listOfLinks){
   } 
 }
 
+AllLinks <- GetAllLinks(firstPg,PgPrefix)
 DownloadAllLinks(AllLinks)
 
 

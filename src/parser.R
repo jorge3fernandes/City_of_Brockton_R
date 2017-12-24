@@ -9,9 +9,9 @@ library(here) # For relative working directory. Looks for where there is a file 
 #
 # this function looks at a multiple files, breaks it down by month, day, 
 # parses it and then binds everything together to form one dataset
-
-currentWD <- dr_here() # first get the current path just in case
-crawlerResultPath <- '../crawler_result_Conversion/'
+crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
+                               'crawler_result_Conversion',   # folder where we want to save the PDFs and 
+                               fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
 
 
 # List of RegEx used
@@ -133,7 +133,7 @@ parseAllTxtInDir <- function(listOfTxtFiles){
   }
 }
 
-#parseAllTxtInDir(listOfTxtFiles)
+parseAllTxtInDir(listOfTxtFiles)
 
 # UnitTests
 test_that("Test01: verify the parser is working on test file",{
