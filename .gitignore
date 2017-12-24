@@ -6,9 +6,6 @@ introductionToR.pdf
 introductionToR.txt
 NA
 BPF_FEBRUARY.txt
-<<<<<<< HEAD
-.DS_Store
-=======
 
 # History files
 .Rhistory
@@ -48,4 +45,4 @@ vignettes/*.pdf
 *.DS_Store
 
 swap/
->>>>>>> 453bff4354c8a31d0c58bdcf32a5177a5c370488
+*.swp
