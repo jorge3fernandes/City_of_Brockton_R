@@ -15,9 +15,9 @@ library(plotly)
 library(magrittr)
 library(rpivotTable)
 
+setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
 
-disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) %>% select(-X)
-
+disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE)
 address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
 
 ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Address"))
@@ -99,5 +99,3 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
 ))
 
-install.packages("RODBC", type = "source", 
-                 configure.args = "--with-odbc-include=/PATH.TO/iODBC/libiodbc-3.52.12/include/")
