@@ -1,5 +1,6 @@
 #ignore notes directory: this is where I'm adding all my notes
 notes/
+my_examples/
 .Rproj.user
 .Rhistory
 .RData

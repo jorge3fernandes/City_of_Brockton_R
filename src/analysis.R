@@ -9,7 +9,9 @@ library(zoo)
 library(networkD3)
 library(network)
 
-
+if (exist('../crawler_result_Conversion/*.txt')){
+  allTxt <- getAllTxt()
+}
 
 
 ############# Netword Graph Function ############
