@@ -10,9 +10,10 @@ library(here) # For relative working directory. Looks for where there is a file 
 # this function looks at a multiple files, breaks it down by month, day, 
 # parses it and then binds everything together to form one dataset
 crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
-                               'crawler_result_Conversion',   # folder where we want to save the PDFs and 
+                               '../crawler_result_Conversion/',   # folder where we want to save the PDFs and 
                                fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
 
+#crawlerResultPath <- '../crawler_result_Conversion'
 
 # List of RegEx used
 listOfTxtFiles = list.files(crawlerResultPath, pattern = ".txt")
@@ -133,13 +134,5 @@ parseAllTxtInDir <- function(listOfTxtFiles){
   }
 }
 
-parseAllTxtInDir(listOfTxtFiles)
 
-# UnitTests
-test_that("Test01: verify the parser is working on test file",{
-  crawlerResultPath <- '../crawler_result_Conversion/'
-  testPath <- paste0(crawlerResultPath, listOfTxtFiles[1])
-  df_parser <- parseTxtToDf(testPath)
-  df_test <- read.csv(paste0(crawlerResultPath, 'test_df.csv'))
-  expect_that(df_parser, function(x){all.equal(x, df_test)})
-})
+#parseAllTxtInDir(listOfTxtFiles)
