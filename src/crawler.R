@@ -6,6 +6,7 @@ library(here) # For relative working directory. Looks for where there is a file 
 
 # The root directory will automatically be detected if .Rproj or .here file in detect
 
+crawlerResultPath <- '../crawler_result_Conversion';
 crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
                                'crawler_result_Conversion',   # folder where we want to save the PDFs and 
                                fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
@@ -93,6 +94,7 @@ DownloadAllLinks(AllLinks)
 test_that("Test01: Same number of PDF as TXT files",{
           pdf_files <- list.files(crawlerResultPath, pattern = ".pdf")
           txt_files <- list.files(crawlerResultPath, pattern = ".txt")
+          print("testing")
           expect_equal(length(pdf_files), length(txt_files))
     })
 
