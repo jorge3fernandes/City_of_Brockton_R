@@ -29,7 +29,7 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
     str_subset("\\.pdf")
   # getting the number of pages in the website to cycle through
   pageNum <- read_html(firstPg) %>% 
-    html_nodes(".page-numbers") %>%                    # find all links for the pages
+    html_nodes(".page-numbers") %>%                 # find all links for the pages
     html_attr("href") %>%                           # extracts the urls
     .[!is.na(.)] %>% 
     str_extract_all("page/[[:digit:]]{1}") %>%
@@ -43,7 +43,7 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
     pageLinks <- read_html(url) %>% 
       html_nodes("a") %>%       # find all nodes on the page
       html_attr("href") %>%     # get the urls
-      str_subset("\\.pdf") 
+      str_subset("\\.pdf")      # only keep the ones ending with .pdf
     allLinks <- append(allLinks, pageLinks)
     p <- p + 1
   }
@@ -95,5 +95,3 @@ test_that("Test01: Same number of PDF as TXT files",{
           txt_files <- list.files(crawlerResultPath, pattern = ".txt")
           expect_equal(length(pdf_files), length(txt_files))
     })
-
-
