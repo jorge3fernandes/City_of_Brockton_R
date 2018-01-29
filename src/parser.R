@@ -1,6 +1,6 @@
-library(stringr)
+library(stringr)   # For text manipulation
 library(testthat)  # For unittesting: test_that
-library(here) # For relative working directory. Looks for where there is a file with .Rproj extension and sets that folder as the root. 
+library(here)      # For relative working directory. Looks for where there is a file with .Rproj extension and sets that folder as the root. 
 
 
 # Parsing the txt files into a dataframe
@@ -9,137 +9,149 @@ library(here) # For relative working directory. Looks for where there is a file 
 #
 # this function looks at a multiple files, breaks it down by month, day, 
 # parses it and then binds everything together to form one dataset
-crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
-                               'crawler_result_Conversion',   # folder where we want to save the PDFs and 
-                               fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
 
+crawlerResultPath <- "./crawler_result_Conversion" # text and pdf location
 
-# List of RegEx used
-listOfTxtFiles = list.files(crawlerResultPath, pattern = ".txt")
-dayStartRegEx <- "^For Date:\\s*(\\d{2}\\/\\d{2}\\/\\d{4})\\s*-\\s*(\\w*)"
-callRegEx <- "^(\\s|\\d{2}-\\d*)\\s*(\\d{4})\\s*(.*?)\\s{2,}(.*)"
-locationRegEx <- "^\\s*Location/Address:\\s*(.*)"
-officeRegEx <- "^\\s*ID:\\s*(.*)"
-callTakerRegEx <- "^\\s*Call Taker:\\s*(.*)"
-dispClrdRegEx <- "^\\s*Disp-(\\d{2}:\\d{2}:\\d{2})\\s*(Arvd-\\d{2}:\\d{2}:\\d{2})?\\s*Clrd-(\\d{2}:\\d{2}:\\d{2})"
-wasArrestMadeRegEx <- "^\\s*Refer To Arrest:\\s*(.*)"
-referToSummonRegEx <- "^\\s*Refer To Summons:\\s*(.*)$"
-summonRegEx <- "^\\s*Summons:\\s*(.*)$"
-arrestRegEx <- "^\\s*Arrest:\\s*(.*)$"
-addressRegEx <- "^\\s*Address:\\s*(.*)$"
-ageRegEx <- "^\\s*Arrest:\\s*(.*)$"
-chargesRegEx <- "^\\s*Charges:\\s*(.*)$"
+#file location
+listOfTxtFiles <- list.files(crawlerResultPath, pattern = ".txt", full.names = TRUE)
 
-parseTxtToDf <- function(filePath){
+GetIndivDays <- function(pdfTxt){
   
-  # Read the file
-  text <- readLines(filePath)
+  # Breaks each text file into individual days and creates a lists of daily logs.
+  #
+  # Args:
+  #   pdfTxt: a list of text files.
+  #
+  # Returns:
+  #   a vector/list of daily dispatch log.
   
-  # Create an empty DataFrame
-  colNamesList <- c("Time", "Call Reason", "Action", "Address", "Officier", 
-                    "Call Taker", "Refer To Arrest", "Disp", "Clrd", "Date", "Day",
-                    "Refer To Sumons", "Arvd", "Charges", "Summons")
-  df <- data.frame(matrix(ncol=length(colNamesList), nrow=0))
-  colnames(df) <- colNamesList
+  daySplitRegEx <- "###DaySplit###" # marks where day begins and is used to split the texts
+  callSplitRegEx <- "###CallSplit###" # marks where call begins and is used to split the texts
+  logDateRegEx <- "For Date:.*[[:digit:]]{4}"
+  logtimeOfDayRegEx <- "        [[:digit:]]{4}  "
   
-  foundACall = FALSE
-  callTime <- NA
-  callReason <- NA
-  callAction <- NA
-  dateOfCall <- NA
-  dayOfCall <- NA
+  text <- readLines(pdfTxt)
   
   for (i in seq_along(text)) { 
-    if (str_detect(text[i], dayStartRegEx)) { 
-      re <- str_match(text[i], dayStartRegEx)
-      dateOfCall <- re[2]
-      dayOfCall <- re[3]
+    
+    if (str_detect(text[i],logDateRegEx)) { 
+      text[i] <- paste0(daySplitRegEx,text[i] ) # flags where the day starts
     }
     
-    if (str_detect(text[i],callRegEx)) { 
-      re <- str_match(text[i],callRegEx)
-      callTime <- re[3]
-      callReason <- re[4]
-      callAction <- re[5]
-      foundACall = TRUE
-      next
+    if (str_detect(text[i],logtimeOfDayRegEx)) { 
+      text[i] <- paste0(callSplitRegEx,text[i] ) # flags where the call starts
     }
+  }
+  
+  dayVector <-  str_c(text, collapse = "\n") %>%
+    str_split(.,regex(daySplitRegEx)) %>% # uses daystart flag to split into daily logs
+    unlist()
+  dayVector
+}
+
+
+
+allDays <- lapply(listOfTxtFiles,GetIndivDays) %>%
+  unlist()
+
+CallInfoExtractor <- function(dayLog){
+  # Reads in a vector of daily log and extracts individual call info
+  #
+  # Args:
+  #   dayLog: daily log in .txt format
+  #
+  # Returns:
+  #   a data frame
+  
+  # List of RegEx used
+  callSplitRegEx <- "###CallSplit###"
+  logDateRegEx <- "For Date:.*[[:digit:]]{4}"
+  timeOfDayRegEx <- "       [[:digit:]]{4}"
+  dateRegEx <- "\\d{2}/\\d{2}/\\d{4}"
+  callTakerRegEx <- "Call Taker:.*\n"
+  dispAddressRegEx <- "Location/Address:.*\n|Vicinity of:.*\n"
+  policeOff1RegEx <- "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)"
+  policeOff2RegEx <- "ID:.*\n|Patrolman.*\n"
+  callReasonActionRegEx <- "       [[:digit:]]{4}.*\n"
+  referToArrestRegEx <- "Refer To Arrest:.*\n"
+  referToSummonRegEx <- "Refer To Summons:.*\n"
+  arrestRegEx <- "          Arrest:    .*\n"
+  summonRegEx <- "         Summons:    .*\n"
+  ageRegEx <- "Age:.*\n"
+  indivAddressRegEx <- "         Address:    .*\n"
+  chargesRegEx <- "Charges:    .*\n"
+  responseTimeRegEx <- "Arvd.*\n"
+  
+  for (i in seq_along(dayLog)) {
     
-    if (foundACall){
-      entryNew <- data.frame(matrix(ncol=length(colNamesList), nrow=1),
-                             stringsAsFactors=FALSE)
-      colnames(entryNew) <- colNamesList
-      
-      if (str_detect(text[i], locationRegEx)){
-        re <- str_match(text[i], locationRegEx)
-        entryNew[, "Address"] <- re[2]
-      } else if (str_detect(text[i], officeRegEx)){
-        re <- str_match(text[i], officeRegEx)
-        entryNew[, "Officier"] <- re[2]
-      } else if (str_detect(text[i], callTakerRegEx)){
-        re <- str_match(text[i], callTakerRegEx)
-        entryNew[, "Call Taker"] <- re[2]
-      } else if (str_detect(text[i], dispClrdRegEx)){
-        re <- str_match(text[i], dispClrdRegEx)
-        entryNew[, "Disp"] <- re[2]
-        entryNew[, "Arvd"] <- re[3]
-        entryNew[, "Clrd"] <- re[4]
-      } else if (str_detect(text[i], wasArrestMadeRegEx)){
-        re <- str_match(text[i], wasArrestMadeRegEx)
-        entryNew[, "Refer To Arrest"] <- re[2]
-        referToArrest <- re[2]
-      } else if (str_detect(text[i], referToSummonRegEx)){
-        re <- str_match(text[i], referToSummonRegEx)
-        entryNew[, "Refer To Sumons"] <- re[2]
-        referToSummons <- re[2]
-      } else if (str_detect(text[i], summonRegEx)){
-        re <- str_match(text[i], summonRegEx)
-        entryNew[, "Summons"] <- re[2]
-      } else if (str_detect(text[i], chargesRegEx)){
-        # TODO: right now only gets the first charge
-        # need to modify to get all the charges
-        re <- str_match(text[i], chargesRegEx)
-        entryNew[, "Charges"] <- re[2]
-      }
-      
-      if ( (i+1) < length(text) ){
-        if (str_detect(text[i+1], callRegEx)){
-          entryNew[, "Day"] <- dayOfCall
-          entryNew[, "Date"] <- dateOfCall
-          entryNew[, "Action"] <- callAction
-          entryNew[, "Call Reason"] <- callReason
-          entryNew[, "Time"] <- callTime
-          df <- rbind(df, entryNew)
-          
-          # reset everything since this call is done and a new one is starting
-          foundACall = FALSE
-          callTime <- NA
-          callReason <- NA
-          callAction <- NA
-          dateOfCall <- NA
-          dayOfCall <- NA
-        }}
-    }
+    txtparts  <-  unlist(str_split(dayLog[i], callSplitRegEx))
+    
+    #extracting specific fields
+    timeOfDay <- str_extract_all(txtparts,timeOfDayRegEx) %>% 
+      sub("(..)$", ":\\1", .)
+    logDate <- str_extract(txtparts, dateRegEx)[1] %>%
+      rep(length(timeOfDay))
+    timeStamp <- paste0(logDate," ",timeOfDay)
+    callTaker <- str_extract_all(txtparts, callTakerRegEx) %>% 
+      str_replace_all("Call Taker:|\n","") 
+    dispAddress <- str_extract_all(txtparts, dispAddressRegEx) %>% 
+      str_replace_all("Location/Address:|Vicinity of:|\n","") 
+    policeOff <- str_extract_all(txtparts, policeOff1RegEx) %>% 
+      str_extract_all(policeOff2RegEx) %>% 
+      str_replace_all("ID:    |Patrolman ", "")
+    
+    callReasonAction <- str_extract_all(txtparts, callReasonActionRegEx) %>% 
+      str_replace_all("[[:digit:]]{4}","")
+    referToArrest <- str_extract_all(txtparts, referToArrestRegEx) %>% 
+      str_replace_all("Refer To Arrest:","")
+    referToSummon <- str_extract_all(txtparts, referToSummonRegEx) %>%
+      str_replace_all("Refer To Summons:|\n","") 
+    summons <- str_extract_all(txtparts, summonRegEx) %>% 
+      str_replace_all("Summons:","") 
+    arrest <- str_extract_all(txtparts, arrestRegEx) %>%
+      str_replace_all("Arrest:","")
+    age <- str_extract_all(txtparts,ageRegEx) %>% 
+      str_replace_all("Age:","") 
+    indivAddress <- str_extract_all(txtparts,indivAddressRegEx) %>% 
+      str_replace_all("Address:","") 
+    charges <- str_extract_all(txtparts,chargesRegEx) %>% 
+      str_replace_all("Charges:","")
+    responseTime <- str_extract_all(txtparts,responseTimeRegEx) %>%
+      str_replace_all("c\\(\\\"    |\\\n\"|\"","") 
+    
+    df <- cbind(timeOfDay, logDate, timeStamp, callTaker, dispAddress,
+                policeOff, callReasonAction, referToArrest, referToSummon, 
+                summons, arrest, age, indivAddress, charges, responseTime ) %>% 
+      data.frame(stringsAsFactors = FALSE) 
+    #testfr <- rbind(testfr,df)
   }
-  df
+  
+  return(df)  
+  
 }
 
-parseAllTxtInDir <- function(listOfTxtFiles){
-  for (e in seq_along(listOfTxtFiles)) {
-    filePath <- paste0(crawlerResultPath, listOfTxtFiles[e])
-    # From the txt file at filePath, get a DF
-    df <- parseTxtToDf(filePath)
-    browser()
-  }
+cmpltDf <- NULL
+daysTotal <- length(allDays)
+
+test <- lapply(allDays, CallInfoExtractor)
+test.Frame <- as.data.frame(do.call(rbind, test))
+
+
+for (i in seq_along(allDays)){
+  
+  df <- CallInfoExtractor(allDays[i])
+  
+  cmpltDf <- rbind(cmpltDf,df)
+  
+  print(paste0(i,"/", daysTotal))
 }
 
-parseAllTxtInDir(listOfTxtFiles)
 
 # UnitTests
 test_that("Test01: verify the parser is working on test file",{
-  crawlerResultPath <- '../crawler_result_Conversion/'
-  testPath <- paste0(crawlerResultPath, listOfTxtFiles[1])
-  df_parser <- parseTxtToDf(testPath)
-  df_test <- read.csv(paste0(crawlerResultPath, 'test_df.csv'))
-  expect_that(df_parser, function(x){all.equal(x, df_test)})
+  testCase <- subset(cmpltDf, as.Date(logDate) == as.Date("01/01/2015"))
+  #write.csv(testCase,'./crawler_result_Conversion/test_df.csv', row.names = FALSE) #Used to create a test case
+  df_test <- read.csv('./crawler_result_Conversion/test_df.csv')
+  expect_that(testCase, function(x){all.equal(x, df_test)})
 })
+
