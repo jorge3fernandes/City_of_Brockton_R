@@ -86,7 +86,7 @@ DownloadAllLinks <- function(listOfLinks){
 }
 
 AllLinks <- GetAllLinks(firstPg,PgPrefix)
-DownloadAllLinks(AllLinks)
+#DownloadAllLinks(AllLinks)
 
 
 # test to see that we have the same number of PDF as TXT files
