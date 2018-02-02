@@ -14,10 +14,10 @@ before_install:
 install:
   ## For a CRAN package
   - ./travis-tool.sh install_r rvest
-  - ./travis-tool.sh install_r pdftools
   - ./travis-tool.sh install_r stringr
   - ./travis-tool.sh install_r testthat
   - ./travis-tool.sh install_r here
+  #- ./travis-tool.sh install_r pdftools
   #- ./travis-tool.sh install_r covr
 
 script: 
