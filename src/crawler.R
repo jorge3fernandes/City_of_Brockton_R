@@ -1,7 +1,7 @@
 library(rvest)  # For webscraping
 library(stringr)  # For text manipulation
 library(testthat)  # For unittesting: test_that
-library(pdftools)  # For PDF to Text Conversion
+#library(pdftools)  # For PDF to Text Conversion
 library(here) # For relative working directory. Looks for where there is a file with .Rproj or .here extension and sets that folder as the root directory. 
 
 # The root directory will automatically be detected if .Rproj or .here file in detect
