@@ -2,9 +2,6 @@ language: r
 sudo: false
 cache: packages
 
-branches:
-  except:
-    - master
 
 before_install:
 
