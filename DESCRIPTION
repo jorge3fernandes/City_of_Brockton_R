@@ -1,0 +1,11 @@
+Imports:
+    blogdown,
+    rvest,
+    svglite,
+    tidyverse,
+    stringr,
+    testthat,
+    here,
+    pdftools
+Remotes:
+    rstudio/blogdown
