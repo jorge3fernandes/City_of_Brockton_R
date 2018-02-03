@@ -5,7 +5,6 @@ Imports:
     tidyverse,
     stringr,
     testthat,
-    here,
-    pdftools
+    here
 Remotes:
     rstudio/blogdown
