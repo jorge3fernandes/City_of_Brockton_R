@@ -1,19 +1,19 @@
 library(rvest)  # For webscraping
 library(stringr)  # For text manipulation
 library(testthat)  # For unittesting: test_that
-#library(pdftools)  # For PDF to Text Conversion
 library(here) # For relative working directory. Looks for where there is a file with .Rproj or .here extension and sets that folder as the root directory. 
+library(pdftools)  # For PDF to Text Conversion
 
 # The root directory will automatically be detected if .Rproj or .here file in detect
 
 crawlerResultPath <- '../crawler_result_Conversion';
-#crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
-                               #'crawler_result_Conversion',   # folder where we want to save the PDFs and 
-                               #fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
+crawlerResultPath <- file.path(getwd(),                       # gets the working root directory  
+                               'crawler_result_Conversion',   # folder where we want to save the PDFs and 
+                               fsep = .Platform$file.sep)     # makes sure the path is platform agnostic
 # This is a poor practice. Start using absolute path.
 # You're using Windows, and Travis is on a UNIX system. So to be safe, just use
 # absolute paths!!!
-#setwd(crawlerResultPath) # ensure the files are being downloaded to the right folder
+setwd(crawlerResultPath) # ensure the files are being downloaded to the right folder
 
 firstPg <- "http://www.brocktonpolice.com/category/police-log/" 
 PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/" # base url to add page numbers

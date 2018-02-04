@@ -4,8 +4,20 @@ cache: packages
 
 
 before_install:
+    - sudo apt-get install libpoppler-cpp-dev
 
 script:
     - Rscript $TRAVIS_BUILD_DIR/src/crawler.R
     - cd $TRAVIS_BUILD_DIR/src/ &&  Rscript $TRAVIS_BUILD_DIR/src/parser.R & cd $TRAVIS_BUILD_DIR
 
+addons:
+    apt:
+        packages:
+            - libwebp-dev
+            - libpoppler-cpp-dev
+
+
+notifications:
+    email:
+        on_success: always
+        on_failure: always
