@@ -1,6 +1,7 @@
 library(stringr)
 library(testthat)  # For unittesting: test_that
 library(here) # For relative working directory. Looks for where there is a file with .Rproj extension and sets that folder as the root. 
+library(pdftools)
 
 
 # Parsing the txt files into a dataframe
