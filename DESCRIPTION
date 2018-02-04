@@ -5,6 +5,11 @@ Imports:
     tidyverse,
     stringr,
     testthat,
-    here
+    here,
+    pdftools,
+    devtools,
+    covr
 Remotes:
-    rstudio/blogdown
+    hadley/devtools,
+    rstudio/blogdown,
+    ropensci/pdftools
