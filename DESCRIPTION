@@ -7,7 +7,8 @@ Imports:
     testthat,
     here,
     pdftools,
-    devtools
+    devtools,
+    covr
 Remotes:
     hadley/devtools,
     rstudio/blogdown,
