@@ -1,23 +1,51 @@
 library(stringr)   # For text manipulation
 library(testthat)  # For unittesting: test_that
-library(here)      # For relative working directory. Looks for where there is a file with .Rproj extension and sets that folder as the root. 
+library(pdftools)  # For PDF to Text Conversion
 
-
-# Parsing the txt files into a dataframe
-# using the library stringr and regex to extract the information 
-# from the text files and turn it into a dataframe
-#
-# this function looks at a multiple files, breaks it down by month, day, 
-# parses it and then binds everything together to form one dataset
+# TODO(Jorge3fFernandes): Use Apply family to get rif of for loops
 
 crawlerResultPath <- "./crawler_result_Conversion" # text and pdf location
 
-#file location
-listOfTxtFiles <- list.files(crawlerResultPath, pattern = ".txt", full.names = TRUE)
+listAllPDFs <- list.files(crawlerResultPath, 
+                          pattern = ".pdf", 
+                          full.names = TRUE )
 
-GetIndivDays <- function(pdfTxt){
+oneText <- function(pdfList){
+  #reads in a list of PDF files from a folder or the web and transforms them into 
+  #one text file where each individual line is an element of the list
+  #
+  #Args:
+  # textList: List of PDF files
+  #
+  #Returns: Returns one text file broken down by line
+  #
+  #
+  startTime <- proc.time()[3]
+  appPages <- NULL
+  print("Converting PDFs to texts ...")
+  listOfTxtFiles <- lapply(pdfList, pdf_text) # converting PDFs to texts
+  print(paste("Convertion DONE! - Time lapsed: ", proc.time()[3] - startTime))
+  for (i in seq_along(listOfTxtFiles)) {
+    
+    page <- listOfTxtFiles[[i]] %>% str_split("[\r\n]") %>% unlist()
+    appPages <- append(appPages,page)
+    
+    print(paste0("Appending file ", i))
+  }
   
-  # Breaks each text file into individual days and creates a lists of daily logs.
+  return(appPages)
+}
+
+#Can either choose a list of PDFs from a directory or just use the links (AllLinks) from crawler.R.
+
+fullTxt <- oneText(listAllPDFs)
+
+# #file location
+# listOfTxtFiles <- list.files(crawlerResultPath, pattern = ".txt", full.names = TRUE)
+
+GetIndivDays <- function(text){
+  
+  # Breaks the text file into individual days and creates a lists of daily logs.
   #
   # Args:
   #   pdfTxt: a list of text files.
@@ -27,10 +55,10 @@ GetIndivDays <- function(pdfTxt){
   
   daySplitRegEx <- "###DaySplit###" # marks where day begins and is used to split the texts
   callSplitRegEx <- "###CallSplit###" # marks where call begins and is used to split the texts
-  logDateRegEx <- "For Date:.*[[:digit:]]{4}"
+  logDateRegEx <- "For Date:.*[[:digit:]]{4} "
   logtimeOfDayRegEx <- "        [[:digit:]]{4}  "
+  startTime <- proc.time()[3]
   
-  text <- readLines(pdfTxt)
   
   for (i in seq_along(text)) { 
     
@@ -46,26 +74,23 @@ GetIndivDays <- function(pdfTxt){
   dayVector <-  str_c(text, collapse = "\n") %>%
     str_split(.,regex(daySplitRegEx)) %>% # uses daystart flag to split into daily logs
     unlist()
-  dayVector
+  print(paste("DONE! - Time lapsed: ", proc.time()[3] - startTime))
+  return(dayVector)
 }
 
-
-
-allDays <- lapply(listOfTxtFiles,GetIndivDays) %>%
-  unlist()
+allDays <- GetIndivDays(fullTxt)
 
 CallInfoExtractor <- function(dayLog){
-  # Reads in a vector of daily log and extracts individual call info
+  # Reads in a vector of daily logs and extracts individual call info
   #
   # Args:
   #   dayLog: daily log in .txt format
   #
   # Returns:
   #   a data frame
-  
-  # List of RegEx used
+ 
+  # List of RegEx
   callSplitRegEx <- "###CallSplit###"
-  logDateRegEx <- "For Date:.*[[:digit:]]{4}"
   timeOfDayRegEx <- "       [[:digit:]]{4}"
   dateRegEx <- "\\d{2}/\\d{2}/\\d{4}"
   callTakerRegEx <- "Call Taker:.*\n"
@@ -81,6 +106,7 @@ CallInfoExtractor <- function(dayLog){
   indivAddressRegEx <- "         Address:    .*\n"
   chargesRegEx <- "Charges:    .*\n"
   responseTimeRegEx <- "Arvd.*\n"
+  
   
   for (i in seq_along(dayLog)) {
     
@@ -123,7 +149,6 @@ CallInfoExtractor <- function(dayLog){
                 policeOff, callReasonAction, referToArrest, referToSummon, 
                 summons, arrest, age, indivAddress, charges, responseTime ) %>% 
       data.frame(stringsAsFactors = FALSE) 
-    #testfr <- rbind(testfr,df)
   }
   
   return(df)  
@@ -133,11 +158,7 @@ CallInfoExtractor <- function(dayLog){
 cmpltDf <- NULL
 daysTotal <- length(allDays)
 
-test <- lapply(allDays, CallInfoExtractor)
-test.Frame <- as.data.frame(do.call(rbind, test))
-
-
-for (i in seq_along(allDays)){
+for (i in seq_along(allDays)) {
   
   df <- CallInfoExtractor(allDays[i])
   
@@ -146,6 +167,8 @@ for (i in seq_along(allDays)){
   print(paste0(i,"/", daysTotal))
 }
 
+
+# Will need to come up with a new test criteria since we're trying to move away from storing the pdfs.
 
 # UnitTests
 test_that("Test01: verify the parser is working on test file",{
