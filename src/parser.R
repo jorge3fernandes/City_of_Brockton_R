@@ -155,6 +155,7 @@ CallInfoExtractor <- function(dayLog){
   
 }
 
+
 cmpltDf <- NULL
 daysTotal <- length(allDays)
 
@@ -177,4 +178,5 @@ test_that("Test01: verify the parser is working on test file",{
   df_test <- read.csv('./crawler_result_Conversion/test_df.csv')
   expect_that(testCase, function(x){all.equal(x, df_test)})
 })
+
 
