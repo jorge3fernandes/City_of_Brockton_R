@@ -6,6 +6,7 @@ library(testthat)  # For unittesting: test_that
 
 crawlerResultPath <- "./crawler_result_Conversion" 
 
+
 firstPg <- "http://www.brocktonpolice.com/category/police-log/" 
 PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/" # base url to add page numbers
 
@@ -84,9 +85,9 @@ AllLinks <- GetAllLinks(firstPg,PgPrefix)
 # test to see that we have the same number of PDF as TXT files
 # this somewhat ensures that all the PDF have been converted to txt
 test_that("Test01: Same number of PDF as TXT files",{
+
   pdf_files <- list.files(crawlerResultPath, pattern = ".pdf")
   txt_files <- list.files(crawlerResultPath, pattern = ".txt")
   print("testing")
   expect_equal(length(pdf_files), length(txt_files))
 })
-
