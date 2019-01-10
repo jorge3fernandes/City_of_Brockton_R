@@ -1,0 +1,12 @@
+name: RefreshedApp
+title: RefreshedApp
+username:
+account: jorgefernandes
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 623981
+bundleId: 1786067
+url: https://jorgefernandes.shinyapps.io/RefreshedApp/
+when: 1545953578.56413
+asMultiple: FALSE
+asStatic: FALSE

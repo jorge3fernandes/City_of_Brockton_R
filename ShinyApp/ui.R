@@ -15,15 +15,15 @@ library(plotly)
 library(magrittr)
 library(rpivotTable)
 
-setwd("/Users/legs_jorge/Documents/Data Science Projects/RBrockton")
+#setwd("./ShinyApp/data")
 
-disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE)
-address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
+disptch_data <- dataTotal_clean
+address_dt <- gg_address_view
 
-ent_dt <- left_join(disptch_data,address_dt, by = c("address_Geo" = "Actual_Address"))
-ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
-ent_dt$date <- as.Date(ent_dt$date, format = "%m/%d/%Y")
-ent_dt$WeekDays <- weekdays(ent_dt$date)
+ent_dt <- left_join(disptch_data,address_dt, by = c("addressGeo" = "Actual_Address"))
+#ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
+ent_dt$Date <- as.Date(ent_dt$Date, format = "%m/%d/%Y")
+ent_dt$WeekDays <- weekdays(ent_dt$Date)
 
 ## leafletOutput is used at the ui side to display the rendered map.
 
@@ -49,11 +49,11 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                               
                                               h2("Apply Filters"),
                                               
-                                              dateRangeInput('date1','Choose Begin date:',
-                                                          start = min(as.Date(ent_dt$date), na.rm = TRUE),
-                                                          end = max(as.Date(ent_dt$date), na.rm = TRUE),
-                                                          min = min(as.Date(ent_dt$date), na.rm = TRUE),
-                                                          max = max(as.Date(ent_dt$date), na.rm = TRUE),
+                                              dateRangeInput('Date1','Choose Begin Date:',
+                                                          start = min(as.Date(ent_dt$Date), na.rm = TRUE),
+                                                          end = max(as.Date(ent_dt$Date), na.rm = TRUE),
+                                                          min = min(as.Date(ent_dt$Date), na.rm = TRUE),
+                                                          max = max(as.Date(ent_dt$Date), na.rm = TRUE),
                                                           format = "mm/dd/yy",
                                                           separator = " - "
                                               ),
