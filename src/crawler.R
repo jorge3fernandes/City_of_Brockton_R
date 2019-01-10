@@ -1,13 +1,22 @@
 library(rvest)  # For webscraping
+library(RCurl)
 library(stringr)  # For text manipulation
 library(testthat)  # For unittesting: test_that
 
-# TODO(Jorge3fFernandes): Use Apply family to get rif of for loops
+# Let's open all the urls in page p and extract all the pdfs
+
+PDFurl <- function(pageURL){
+  # Goes through all the links in a specific page and opens them and extracts all the urls that end with pdf.
+  pageLinks <- read_html(pageURL) %>% 
+    html_nodes("a") %>%       # find all nodes on the page
+    html_attr("href") %>%     # get the urls
+    str_subset("\\.pdf")      # only keep the ones ending with .pdf
+}
 
 crawlerResultPath <- "./crawler_result_Conversion" 
 
 
-firstPg <- "http://www.brocktonpolice.com/category/police-log/" 
+firstPg <- "http://www.brocktonpolice.com/category/police-log/" # Landing Page
 PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/" # base url to add page numbers
 
 GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
@@ -19,35 +28,45 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
   # A list of links
   
   
+  # get a list of links for the pdfs in the first page
+   
+  HomePgLogs <-read_html(firstPg) %>%  # reading the first page
+    html_nodes(".more-link") %>%       # find all nodes on the page (used chrome extension "Gadget Selector")
+    html_attr("href")                  # get the urls on page p
   
+  DispLogHomePg <- lapply(HomePgLogs,PDFurl) %>% unlist() 
   
-  # get a list of pdf (logs) available for downloading
-  DispLogHomePg <- read_html(firstPg) %>% 
-    html_nodes("a") %>%       # find all links
-    html_attr("href") %>%     # get the url
-    str_subset("\\.pdf")
-  # getting the number of pages in the website to cycle through
-  pageNum <- read_html(firstPg) %>% 
-    html_nodes(".page-numbers") %>%                 # find all links for the pages
-    html_attr("href") %>%                           # extracts the urls
-    .[!is.na(.)] %>% 
-    str_extract_all("page/[[:digit:]]{1}") %>%
-    str_replace_all("page/","") %>%
-    max(unique(.))
-  p <- 2 # start on page 2 since we already scraped the first page
+
   allLinks <- DispLogHomePg # initializing the list with the homepage links
+
+  # for (p in 2:pageNum) { # start on page 2 since we already scraped the first page
+  #  url <- paste0(PgPrefix,3)
+  #   pageLinks <- read_html(url) %>% 
+  #     html_nodes("a") %>%       # find all nodes on the page
+  #     html_attr("href") %>%     # get the urls
+  #     str_subset("\\.pdf")      # only keep the ones ending with .pdf
+  #   allLinks <- append(allLinks, pageLinks)
+  # }
   
-  while (p <= pageNum) {
-    url <- paste0(AddtnlPgPrefix,p)
-    pageLinks <- read_html(url) %>% 
-      html_nodes("a") %>%       # find all nodes on the page
-      html_attr("href") %>%     # get the urls
-      str_subset("\\.pdf")      # only keep the ones ending with .pdf
+  p <- 2 # startig the counter. This will be the different pages in the website
+  url <- paste0(PgPrefix,p) # initializing the url variable
+  
+  while(url.exists(url) == TRUE){
+   
+    pageP <- read_html(url) %>% 
+      html_nodes(".more-link") %>%       # find all nodes on the page
+      html_attr("href")                  # get the urls on page p
+    
+    pageLinks <-  lapply(pageP, PDFurl) %>% unlist() # applying the PDFurl Function defined above
+    
     allLinks <- append(allLinks, pageLinks)
-    p <- p + 1
+    
+    p = p + 1
+    url <- paste0(PgPrefix,p)
   }
   return(allLinks)
 }
+
 
 ######## Won't need this portion since the parser can now read the pdfs straight from the url. #######
 #KEEPING FOR FUTURE REFERENCE
@@ -92,3 +111,8 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
 #   print("testing")
 #   expect_equal(length(pdf_files), length(txt_files))
 # })
+
+
+
+
+
