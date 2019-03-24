@@ -65,7 +65,7 @@ callParser <- function(txtparts){
   
   
   #extracting specific fields
-  timeOfDay <- str_extract_all(txtparts,timeOfDayRegEx) %>% 
+  timeOfDay <- str_extract(txtparts,timeOfDayRegEx) %>% 
     sub("(..)$", ":\\1", .)
   logDate <- str_extract(txtparts, dateRegEx)[1] %>%
     rep(length(txtparts)) %>% str_replace_all("For Date: ","")
