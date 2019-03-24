@@ -23,15 +23,15 @@ print("Done Gathering links")
 ############# Transforming all PDFs into a tidy format ############# 
 # Convert all PDFs to a tidy format - sourced from parser.r
 # 
-timerStart1 <- proc.time()
-dataTotal <- do.call("rbind", future_lapply(AllLinks, pdfToTable))
-runTime1 <- (proc.time() - timerStart1)/60
-runTime1
+# timerStart1 <- proc.time()
+# dataTotal <- do.call("rbind", future_lapply(AllLinks, pdfToTable))
+# runTime1 <- (proc.time() - timerStart1)/60
+# runTime1
 
-# timerStart2 <- proc.time()
-# dataTotal <- do.call("rbind", lapply(AllLinks, pdfToTable))
-# runTime2 <- (proc.time() - timerStart2)/60
-# runTime2
+timerStart2 <- proc.time()
+dataTotal <- do.call("rbind", lapply(AllLinks[1:10], pdfToTable))
+runTime2 <- (proc.time() - timerStart2)/60
+runTime2
 
 print("Done creating a tidy data")
 ############# Cleaning the dataset ############# 
