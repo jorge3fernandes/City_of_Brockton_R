@@ -6,18 +6,16 @@ plan(multiprocess) ## Run in parallel on local computer
 
 source("src/parser.R")
 source("src/crawler.R")
+source("tidy.R")
 
 ############# Gathering all links ############# 
 
-startTimer <- proc.time()
 firstPg <- "http://www.brocktonpolice.com/category/police-log/" 
 PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/"
 
 # Scrape the website and get the links to the PDFs - Sourced from crawler.r
 
 AllLinks <- GetAllLinks(firstPg,PgPrefix)
-runTime <- (proc.time() - startTimer)/60
-runTime # Aprox. 3.3 min
 
 print("Done Gathering links")
 ############# Transforming all PDFs into a tidy format ############# 
@@ -28,22 +26,13 @@ print("Done Gathering links")
 # runTime1 <- (proc.time() - timerStart1)/60
 # runTime1
 
-timerStart2 <- proc.time()
-dataTotal <- do.call("rbind", lapply(AllLinks[1:10], pdfToTable))
-runTime2 <- (proc.time() - timerStart2)/60
-runTime2
+dataTotal <- do.call("rbind", lapply(AllLinks, pdfToTable))
 
 print("Done creating a tidy data")
+
 ############# Cleaning the dataset ############# 
 
-dataTotal[] <- lapply(dataTotal, as.character) # 1st let's make sure we set all columns as character vectors
-dataTotal_clean <- fill(dataTotal,Date) %>% # Fill NA rows with their corresponding dates
-                 subset(Time != 'character(:0)') # deleting rows where Time equals character(:0)
-dataTotal_clean[dataTotal_clean==c("character(0)")] <- NA # Replace character(0) with NA accross all columns
-dataTotal_clean$timeStamp <- paste0(dataTotal_clean$Date,' ', dataTotal_clean$Time) # create a time stampfield
-
-# Using regex to clean unnecessary characters from data
-dataTotal <- as.data.frame(sapply(dataTotal,str_replace_all,pattern="c\\(|\\\\n|\"|\\)|character\\(0, BROCKTON, MA", replacement=""))
+dataTotal_clean <- dataCleaner(dataTotal)
 
 
 ############# Update Address look-up table ##########

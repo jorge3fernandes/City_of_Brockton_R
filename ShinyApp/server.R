@@ -1,40 +1,3 @@
-library(shiny)
-library(leaflet)
-library(plyr)
-library(RCurl)
-library(stringr)
-library(pdftools)
-library(dplyr)
-library(ggmap)
-library(ggplot2)
-library(maps)
-library(googleVis)
-library(sp)
-library(data.table)
-library(plotly)
-library(magrittr)
-library(rpivotTable)
-library(dygraphs)
-library(xts)
-library(fuzzyjoin)
-
-#setwd("./ShinyApp/data")
-
-#disptch_data <- read.csv("Dispatch.csv", stringsAsFactors = FALSE) 
-#address_dt <- read.csv("gg_address.csv", stringsAsFactors = FALSE)
-
-disptch_data <- dataTotal_clean
-address_dt <- gg_address_view
-
-ent_dt <- left_join(disptch_data,address_dt, by = c("addressGeo" = "Actual_Address"))
-
-ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M", tz = "GMT")
-ent_dt$Date <- as.Date(ent_dt$Date, format = "%m/%d/%Y")
-ent_dt$WeekDays <- weekdays(ent_dt$Date)
-ent_dt$lat <- as.numeric(ent_dt$lat)
-ent_dt$lon <- as.numeric(ent_dt$lon)
-
-Arrest_Summon = subset(ent_dt, !is.na(summons)|!is.na(arrest))
 
 ## renderLeaflet() is used at server side to render the leaflet map 
 shinyServer(function(input, output) {
@@ -59,7 +22,10 @@ shinyServer(function(input, output) {
   
   output$Data <- renderDataTable({
     
-    ent_dt
+    datatable(ent_dt, filter="top", selection="multiple", escape=FALSE#,
+              #options = list(searching = FALSE)
+              )
+    
   })
   output$mymap <- renderLeaflet({
     # define the leaflet map object
@@ -67,28 +33,32 @@ shinyServer(function(input, output) {
       arrest_summons = test() %>% subset(!is.na(summons)|!is.na(arrest))
     leaflet(data = arrest_summons) %>% 
       addTiles() %>% 
-      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", arrest_summons$call_reason_action,"<br>",
-                                                              "<b>","Occurrence Address: ","</b>", arrest_summons$formatted, "<br>",
-                                                              "<b>","Charges: ","</b>", arrest_summons$charges, "<br>",
-                                                              "<b>","Summoned:","</b>", arrest_summons$summons, "<br>",
-                                                              "<b>","Arrested: ","</b>", arrest_summons$arrest, "<br>",
-                                                              "<b>","Arr/Summ Address: ","</b>", arrest_summons$Suspect_Address, "<br>",
-                                                              "<b>","Age: ","</b>", arrest_summons$Age,"<br>",
-                                                              "<b>","Date: ","</b>",arrest_summons$Date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE)) %>%
+      setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason: ","</b>", arrest_summons$callReason,"<br>",
+                                                                                        "<b>","Action Taken: ","</b>", arrest_summons$action,"<br>",
+                                                                                        "<b>","Occurrence Address: ","</b>", arrest_summons$formatted, "<br>",
+                                                                                        "<b>","Charges: ","</b>", arrest_summons$charges, "<br>",
+                                                                                        "<b>","Summoned:","</b>", arrest_summons$summons, "<br>",
+                                                                                        "<b>","Arrested: ","</b>", arrest_summons$arrest, "<br>",
+                                                                                        "<b>","Arr/Summ Address: ","</b>", arrest_summons$indivAddress, "<br>",
+                                                                                        "<b>","Age: ","</b>", arrest_summons$age,"<br>",
+                                                                                        "<b>","Timestamp: ","</b>",arrest_summons$timeStamp),
+                                                              clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE)) %>%
                                                   addEasyButton(easyButton(
                                                     icon="fa-crosshairs", title="Locate Me",
                                                     onClick=JS("function(btn, map){ map.locate({setView: true}); }")))}
     else{
       leaflet(data = test() ) %>% 
         addTiles() %>% 
-        setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason/Action: ","</b>", test()$call_reason_action,"<br>",
+        setView(-71.02016, 42.08667, zoom = 13) %>% addMarkers( ~lon, ~lat, popup = paste("<b>","Call reason: ","</b>", test()$callReason,"<br>",
+                                                                                          "<b>","Action Taken: ","</b>", test()$action,"<br>",
                                                                                           "<b>","Occurrence Address: ","</b>", test()$formatted, "<br>",
                                                                                           "<b>","Charges: ","</b>", test()$charges, "<br>",
                                                                                           "<b>","Summoned:","</b>", test()$summons, "<br>",
                                                                                           "<b>","Arrested: ","</b>", test()$arrest, "<br>",
-                                                                                          "<b>","Arr/Summ Address: ","</b>", test()$Suspect_Address, "<br>",
-                                                                                          "<b>","Age: ","</b>", test()$Age,"<br>",
-                                                                                          "<b>","Date: ","</b>",test()$Date),clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE)) %>%
+                                                                                          "<b>","Arr/Summ Address: ","</b>", test()$indivAddress, "<br>",
+                                                                                          "<b>","Age: ","</b>", test()$age,"<br>",
+                                                                                          "<b>","Timestamp: ","</b>",test()$timeStamp),
+                                                                clusterOptions = markerClusterOptions(zoomToBoundsOnClick = TRUE, removeOutsideVisibleBounds = TRUE)) %>%
                                                 addEasyButton(easyButton(
                                                   icon="fa-crosshairs", title="Locate Me",
                                                   onClick=JS("function(btn, map){ map.locate({setView: true}); }")))

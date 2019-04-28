@@ -1,0 +1,12 @@
+name: Brockton_Police_Dispatch
+title: Brockton_Police_Dispatch
+username:
+account: jorgefernandes
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 888964
+bundleId: 2037232
+url: https://jorgefernandes.shinyapps.io/Brockton_Police_Dispatch/
+when: 1556155935.03039
+asMultiple: FALSE
+asStatic: FALSE

@@ -2,6 +2,7 @@ library(stringr)   # For text manipulation
 library(testthat)  # For unit testing: test_that
 library(pdftools)  # For PDF to Text Conversion
 library(future.apply) # Helps with executing apply functions in parallel
+library(tidyverse)
 plan(multiprocess) ## Run in parallel on local computer
 
 # List of RegEx
@@ -144,6 +145,25 @@ pdfToTable <-  function(pdfList){
   return(dataFinal)
   
     },error = function(e){})
+}
+
+dataframe <- dataTotal
+
+dataCleaner <- function(dataframe){
+  
+  dataframe[] <- lapply(dataframe, as.character) # 1st let's make sure we set all columns as character vectors
+  dataTotal_clean <- fill(dataframe, Date) %>% # Fill NA rows with their corresponding dates
+    subset(Time != 'character(:0)') # deleting rows where Time equals character(:0)
+  dataTotal_clean[dataTotal_clean == c("character(0)")] <- NA # Replace character(0) with NA accross all columns
+  dataTotal_clean[dataTotal_clean == c("character(0), BROCKTON, MA")] <- NA # Replace "character(0), BROCKTON, MA" with NA accross all columns
+  dataTotal_clean$timeStamp <- paste0(dataTotal_clean$Date,' ', dataTotal_clean$Time) # create a time stampfield
+  dataTotal_clean[] <- as.data.frame(sapply(dataTotal_clean, str_replace_all, pattern="c\\(|\\\\n|\"|\\)", replacement="")) %>%  # Using regex to clean unnecessary characters from data
+    lapply(trimws,which = "both") # Removing all leading and trailing whitespaces from all columns
+  dataTotal_clean <- separate(dataTotal_clean, callReasonAction, sep = "    ",  extra = "merge", into = c("callReason", "action"), remove = TRUE, fill = "right") %>%
+    unique()
+  dataTotal_clean$action <- trimws(dataTotal_clean$action, which = "both")
+  write.csv(dataTotal_clean, "./crawler_result_Conversion/cleanData.csv", row.names = FALSE)
+  return(dataTotal_clean)
 }
 
 

@@ -1,35 +1,3 @@
-library(shiny)
-library(leaflet)
-library(plyr)
-library(RCurl)
-library(stringr)
-library(pdftools)
-library(dplyr)
-library(ggmap)
-library(ggplot2)
-library(maps)
-library(googleVis)
-library(sp)
-library(data.table)
-library(plotly)
-library(magrittr)
-library(rpivotTable)
-
-#setwd("./ShinyApp/data")
-
-disptch_data <- dataTotal_clean
-address_dt <- gg_address_view
-
-ent_dt <- left_join(disptch_data,address_dt, by = c("addressGeo" = "Actual_Address"))
-#ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M")
-ent_dt$Date <- as.Date(ent_dt$Date, format = "%m/%d/%Y")
-ent_dt$WeekDays <- weekdays(ent_dt$Date)
-
-## leafletOutput is used at the ui side to display the rendered map.
-
-drop_down <- sort(unique(substr(ent_dt$call_reason_action, start = 17,stop = 52)))
-crime <- c("All", sort(as.character(unique(ent_dt$charges))))
-
 
 shinyUI(navbarPage("Brockton Police Log", id = "nav",
                    
@@ -40,7 +8,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                   includeCSS("styles.css")
                                 ),
                                 
-                                leafletOutput("mymap", width = "100%", height = "100%"),
+                                leafletOutput("mymap", width = "100%", height = "1500px"),
                                 
                                 # Shiny versions prior to 0.11 should use class="modal" instead.
                                 absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
@@ -49,7 +17,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                               
                                               h2("Apply Filters"),
                                               
-                                              dateRangeInput('Date1','Choose Begin Date:',
+                                              dateRangeInput('Date1','Choose Date Range:',
                                                           start = min(as.Date(ent_dt$Date), na.rm = TRUE),
                                                           end = max(as.Date(ent_dt$Date), na.rm = TRUE),
                                                           min = min(as.Date(ent_dt$Date), na.rm = TRUE),

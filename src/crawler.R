@@ -48,7 +48,7 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
   #   allLinks <- append(allLinks, pageLinks)
   # }
   
-  p <- 2 # startig the counter. This will be the different pages in the website
+  p <- 2 # start the counter. This will be the different pages in the website
   url <- paste0(PgPrefix,p) # initializing the url variable
   
   while(url.exists(url) == TRUE){
@@ -71,31 +71,31 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
 ######## Won't need this portion since the parser can now read the pdfs straight from the url. #######
 #KEEPING FOR FUTURE REFERENCE
 # Will leave it here in case we need to download the pdfs in the future.
-# DownloadAllLinks <- function(listOfLinks){
-#   # Description: 
-#     # download everything on the first page for each links in the listOfLinks
-#   # Arguments: 
-#     # listOfLinks: a vector of links 
-#     # savePath: path to save the results in
-#     
-#   # Gets the time period covered in the log
-#   lengthAllLinks <- length(listOfLinks)
-#   for (i in seq(lengthAllLinks)) {
-#     tryCatch({
-#       print(paste0("Working on link ", i, "/",
-#                    lengthAllLinks))
-#       listOfLinks[i] %>%  
-#         download.file(file.path(crawlerResultPath, # folder where we want to save the PDFs and
-#                                 paste0("file",i ,".pdf"),   
-#                                 fsep = .Platform$file.sep))
-#           
-#           
-#           # paste0(crawlerResultPath,"/","file",i ,".pdf"),
-#           #             mode = "wb")  # Apply the download function
-#     },error = function(e){
-#     })
-#   } 
-# }
+DownloadAllLinks <- function(listOfLinks){
+  # Description:
+    # download everything on the first page for each links in the listOfLinks
+  # Arguments:
+    # listOfLinks: a vector of links
+    # savePath: path to save the results in
+
+  # Gets the time period covered in the log
+  lengthAllLinks <- length(listOfLinks)
+  for (i in seq(lengthAllLinks)) {
+    tryCatch({
+      print(paste0("Working on link ", i, "/",
+                   lengthAllLinks))
+      listOfLinks[i] %>%
+        download.file(file.path(crawlerResultPath, # folder where we want to save the PDFs and
+                                paste0("file",i ,".pdf"),
+                                fsep = .Platform$file.sep))
+
+
+          # paste0(crawlerResultPath,"/","file",i ,".pdf"),
+          #             mode = "wb")  # Apply the download function
+    },error = function(e){
+    })
+  }
+}
 
 #AllLinks <- GetAllLinks(firstPg,PgPrefix)
 #DownloadAllLinks(AllLinks)
