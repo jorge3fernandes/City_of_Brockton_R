@@ -1,3 +1,7 @@
+token <- rdrop2::drop_auth()
+saveRDS(token, "../my-token.rds")
+
+
 dataCleaner <- function(dataframe){
   # Reads in the raw dataframe, cleans, and outputs it
   #
@@ -55,5 +59,5 @@ latLonUpdate <- function(dataframe){
   test <- left_join(dataTotal_clean, gg_address_view, by = c("addressGeo" = "Actual_Address") )
   
   write.csv(gg_new_address, "./data/gg_address.csv", row.names = FALSE) # saving the address view
-  write.csv(gg_new_address, "./data/gg_address.csv", row.names = FALSE) # saving the address view
 }
+
