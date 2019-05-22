@@ -1,6 +1,3 @@
-token <- rdrop2::drop_auth()
-saveRDS(token, "../my-token.rds")
-
 
 dataCleaner <- function(dataframe){
   # Reads in the raw dataframe, cleans, and outputs it

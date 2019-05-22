@@ -15,7 +15,7 @@ PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/"
 
 # Scrape the website and get the links to the PDFs - Sourced from crawler.r
 
-AllLinks <- GetAllLinks(firstPg,PgPrefix)
+AllLinks <- GetAllLinks(firstPg, PgPrefix)
 
 print("Done Gathering links")
 ############# Transforming all PDFs into a tidy format ############# 

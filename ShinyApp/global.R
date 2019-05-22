@@ -19,8 +19,8 @@ library(plotly)
 library(magrittr)
 
 #devtools::install_version("MASS", "7.3-51.1", repos = "http://cran.us.r-project.org")  # Resolve incompatibility with shinyapps.io deployment 
-disptch_data <- read.csv("https://www.dropbox.com/s/61vyc1t0ofp69g5/cleanData.csv?raw=1", stringsAsFactors = FALSE) 
-address_dt <- read.csv("https://www.dropbox.com/s/egtkl8ehjg7zb43/gg_address.csv?raw=1", stringsAsFactors = FALSE)  
+disptch_data <- read.csv("data/cleanData.csv", stringsAsFactors = FALSE) 
+address_dt <- read.csv("data/gg_address.csv", stringsAsFactors = FALSE)  
 
 ent_dt <- left_join(disptch_data,address_dt, by = c("addressGeo" = "Actual_Address"))
 rm(disptch_data,address_dt)

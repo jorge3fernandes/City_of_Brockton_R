@@ -1,0 +1,12 @@
+name: Brockton_Dev
+title: Brockton_Dev
+username:
+account: jorgefernandes
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 913812
+bundleId: 2065398
+url: https://jorgefernandes.shinyapps.io/Brockton_Dev/
+when: 1557191485.67513
+asMultiple: FALSE
+asStatic: FALSE
