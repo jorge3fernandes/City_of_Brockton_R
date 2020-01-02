@@ -30,8 +30,8 @@ ent_dt$WeekDays <- weekdays(ent_dt$Date)
 ent_dt$lat <- as.numeric(ent_dt$lat)
 ent_dt$lon <- as.numeric(ent_dt$lon)
 
-ent_dt <- ent_dt %>%
-  filter(year(Date) >= max(year(ent_dt$Date))-1) # Only past 2 years
+ent_dt <- ent_dt #%>%
+  #filter(year(Date) >= max(year(ent_dt$Date))-1) # Only past 2 years
 
 Arrest_Summon = subset(ent_dt, !is.na(summons)|!is.na(arrest))
 

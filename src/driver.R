@@ -1,12 +1,16 @@
-library(tidyr)
-library(dplyr)
-library(gtools)
+library(stringr)   # For text manipulation
+library(testthat)  # For unit testing: test_that
+library(pdftools)  # For PDF to Text Conversion
 library(future.apply) # Helps with executing apply functions in parallel
+library(tidyverse)
+library(gtools)
+library(data.table)
 plan(multiprocess) ## Run in parallel on local computer
 
 source("src/parser.R")
 source("src/crawler.R")
-source("tidy.R")
+source("src/Geocoder.R")
+source("src/tidy.R")
 
 ############# Gathering all links ############# 
 
@@ -17,47 +21,47 @@ PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/"
 
 AllLinks <- GetAllLinks(firstPg, PgPrefix)
 
-print("Done Gathering links")
 ############# Transforming all PDFs into a tidy format ############# 
 # Convert all PDFs to a tidy format - sourced from parser.r
-# 
-# timerStart1 <- proc.time()
-# dataTotal <- do.call("rbind", future_lapply(AllLinks, pdfToTable))
-# runTime1 <- (proc.time() - timerStart1)/60
-# runTime1
 
-dataTotal <- do.call("rbind", lapply(AllLinks, pdfToTable))
+dataTotal <- future_lapply(AllLinks, pdfToTable) %>%
+  rbindlist()
 
-print("Done creating a tidy data")
+print("Done creating the table")
 
 ############# Cleaning the dataset ############# 
+print("Cleaning and preparing the address column for geocoding")
 
 dataTotal_clean <- dataCleaner(dataTotal)
 
-
 ############# Update Address look-up table ##########
+print("Geocoding New Addresses and Updating the Address Look-up table")
 
-gg_address_view <- read.csv("gg_address.csv", stringsAsFactors = FALSE) # reading in the geocoded addresses
-gg_address_view[] <- lapply(gg_address_view, as.character) # ensuring all the columns are converted to characters
+distinct_address <- as.character(unique(dataTotal_clean$addressGeo)) %>% #getting distinct addresses from the recently parsed data
+  na.omit()
 
-distinct_address <- as.character(unique(dataTotal$addressGeo)) #getting distinct addresses from the recently parsed data
+if(file.exists("./data/geocoded_address_lookup.csv")){
+  
+  geocoded_address_lookup <- read.csv("./data/geocoded_address_lookup.csv", stringsAsFactors = FALSE) # reading in the geocoded addresses
+  geocoded_address_lookup[] <- future_lapply(geocoded_address_lookup, as.character) # ensuring all the columns are converted to characters
+  new_address <- distinct_address[!(distinct_address %in% geocoded_address_lookup$Actual_Address)] #checking for addresses that haven't been geocoded
+  
+}else{
+  geocoded_address_lookup <- data.frame(formatted = NULL, lat = NULL, lon = NULL, Actual_Address = NULL)
+}
 
-new_address <- distinct_address[!(distinct_address %in% gg_address_view$Actual_Address)] #checking for addresses that haven't been geocoded
+new_address <- distinct_address
 
-#geocoding the new addresses and adding them to the database
-gg_new_address  <- tryCatch({
-                      geocode(new_address[1:2499], output = "more")  %>% # using google to get lat lon
-                          select(lat,lon,type,address) # selecting desired columns
-                    },error = function(e){})
+print("Geocoding New Addresses and Updating the Address Look-up table")
 
-names(gg_new_address)  <- c("lat","lon","location_type", "formatted") # renaming the columns
+here_geocoded_Address <- future_lapply(new_address, hereGeocoder) %>%
+  rbindlist()
 
 
+here_geocoded_Address <- subset(here_geocoded_Address, !is.na(lat)) # deleting all the records where we couldn't find a match
 
-gg_new_address$Actual_Address <- new_address # Appending original addresses so we can join later to the dataset
-gg_new_address <- subset(gg_new_address, !is.na(lat)) # deleting all the records where we couldn't find a match
+geocoded_address_lookup <- smartbind(geocoded_address_lookup, here_geocoded_Address) %>% 
+  unique()# appending the new geocoded addresses to the address lookup data
 
-gg_address_view <- smartbind(gg_address_view,gg_new_address) %>% unique()# appending the new geocoded addresses to the address lookup data
-
-write.csv(gg_new_address, "gg_address.csv", row.names = FALSE) # saving the address view
+write.csv(geocoded_address_lookup, "geocoded_address_lookup.csv", row.names = FALSE) # saving the address view
 

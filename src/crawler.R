@@ -29,7 +29,7 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
   
   
   # get a list of links for the pdfs in the first page
-   
+  print("Gathering all links on page 1")
   HomePgLogs <-read_html(firstPg) %>%  # reading the first page
     html_nodes(".more-link") %>%       # find all nodes on the page (used chrome extension "Gadget Selector")
     html_attr("href")                  # get the urls on page p
@@ -39,20 +39,11 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
 
   allLinks <- DispLogHomePg # initializing the list with the homepage links
 
-  # for (p in 2:pageNum) { # start on page 2 since we already scraped the first page
-  #  url <- paste0(PgPrefix,3)
-  #   pageLinks <- read_html(url) %>% 
-  #     html_nodes("a") %>%       # find all nodes on the page
-  #     html_attr("href") %>%     # get the urls
-  #     str_subset("\\.pdf")      # only keep the ones ending with .pdf
-  #   allLinks <- append(allLinks, pageLinks)
-  # }
-  
   p <- 2 # start the counter. This will be the different pages in the website
-  url <- paste0(PgPrefix,p) # initializing the url variable
+  url <- paste0(PgPrefix, p) # initializing the url variable
   
   while(url.exists(url) == TRUE){
-   
+    print(paste("Gathering all links on page ", p))
     pageP <- read_html(url) %>% 
       html_nodes(".more-link") %>%       # find all nodes on the page
       html_attr("href")                  # get the urls on page p
@@ -63,6 +54,8 @@ GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
     
     p = p + 1
     url <- paste0(PgPrefix,p)
+    
+    
   }
   return(allLinks)
 }

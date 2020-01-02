@@ -25,7 +25,7 @@ shinyUI(navbarPage("Brockton Police Log", id = "nav",
                                                           format = "mm/dd/yy",
                                                           separator = " - "
                                               ),
-                                               sliderInput("time", "Animate by Time if Day:", 
+                                               sliderInput("time", "Animate by Time of Day:", 
                                                         min = 0, 
                                                         max = 23, 
                                                         value = c(0,23),
