@@ -1,7 +1,3 @@
-library(stringr)   # For text manipulation
-library(testthat)  # For unittesting: test_that
-library(pdftools)  # For PDF to Text Conversion
-library(ggmap)
 
 # List of RegEx
 callSplitRegEx <- "###CallSplit###"
@@ -64,7 +60,7 @@ callParser <- function(txtparts){
   
   
   #extracting specific fields
-  timeOfDay <- str_extract_all(txtparts,timeOfDayRegEx) %>% 
+  timeOfDay <- str_extract(txtparts,timeOfDayRegEx) %>% 
     sub("(..)$", ":\\1", .)
   logDate <- str_extract(txtparts, dateRegEx)[1] %>%
     rep(length(txtparts)) %>% str_replace_all("For Date: ","")
@@ -109,35 +105,5 @@ callParser <- function(txtparts){
   return(df)
 }
 
-pdfToTable <- function(pdfList){
-  #reads in a list of PDF files from a folder or the web and transforms them into 
-  #one text file where each individual line is an element of the list
-  #
-  #Args:
-  # textList: List of PDF files
-  #
-  #Returns: Returns one text file broken down by line
-  #
-  textFile <- pdf_text(pdfList) # converting PDF to text
-  
-  pages <- textFile %>% 
-    str_split("[\r\n]") %>% # Spliting the line into individual list element so we can later flag for when the day and call started
-    unlist() 
-  
-  text <- lapply(pages,DateFlag) %>% # Flagging where each day starts
-    unlist() %>% 
-    lapply(CallFlag) %>% # Flagging where each call starts
-    unlist() %>% 
-    str_c(collapse = "\n") %>%
-    str_split(.,regex(daySplitRegEx)) %>% # uses daystart flag to split into daily logs
-    unlist()
-  
-  txtparts  <-  str_split(text, callSplitRegEx) %>% # Splits a single day into multiple elements(Individual calls)
-                  unlist()
-  
-  dataFinal <- do.call("rbind", lapply(txtparts, callParser))
-  
-  return(dataFinal)
-}
 
 
