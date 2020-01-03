@@ -12,6 +12,7 @@ source("src/crawler.R")
 source("src/Geocoder.R")
 source("src/tidy.R")
 
+start_time <- Sys.time()
 ############# Gathering all links ############# 
 
 firstPg <- "http://www.brocktonpolice.com/category/police-log/" 
@@ -63,5 +64,7 @@ here_geocoded_Address <- subset(here_geocoded_Address, !is.na(lat)) # deleting a
 geocoded_address_lookup <- smartbind(geocoded_address_lookup, here_geocoded_Address) %>% 
   unique()# appending the new geocoded addresses to the address lookup data
 
+end_time <- Sys.time()
+end_time - start_time
 write.csv(geocoded_address_lookup, "geocoded_address_lookup.csv", row.names = FALSE) # saving the address view
 
