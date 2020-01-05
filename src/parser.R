@@ -1,27 +1,30 @@
-
-# List of RegEx
-callSplitRegEx <- "###CallSplit###"
-timeOfDayRegEx <- "       [[:digit:]]{4}"
-dateRegEx <- "\\d{2}/\\d{2}/\\d{4}"
-callTakerRegEx <- "Call Taker:.*\n"
-dispAddressRegEx <- "Location/Address:.*\n|Vicinity of:.*\n"
-policeOff1RegEx <- "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)"
-policeOff2RegEx <- "ID:.*\n|Patrolman.*\n"
-callReasonActionRegEx <- "       [[:digit:]]{4}.*\n"
-referToArrestRegEx <- "Refer To Arrest:.*\n"
-referToSummonRegEx <- "Refer To Summons:.*\n"
-arrestRegEx <- "          Arrest:    .*\n"
-summonRegEx <- "         Summons:    .*\n"
-ageRegEx <- "Age:.*\n"
-indivAddressRegEx <- "         Address:    .*\n"
-chargesRegEx <- "Charges:    .*\n"
-responseTimeRegEx <- "Arvd.*\n"
-daySplitRegEx <- "###DaySplit###" # marks where day begins and is used to split the texts
-callSplitRegEx <- "###CallSplit###" # marks where call begins and is used to split the texts
-logDateRegEx <- "For Date:.*[[:digit:]]{4} "
-logtimeOfDayRegEx <- "        [[:digit:]]{4}  "
+# 
+# # List of RegEx
+# callSplitRegEx <- "###CallSplit###"
+# timeOfDayRegEx <- "       [[:digit:]]{4}"
+# dateRegEx <- "\\d{2}/\\d{2}/\\d{4}"
+# callTakerRegEx <- "Call Taker:.*\n"
+# dispAddressRegEx <- "Location/Address:.*\n|Vicinity of:.*\n"
+# policeOff1RegEx <- "(?s)Location\\/Address:[^\n]*\\R(.*)|(?s)Vicinity of:[^\n]*\\R(.*)"
+# policeOff2RegEx <- "ID:.*\n|Patrolman.*\n"
+# callReasonActionRegEx <- "       [[:digit:]]{4}.*\n"
+# referToArrestRegEx <- "Refer To Arrest:.*\n"
+# referToSummonRegEx <- "Refer To Summons:.*\n"
+# arrestRegEx <- "          Arrest:    .*\n"
+# summonRegEx <- "         Summons:    .*\n"
+# ageRegEx <- "Age:.*\n"
+# indivAddressRegEx <- "         Address:    .*\n"
+# chargesRegEx <- "Charges:    .*\n"
+# responseTimeRegEx <- "Arvd.*\n"
+# daySplitRegEx <- "###DaySplit###" # marks where day begins and is used to split the texts
+# callSplitRegEx <- "###CallSplit###" # marks where call begins and is used to split the texts
+# logDateRegEx <- "For Date:.*[[:digit:]]{4} "
+# logtimeOfDayRegEx <- "        [[:digit:]]{4}  "
 
 DateFlag <- function(text){
+  
+  logDateRegEx <- "For Date:.*[[:digit:]]{4} "
+  daySplitRegEx <- "###DaySplit###" # marks where day begins and is used to split the texts
   
   if (str_detect(text,logDateRegEx)) { 
     text <- paste0(daySplitRegEx,text ) # flags where the day starts
@@ -29,6 +32,10 @@ DateFlag <- function(text){
   return(text)
 }
 CallFlag <- function(text){
+  
+  logtimeOfDayRegEx <- "        [[:digit:]]{4}  "
+  callSplitRegEx <- "###CallSplit###" # marks where call begins and is used to split the texts
+  
   if (str_detect(text,logtimeOfDayRegEx)) { 
     text <- paste0(callSplitRegEx,text ) # flags where the call starts
   }
@@ -99,9 +106,6 @@ callParser <- function(txtparts){
                    dispAddress = dispAddress, addressGeo = addressGeo, officer = policeOff, callReasonAction = callReasonAction, 
                    referToArrest = referToArrest, referToSummon = referToSummon, summons = summons, 
                    arrest = arrest, age = age, indivAddress = indivAddress, charges = charges, responseTime = responseTime )
-          
-  
-  #df$Date <- na.locf(as.character(df$Date))
   return(df)
 }
 
