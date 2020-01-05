@@ -19,46 +19,61 @@ crawlerResultPath <- "./crawler_result_Conversion"
 firstPg <- "http://www.brocktonpolice.com/category/police-log/" # Landing Page
 PgPrefix <- "http://www.brocktonpolice.com/category/police-log/page/" # base url to add page numbers
 
-GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix){
+GetAllLinks <- function(DispLogHomePg, AddtnlPgPrefix) {
   # Gather all the links to the PDF dispatch log
-  # Args: 
-  # DispLogHomePg: The first page containing the links to the PDFs 
-  # AddtnlPgPrefix: A prefix to the subsequent pages. i.e. http://www.brocktonpolice.com/category/police-log/page/ 
+  # Args:
+  # DispLogHomePg: The first page containing the links to the PDFs
+  # AddtnlPgPrefix: A prefix to the subsequent pages. i.e. http://www.brocktonpolice.com/category/police-log/page/
   # Returns:
   # A list of links
   
-  
+  start_time <- Sys.time()
   # get a list of links for the pdfs in the first page
-  print("Gathering all links on page 1")
-  HomePgLogs <-read_html(firstPg) %>%  # reading the first page
+  message("Gathering links from all pages within 'http://www.brocktonpolice.com/category/police-log/'")
+  
+  HomePgLogs <- read_html(firstPg) %>%  # reading the first page
     html_nodes(".more-link") %>%       # find all nodes on the page (used chrome extension "Gadget Selector")
     html_attr("href")                  # get the urls on page p
   
-  DispLogHomePg <- lapply(HomePgLogs,PDFurl) %>% unlist() 
+  DispLogHomePg <- future_lapply(HomePgLogs, PDFurl) %>% unlist()
   
-
+  
   allLinks <- DispLogHomePg # initializing the list with the homepage links
-
-  p <- 2 # start the counter. This will be the different pages in the website
+  #TODO: Need to find a way to automatically detect the number of pages(p)
+  p <-2:100 # start the counter. This will be the different pages in the website
   url <- paste0(PgPrefix, p) # initializing the url variable
   
-  while(url.exists(url) == TRUE){
-    print(paste("Gathering all links on page ", p))
-    pageP <- read_html(url) %>% 
-      html_nodes(".more-link") %>%       # find all nodes on the page
-      html_attr("href")                  # get the urls on page p
-    
-    pageLinks <-  lapply(pageP, PDFurl) %>% unlist() # applying the PDFurl Function defined above
-    
-    allLinks <- append(allLinks, pageLinks)
-    
-    p = p + 1
-    url <- paste0(PgPrefix,p)
-    
-    
+  url_on_page <- function(url) {
+    # Extracts all the urls in a given website
+    tryCatch({
+      
+      read_html(url) %>%
+        html_nodes(".more-link") %>%       # find all nodes on the page
+        html_attr("href")                  # get the urls on page p
+      
+    }, error = function(e) {
+      
+    })
   }
+  all_url <- future_lapply(url, url_on_page) %>% unlist()
+  end_time <- Sys.time()
+  
+  message(end_time - start_time)
+  
+  start_time <- Sys.time()
+  message("Gathering the links to all the PDFs")
+  
+  pageLinks <- future_lapply(all_url, PDFurl) %>% unlist() # applying the PDFurl Function defined above
+  
+  allLinks <- append(allLinks, pageLinks)
+  end_time <- Sys.time()
+  
+  message(end_time - start_time)
+  
   return(allLinks)
 }
+
+
 
 
 ######## Won't need this portion since the parser can now read the pdfs straight from the url. #######
