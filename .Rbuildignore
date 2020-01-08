@@ -4,7 +4,5 @@
 ^cran-comments\.md$ # Comments for CRAN submission
 ^NEWS\.md$          # A news file written in Markdown
 ^\.travis\.yml$     # Used for continuous integration testing with travis
-<<<<<<< HEAD
 ^\.httr-oauth$
-=======
->>>>>>> 66acf99f3925c674ef0f5d9b5e67a6f80b40d6fc
+
