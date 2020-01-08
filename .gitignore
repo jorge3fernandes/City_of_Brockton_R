@@ -39,3 +39,4 @@ swap/
 *.swp
 *.old
 geocoded_address_lookup.csv
+crawler_result_Conversion/test_df.csv
