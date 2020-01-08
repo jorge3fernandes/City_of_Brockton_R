@@ -7,6 +7,8 @@ pdfToTable <-  function(pdfList){
   #
   # Returns: Returns one text file broken down by line
   #
+  
+ 
   tryCatch({
     textFile <- pdf_text(pdfList) # converting PDF to text
     
@@ -36,7 +38,8 @@ pdfToTable <-  function(pdfList){
 #dataframe <- dataTotal
 
 dataCleaner <- function(dataTotal_clean){
-  
+  message("Starting the clean-up process")
+  start_time <- Sys.time()
   dataTotal_clean[] <- future_lapply(dataTotal_clean, as.character) # 1st let's make sure we set all columns as character vectors
   dataTotal_clean <- fill(dataTotal_clean, Date) %>% # Fill NA rows with their corresponding dates
     filter(Time != 'character(:0)',# deleting rows where Time equals character(:0)
@@ -68,7 +71,11 @@ dataCleaner <- function(dataTotal_clean){
                                   trimws(which = "both"), 
                                 dataTotal_clean$addressGeo))
   
-  #write.csv(dataTotal_clean, "./crawler_result_Conversion/cleanData.csv", row.names = FALSE)
+  
+  end_time <- Sys.time()
+  duration <- difftime(end_time, start_time)
+  message(paste("Done! Took", round(duration[[1]], 2),  units(duration), "to run."))
+  write.csv(dataTotal_clean, "./data/cleanData.csv", row.names = FALSE)
   return(dataTotal_clean)
 }
 
