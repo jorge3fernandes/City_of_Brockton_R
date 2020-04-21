@@ -22,7 +22,7 @@ library(magrittr)
 disptch_data <- read.csv("data/cleanData.csv", stringsAsFactors = FALSE) 
 address_dt <- read.csv("data/gg_address.csv", stringsAsFactors = FALSE)  
 
-ent_dt <- left_join(disptch_data,address_dt, by = c("addressGeo" = "Actual_Address"))
+ent_dt <- left_join(disptch_data,address_dt, by = c("dispAddress" = "Actual_Address"))
 rm(disptch_data,address_dt)
 ent_dt$timeStamp <- as.POSIXct(ent_dt$timeStamp, format = "%m/%d/%Y %H:%M", tz = "GMT")
 ent_dt$Date <- as.Date(ent_dt$Date, format = "%m/%d/%Y")
